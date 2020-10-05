@@ -1,28 +1,41 @@
+import React, { useState } from 'react';
 import * as firebase from 'firebase/app';
 import { db, storage } from '../firebase';
 import FilePicker from './FilePicker';
+import Progressbar from './Progressbar';
 
 const Uploader = ()=> {
+    const [progress, setProgress] = useState(0);
+    const [title, setTitle] = useState("");
     let files = null;
     let storageRef = storage.ref();
     function submit(){
         console.log("submiting");
         console.log(files);
+        let videoTitle = title;
         if(!files || files.length == 0)
             return;
         const file = files[0];
         let imagesRef = storageRef.child(`/${file.name}`);
         let uploadTask = imagesRef.put(file);
         uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, (snapshot)=>{
-            let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            let temp = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            setProgress(temp);
             console.log(`progress is:\t${progress}`);
         },(error)=>{
             console.log(error);
         },async()=>{
             let url = await uploadTask.snapshot.ref.getDownloadURL();
             console.log(`File available at ${url}`);
+            setProgress(0);
+            saveVideoToDatabase(url, videoTitle);
         })
-
+    }
+    function saveVideoToDatabase(url: string, title: string){
+        db.collection("videos").add({
+            title,
+            url
+        })
     }
   return (
     <div className="Test">
@@ -30,8 +43,10 @@ const Uploader = ()=> {
           e.preventDefault();
           submit();
         }} >
+            Title: <input type="text" value={title} onChange={(e)=>{setTitle(e.target.value)}}/>
             <FilePicker changing={(data)=>{files = data}} />
             <button>Send</button>
+            <Progressbar value={progress} />
         </form>
     </div>
   );
