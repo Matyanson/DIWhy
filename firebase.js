@@ -1,4 +1,6 @@
-import firebase from "firebase";
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/storage';
 // Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyArS3ojvi9z96u99CkRjsduk2gFgN_feaE",
@@ -12,13 +14,15 @@ const firebaseConfig = {
   };
 
 // Initialize Firebase
-let app, db = null;
+let app, db, storage = null;
   try {
     app = firebase.initializeApp(firebaseConfig);
-    db = app.firestore();
   } catch(err){
     if (!/already exists/.test(err.message)) {
       console.error('Firebase initialization error', err.stack)}
   }
+  //load fb SDKs
+  db = firebase.firestore();
+  storage = firebase.storage();
 
-export { app, db };
+export { app, db, storage };

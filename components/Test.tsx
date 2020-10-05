@@ -1,4 +1,3 @@
-import styles from '../styles/Home.module.css'
 import React, { useState } from 'react';
 import { db } from '../firebase';
 
