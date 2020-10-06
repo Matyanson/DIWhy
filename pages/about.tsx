@@ -11,7 +11,6 @@ export default function About() {
           </Head>
           This page is very interesting
           <input value={value} onChange={(e)=>{value = e.target.value}} />
-          <Test val={value}/>
       </div>
     )
   }
