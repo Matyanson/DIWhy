@@ -1,5 +1,5 @@
 import Link from 'next/link';
-const Card = ()=>{
+const Navbar = ()=>{
     return (
         <div>
             <ul className="nav">
@@ -14,4 +14,4 @@ const Card = ()=>{
     );
 }
 
-export default Card;
+export default Navbar;
