@@ -15,17 +15,15 @@ const firebaseConfig = {
   };
 
 // Initialize Firebase
-let app, db, storage, auth = null;
   try {
     if(!firebase.apps.length)
-      app = firebase.initializeApp(firebaseConfig);
+      firebase.initializeApp(firebaseConfig);
   } catch(err){
     if (!/already exists/.test(err.message)) {
       console.error('Firebase initialization error', err.stack)}
   }
   //load fb SDKs
-  db = firebase.firestore();
-  storage = firebase.storage();
-  auth = firebase.auth();
 
-export { app, db, storage, auth };
+export const auth = firebase.auth();
+export const db = firebase.firestore();
+export const storage = firebase.storage();

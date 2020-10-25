@@ -6,6 +6,7 @@ const Navbar = ()=>{
                 <li><Link href="/">Home</Link></li>
                 <li><Link href="/upload">Upload</Link></li>
                 <li><Link href="/about">About</Link></li>
+                <li>Nickname</li>
             </ul>
             <style jsx >{`
                 

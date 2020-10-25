@@ -9,6 +9,7 @@ const Uploader = ()=> {
     const [title, setTitle] = useState("");
     let files = null;
     let storageRef = storage.ref();
+
     function submit(){
         console.log("submiting");
         console.log(files);
@@ -31,6 +32,7 @@ const Uploader = ()=> {
             saveVideoToDatabase(url, videoTitle);
         })
     }
+
     function saveVideoToDatabase(url: string, title: string){
         db.collection("videos").add({
             title,

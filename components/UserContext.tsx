@@ -10,7 +10,6 @@ const AuthContext = React.createContext<{ user: firebase.User | null }>({
 
 export default function AuthProvider({ children, token }: any) {
   const [user, setUser] = useState<firebase.User | null>(token);
-
   useEffect(() => {
     return firebase.auth().onIdTokenChanged(async (user) => {
       if (!user) {
@@ -24,7 +23,6 @@ export default function AuthProvider({ children, token }: any) {
       nookies.set(undefined, 'token', token, {});
     });
   }, []);
-  //console.log(token);
   return (
     <AuthContext.Provider value={{ user }}>{
       children
