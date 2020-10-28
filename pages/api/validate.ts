@@ -13,8 +13,6 @@ export default async (req, res) => {
   try {
     res.setHeader('Content-Type', 'application/json');
     // Check if there is a token and if not return undefined.
-    console.log("STARt OF VALIDAte");
-    console.log(req.headers.authorization);
     const { token } = JSON.parse(req.headers.authorization || '{}');
     if (!token) {
       return res.status(403).send({
@@ -22,8 +20,6 @@ export default async (req, res) => {
         message: 'Auth token missing.',
       });
     }
-    console.log("VALIDATE")
-    console.log(token);
     // Call the validate function above that gets the user data.
     const result = await validate(token);
     res.status(200).json(result);

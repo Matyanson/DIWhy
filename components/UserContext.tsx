@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import nookies from 'nookies'
 import firebase from 'firebase/app';
+import '../firebase';
 
 // ...
 

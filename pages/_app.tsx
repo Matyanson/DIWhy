@@ -1,19 +1,23 @@
-import AuthProvider, { useAuth } from '../components/UserContext';
+import AuthProvider from '../components/UserContext';
+import ThemeContext from '../components/ThemeContext';
+import templates from '../assets/templates.json';
 import App from 'next/app';
 import nookies from 'nookies';
 import Layout from '../components/Layout';
-//import validate from './api/validate';
 import '../styles/globals.css';
 
 
 
 function MyApp({ Component, pageProps, token, user}) {
+  
   return (
-    <AuthProvider token={token}>
-      <Layout>
-        <Component user={user} {...pageProps} />
-      </Layout>
-    </AuthProvider>
+    <ThemeContext.Provider value={templates.dark}>
+      <AuthProvider token={token}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </AuthProvider>
+    </ThemeContext.Provider>
   )
   
 }
@@ -28,10 +32,9 @@ MyApp.getInitialProps = async (appContext) => {
   const appProps = await App.getInitialProps(appContext);
   
   const { token } = nookies.get(ctx);
-  console.log(token);
 
 
-  if(token && typeof window === "undefined" && !process.browser){
+  if(token && ctx.req){
     try {
       // USE NEXT API NORMALY:
       const dev = process.env.NODE_ENV === 'development';
@@ -49,7 +52,8 @@ MyApp.getInitialProps = async (appContext) => {
       //  console.log("result is:");
       //  console.log(result);
       console.log("yes");
-      console.log(result);
+
+      //add user data to Redux
         return {...appProps, user: result };
     } catch (e) {
       console.log("error1:");

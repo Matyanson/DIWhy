@@ -1,0 +1,14 @@
+{
+    "light": {
+        "background": "#eeeeee",
+        "container": "",
+        "primary": "",
+        "accent": "",
+        "text": "",
+        "heading": ""
+    },
+    "dark": {
+        "foreground": "#ffffff",
+        "background": "#222222"
+    }
+}
