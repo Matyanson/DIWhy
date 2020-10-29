@@ -24,6 +24,12 @@ const Navbar = ()=>{
                 <li className={ router.pathname == "/register" ? "active" : ""}>
                     <Link href="/register"><a>Register</a></Link>
                 </li>
+                <li className={ router.pathname == "/login" ? "active" : ""}>
+                    <Link href="/login"><a>Login</a></Link>
+                </li>
+                <li className={ router.pathname == "/logout" ? "active" : ""}>
+                    <Link href="/logout"><a>Logout</a></Link>
+                </li>
                 <li>
                     {email}
                 </li>
