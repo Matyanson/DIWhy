@@ -7,7 +7,7 @@ type Props = {
 };
 
 const Progressbar = (props: Props)=> {
-  const [{ primary, text }] = useContext(ThemeContext);
+  const [{ primary, text, background }] = useContext(ThemeContext);
   return (
     <div>
         <div className="progressbar">

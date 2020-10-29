@@ -3,18 +3,30 @@ import ThemeContext from './ThemeContext';
 import { useContext } from 'react';
 import { useAuth } from './UserContext';
 import SchemeSwitch from './SchemeSwitch';
+import { Router, useRouter } from 'next/router';
 const Navbar = ()=>{
     const { user } = useAuth();
+    const router = useRouter();
     const [ { background, dark, text, primary} ] = useContext(ThemeContext);
     let email = user? user.email : "not signed in";
     return (
         <div>
             <ul className="nav">
-                <li><Link href="/"><a>Home</a></Link></li>
-                <li><Link href="/upload"><a>Upload</a></Link></li>
-                <li><Link href="/about"><a>About</a></Link></li>
-                <li>{email}</li>
-                <li><SchemeSwitch /></li>
+                <li className={ router.pathname == "/" ? "active" : ""}>
+                    <Link href="/"><a>Home</a></Link>
+                </li>
+                <li className={ router.pathname == "/upload" ? "active" : ""}>
+                    <Link href="/upload"><a>Upload</a></Link>
+                </li>
+                <li className={ router.pathname == "/about" ? "active" : ""}>
+                    <Link href="/about"><a>About</a></Link>
+                </li>
+                <li>
+                    {email}
+                </li>
+                <li>
+                    <SchemeSwitch />
+                </li>
             </ul>
             
             <style jsx >{`
@@ -47,13 +59,16 @@ const Navbar = ()=>{
                     margin: 0 10px;
                     padding: 2px 5px;
                     /*background: #809ad38f;*/
-                    color: ${primary};
+                    color: ${background};
                     border-radius: 10px;
                     text-align: center;
                     vertical-align: center;
                 }
                 .nav a{
                     color: ${background};
+                }
+                .active a{
+                    color: ${primary}!important;
                 }
             `}</style>
         </div>
