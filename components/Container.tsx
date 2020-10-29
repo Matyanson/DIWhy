@@ -12,6 +12,11 @@ const Container = ({children})=>{
                     margin-top: 50px;
                     padding: 20px;
                     border-radius: 20px;
+                    display: flex;
+                    flex-flow: column;
+                    align-items: center;
+                    justify-content: start;
+                    
                 }
                 `}</style>
             </div>
