@@ -4,7 +4,7 @@ const FilePicker = (props)=> {
     function onFileChange(newFiles){
         console.log("file changed");
         files = newFiles;
-        props.onChange(files);
+        props.onSelect(files);
     }
   return (
     <div className="FilePicker">

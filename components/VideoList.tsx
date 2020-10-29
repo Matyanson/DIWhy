@@ -8,13 +8,12 @@ const VideoList = ()=> {
     const videosRef = db.collection('videos');
     const query = videosRef.limit(25);
     const [videos] = useCollectionData(query, { idField: 'id' });
-    console.log(videos);
 
     return (
         <div className="videoList">
                 {videos &&
                 videos.map((vid:any,i)=>{
-                    return <Video title={vid.title} url={vid.url} />
+                    return <Video key={i} title={vid.title} url={vid.url} />
                 })}
             <style jsx>{`
                 .videoList{

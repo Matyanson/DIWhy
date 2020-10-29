@@ -17,12 +17,11 @@ const Uploader = ()=> {
         if(!files || files.length == 0)
             return;
         const file = files[0];
-        let imagesRef = storageRef.child(`/${file.name}`);
-        let uploadTask = imagesRef.put(file);
+        let videoRef = storageRef.child(`/uploadedVideos/${file.name}`);
+        let uploadTask = videoRef.put(file);
         uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, (snapshot)=>{
             let temp = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             setProgress(temp);
-            console.log(`progress is:\t${progress}`);
         },(error)=>{
             console.log(error);
         },async()=>{
@@ -46,7 +45,7 @@ const Uploader = ()=> {
           submit();
         }} >
             Title <input type="text" value={title} onChange={(e)=>{setTitle(e.target.value)}}/>
-            <FilePicker onChange={(data)=>{files = data}} />
+            <FilePicker onSelect={(data)=>{files = data}} />
             <button>Send</button>
             <Progressbar value={progress} />
         </form>

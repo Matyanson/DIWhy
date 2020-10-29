@@ -21,6 +21,9 @@ const Navbar = ()=>{
                 <li className={ router.pathname == "/about" ? "active" : ""}>
                     <Link href="/about"><a>About</a></Link>
                 </li>
+                <li className={ router.pathname == "/register" ? "active" : ""}>
+                    <Link href="/register"><a>Register</a></Link>
+                </li>
                 <li>
                     {email}
                 </li>

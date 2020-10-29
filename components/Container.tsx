@@ -16,7 +16,6 @@ const Container = ({children})=>{
                     flex-flow: column;
                     align-items: center;
                     justify-content: start;
-                    
                 }
                 `}</style>
             </div>

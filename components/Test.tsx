@@ -7,7 +7,7 @@ const Test = ()=> {
         <h2>Test container</h2>
         press the button! <button>Pog</button><br/>
         So.. how is your day?<br/>
-        link for you to <a href="/">escape</a>.
+        link for you to <a href="/">escape.</a>
       </Container>
       <style jsx>{`
       `}</style>
