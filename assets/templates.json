@@ -1,14 +1,20 @@
 {
     "light": {
-        "background": "#eeeeee",
-        "container": "",
-        "primary": "",
-        "accent": "",
-        "text": "",
-        "heading": ""
+        "dark": "#070d59",
+        "primary": "#ee6f57",
+        "background": "#f6f5f5",
+        "container": "#f0eded",
+        "text": "#343a40",
+        "heading": "#1f3c88",
+        "allert":"#ee6f57"
     },
     "dark": {
-        "foreground": "#ffffff",
-        "background": "#222222"
+        "dark": "#1e5f74",
+        "primary": "#fcdab7",
+        "background": "#1d2d50",
+        "container": "#133b5c",
+        "text": "#def",
+        "heading": "#1e5f74",
+        "allert":"#ff8936"
     }
 }

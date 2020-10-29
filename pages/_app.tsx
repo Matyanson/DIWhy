@@ -5,13 +5,16 @@ import App from 'next/app';
 import nookies from 'nookies';
 import Layout from '../components/Layout';
 import '../styles/globals.css';
+import { useState } from 'react';
 
 
 
 function MyApp({ Component, pageProps, token, user}) {
+  const [ Theme, setTheme ] = useState(templates.light);
+
   
   return (
-    <ThemeContext.Provider value={templates.dark}>
+    <ThemeContext.Provider value={[ Theme, setTheme ]}>
       <AuthProvider token={token}>
         <Layout>
           <Component {...pageProps} />

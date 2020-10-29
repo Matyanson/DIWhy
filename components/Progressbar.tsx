@@ -6,8 +6,6 @@ type Props = {
 };
 
 const Progressbar = (props: Props)=> {
-  console.log("BAR START!!");
-  console.log(props.value);
   return (
     <div>
         <div className="progressbar" style={{width: `${props.value}px`}}>
