@@ -1,33 +1,31 @@
 import React, { useState } from 'react';
-import { db } from '../firebase';
+import ThemeContext from './ThemeContext';
+import { useContext } from 'react'
 
 type Props = {
     value: number
 };
 
 const Progressbar = (props: Props)=> {
+  const [{ primary, text }] = useContext(ThemeContext);
   return (
     <div>
-        <div className="progressbar" style={{width: `${props.value}px`}}>
-            {props.value}
+        <div className="progressbar">
+          <div className="bar"></div>
         </div>
         <style jsx >{`
         .progressbar{
           height: 10px;
-          width: ${props.value}px;
-          background: #333;
-          color: white;
-          position: relative;
+          width: 100%;
+          background: ${text};
+          border-radius: 7px;
+          overflow: hidden;
+          margin: 5px;
         }
-        .progressbar:after{
-          content: '';
-          background: #ccc;
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100px;
-          height: 10px;
-          z-index: -1;
+        .bar{
+          height:100%;
+          width: ${props.value}%;
+          background: ${primary};
         }
         `}</style>
     </div>

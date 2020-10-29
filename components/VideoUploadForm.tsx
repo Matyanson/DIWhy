@@ -45,8 +45,8 @@ const Uploader = ()=> {
           e.preventDefault();
           submit();
         }} >
-            Title: <input type="text" value={title} onChange={(e)=>{setTitle(e.target.value)}}/>
-            <FilePicker changing={(data)=>{files = data}} />
+            Title <input type="text" value={title} onChange={(e)=>{setTitle(e.target.value)}}/>
+            <FilePicker onChange={(data)=>{files = data}} />
             <button>Send</button>
             <Progressbar value={progress} />
         </form>

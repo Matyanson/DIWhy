@@ -1,5 +1,6 @@
 import Head from 'next/head';
-import Uploader from '../components/Uploader';
+import UploadForm from '../components/VideoUploadForm';
+import Container from '../components/Container';
 
 export default function Upload() {
     return (
@@ -8,8 +9,10 @@ export default function Upload() {
             <title>Upload Page</title>
             <link rel="icon" href="/favicon.ico" />
           </Head>
-          Upload some Videos :)
-          <Uploader/>
+          <Container>
+            <h2>Upload your video</h2>
+            <UploadForm/>
+          </Container>
       </div>
     )
   }
