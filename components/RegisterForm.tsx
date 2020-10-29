@@ -3,9 +3,9 @@ import * as firebase from 'firebase/app';
 import { db, auth } from '../firebase';
 import { useRouter } from 'next/router';
 
-const Uploader = ()=> {
+const RegisterForm = ()=> {
     const router = useRouter();
-    const [title, setTitle] = useState("");
+    const [username, setTitle] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [ errorMsg, setError] = useState("");
@@ -14,27 +14,48 @@ const Uploader = ()=> {
 
     async function submit(){
         error = false;
-        console.log(title, email, password);
 
-        //register
-        await auth.createUserWithEmailAndPassword(email, password).catch((error) => {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            setError(errorMessage+" code: "+errorCode);
-            error = true;
-        });
-        //login
-        await firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            setError(errorMessage+" code: "+errorCode);
-            error = true;
-        });
+        const userData = await register();
+        console.log(userData);
+
+        saveUserInBD(userData);
+
+        login();
 
         //redirect
         router.push('/');
+    }
+    async function saveUserInBD(userData){
+        if(userData && userData.user){
+            const usr = userData.user;
+            db.collection('users').doc(usr.uid).set({
+                username: username,
+                email: usr.email,
+            })
+        }
+    }
+    async function login(){
+        await firebase.auth().signInWithEmailAndPassword(email, password).catch((error) => {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            allert(errorMessage+" code: "+errorCode);
+        });
+    }
+
+    async function register(){
+        const userData = await auth.createUserWithEmailAndPassword(email, password).catch((error) => {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            allert(errorMessage+" code: "+errorCode);
+        });
+        console.log(userData);
+        return userData;
+    }
+    function allert(err){
+        setError(err);
+        error = true;
     }
 
     
@@ -44,7 +65,7 @@ const Uploader = ()=> {
           e.preventDefault();
           submit();
         }} >
-            Username <input type="text" value={title} onChange={(e)=>{setTitle(e.target.value)}}/><br/>
+            Username <input type="text" value={username} onChange={(e)=>{setTitle(e.target.value)}}/><br/>
             Email <input type="email" value={email} onChange={(e)=>{setEmail(e.target.value)}}/><br/>
             Password <input type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}/><br/>
             {
@@ -57,4 +78,4 @@ const Uploader = ()=> {
   );
 }
 
-export default Uploader;
+export default RegisterForm;

@@ -1,19 +1,53 @@
-import { auth } from '../firebase';
+import React, { useState } from 'react';
+import * as firebase from 'firebase/app';
+import { db, auth } from '../firebase';
+import { useRouter } from 'next/router';
 
-export default function Home() {
+const LoginForm = ()=> {
+    const router = useRouter();
+    const [title, setTitle] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [ errorMsg, setError] = useState("");
+    let error = false;
+    
+
     async function submit(){
-        console.log("ayaya");
-        let username = "maty";
-        let email = "test@poggers.com";
-        let password = "test123";
+        error = false;
+        
+        await login();
 
-        await auth.signInWithEmailAndPassword(email, password);
+        //redirect
+        router.push('/');
     }
-    return (
-      <div>
-          <button onClick={()=>{submit()}}>
-            Kiss x sis
-          </button>
-      </div>
-    )
+
+    async function login(){
+      await firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        setError(errorMessage+" code: "+errorCode);
+        error = true;
+      });
+    }
+
+    
+  return (
+    <div className="Test">
+        <form onSubmit={ e => {
+          e.preventDefault();
+          submit();
+        }} >
+            Email <input type="email" value={email} onChange={(e)=>{setEmail(e.target.value)}}/><br/>
+            Password <input type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}/><br/>
+            {
+                error &&
+                <p>{errorMsg}</p>
+            }
+            <button>Sign In</button>
+        </form>
+    </div>
+  );
 }
+
+export default LoginForm;
