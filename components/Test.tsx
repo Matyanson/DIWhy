@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { db } from '../firebase';
+import Container from './Container';
 
 const Test = ()=> {
-    const [text, setText] = useState('text');
-    function send(){
-        db.collection("messages").add({text: text});
-        setText('');
-    }
   return (
-    <div className="Test">
-        <input type="text" value={text} onChange={(e)=>{setText(e.target.value)}}/>
-        <button onClick={()=>{send()}}>Send</button>
+    <div>
+      <Container>
+        <h2>Test container</h2>
+        press the button! <button>Pog</button><br/>
+        So.. how is your day?<br/>
+        link for you to <a href="/">escape</a>.
+      </Container>
+      <style jsx>{`
+      `}</style>
     </div>
   );
 }

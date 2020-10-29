@@ -11,9 +11,7 @@ export default function About(props) {
             <title>About Page</title>
             <link rel="icon" href="/favicon.ico" />
           </Head>
-          This page is very interesting
-          <input value={value} onChange={(e)=>{value = e.target.value}} />
-          {value}
+          <Test />
       </div>
     )
   }

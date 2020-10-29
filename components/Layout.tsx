@@ -9,8 +9,28 @@ const Layout = ({children})=>{
             <Navbar />
             {children}
             <style>{`
-                body{
+                /*----Global----*/
+                body, html{
                     background: ${background};
+                    color: ${text};
+                }
+                h1, h2, h3{
+                    color: ${heading};
+                }
+                button{
+                    background: ${primary};
+                    border: none;
+                    color: ${background};
+                    padding: 5px;
+                    border-radius: 8px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 16px;
+                    user-select: none;
+                }
+                a{
+                    color: ${primary};
                 }
             `}</style>
         </>

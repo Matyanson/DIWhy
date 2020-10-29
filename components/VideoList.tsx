@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { db } from '../firebase';
+import Video from './Video';
 
 
 const VideoList = ()=> {
@@ -11,19 +12,18 @@ const VideoList = ()=> {
 
     return (
         <div className="videoList">
-            {
-                videos &&
+                {videos &&
                 videos.map((vid:any,i)=>{
-                    return (
-                    <div className="videoHolder" key={i}>
-                      <h3><a href={vid.url}>{vid.title}</a></h3>
-                      <video width="320" height="240" controls>
-                        <source src={vid.url} type="video/mp4"/>
-                      </video>
-                    </div>
-                    )
-                })
-            }
+                    return <Video title={vid.title} url={vid.url} />
+                })}
+            <style jsx>{`
+                .videoList{
+                    display: flex;
+                    flex-flow: row wrap;
+                    align-items: center;
+                    justify-content: space-around;
+                }
+            `}</style>
         </div>
     );
 }
