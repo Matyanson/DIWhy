@@ -1,10 +1,10 @@
 import templates from '../assets/templates.json';
 import SchemeButton from './SchemeButton';
-import ThemeContext from './ThemeContext';
+import { useTheme } from './ThemeProvider';
 import { useContext } from 'react';
 
 const SchemeSwitch = ()=>{
-    const [theme, setTheme] = useContext(ThemeContext);
+    const [theme, setTheme] = useTheme();
     let templateList = Object.entries(templates);
 
     function changeTheme(key){

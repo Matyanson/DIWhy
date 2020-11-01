@@ -1,13 +1,14 @@
 import Link from 'next/link';
-import ThemeContext from './ThemeContext';
+import { useTheme } from './ThemeProvider';
 import { useContext } from 'react';
-import { useAuth } from './UserContext';
+import { useAuth } from './UserProvider';
 import SchemeSwitch from './SchemeSwitch';
 import { Router, useRouter } from 'next/router';
+
 const Navbar = ()=>{
-    const { user } = useAuth();
+    const user = useAuth();
     const router = useRouter();
-    const [ { background, dark, text, primary} ] = useContext(ThemeContext);
+    const [ { background, dark, text, primary} ] = useTheme();
     let email = user? user.email : "not signed in";
     return (
         <div>

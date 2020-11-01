@@ -1,7 +1,7 @@
-import ThemeContext from './ThemeContext';
+import { useTheme } from './ThemeProvider';
 import { useContext } from 'react'
 const Container = ({children})=>{
-  const [{ container }] = useContext(ThemeContext);
+  const [{ container }] = useTheme();
     return (
         <>
             <div className="container">

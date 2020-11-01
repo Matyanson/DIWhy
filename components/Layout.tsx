@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import Navbar from './Navbar';
-import ThemeContext from './ThemeContext';
+import { useTheme } from './ThemeProvider';
 const Layout = ({children})=>{
-    const [theme] = useContext(ThemeContext);
+    const [ theme ] = useTheme();
     const { dark, primary, background, container, text, heading, allert } = theme;
     return (
         <>

@@ -5,9 +5,7 @@ import '../firebase';
 
 // ...
 
-const AuthContext = React.createContext<{ user: firebase.User | null }>({
-  user: null,
-});
+const AuthContext = React.createContext<firebase.User | null >(null);
 
 export default function AuthProvider({ children, token }: any) {
   const [user, setUser] = useState<firebase.User | null>(token);
@@ -25,7 +23,7 @@ export default function AuthProvider({ children, token }: any) {
     });
   }, []);
   return (
-    <AuthContext.Provider value={{ user }}>{
+    <AuthContext.Provider value={user}>{
       children
     }</AuthContext.Provider>
   );

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ThemeContext from './ThemeContext';
+import { useTheme } from './ThemeProvider';
 import { useContext } from 'react'
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
 };
 
 const Progressbar = (props: Props)=> {
-  const [{ primary, text, background }] = useContext(ThemeContext);
+  const [{ primary, text, background }] = useTheme();
   return (
     <div>
         <div className="progressbar">

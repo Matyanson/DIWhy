@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import Template from './ThemeContext';
+import { useTheme } from './ThemeProvider';
 const VideoList = (props)=> {
 const { url, title } = props;
-const [{ heading }] = useContext(Template);
+const [{ heading }] = useTheme();
     return (
         <div className="video">
             <video height="165"  controls>

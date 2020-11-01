@@ -1,5 +1,5 @@
-import AuthProvider from '../components/UserContext';
-import ThemeContext from '../components/ThemeContext';
+import AuthProvider from '../components/UserProvider';
+import ThemeProvider from '../components/ThemeProvider';
 import templates from '../assets/templates.json';
 import App from 'next/app';
 import nookies from 'nookies';
@@ -10,17 +10,16 @@ import { useState } from 'react';
 
 
 function MyApp({ Component, pageProps, token, user}) {
-  const [ Theme, setTheme ] = useState(templates.light);
 
   
   return (
-    <ThemeContext.Provider value={[ Theme, setTheme ]}>
+    <ThemeProvider>
       <AuthProvider token={token}>
         <Layout>
           <Component {...pageProps} />
         </Layout>
       </AuthProvider>
-    </ThemeContext.Provider>
+    </ThemeProvider>
   )
   
 }
