@@ -1,11 +1,11 @@
-import { useContext } from 'react';
 import { useTheme } from './ThemeProvider';
+
 const VideoList = (props)=> {
-const { url, title } = props;
+const { url, title, vid } = props;
 const [{ heading }] = useTheme();
     return (
         <div className="video">
-            <a href={url}>
+            <a href={`/watch?v=${vid}`}>
                 <img src={'/video-thumbnail-default.png'} height="165" />
                 <h3>{title}</h3>
             </a>

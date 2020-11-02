@@ -58,7 +58,7 @@ const RegisterForm = ()=> {
 
     
   return (
-    <div className="Test">
+    <div>
         <form onSubmit={ e => {
           e.preventDefault();
           submit();

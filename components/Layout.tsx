@@ -33,6 +33,25 @@ const Layout = ({children})=>{
                     color: ${primary};
                 }
 
+                input[type="file"]::-webkit-file-upload-button {
+                    visibility: hidden;
+                    display: none;
+                }
+                input[type="file"]{
+                    content: 'Select some files';
+                    display: inline-block;
+                    border: 1px solid #999;
+                    border-radius: 3px;
+                    padding: 5px 8px;
+                    outline: none;
+                    white-space: nowrap;
+                    -webkit-user-select: none;
+                    cursor: pointer;
+                    text-shadow: 1px 1px #fff;
+                    font-weight: 700;
+                    font-size: 10pt;
+                }
+
                 /*--- custom classes ---*/
                 .error{
                     color: ${allert};
