@@ -5,10 +5,10 @@ const { url, title } = props;
 const [{ heading }] = useTheme();
     return (
         <div className="video">
-            <video height="165"  controls>
-            <source src={url} type="video/mp4"/>
-            </video>
-            <h3><a href={url}>{title}</a></h3>
+            <a href={url}>
+                <img src={'/video-thumbnail-default.png'} height="165" />
+                <h3>{title}</h3>
+            </a>
             <style jsx>{`
                 .video{
                     display: flex;

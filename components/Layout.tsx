@@ -32,6 +32,11 @@ const Layout = ({children})=>{
                 a{
                     color: ${primary};
                 }
+
+                /*--- custom classes ---*/
+                .error{
+                    color: ${allert};
+                }
             `}</style>
         </>
     )

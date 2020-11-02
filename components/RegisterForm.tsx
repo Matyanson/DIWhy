@@ -9,12 +9,10 @@ const RegisterForm = ()=> {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [ errorMsg, setError] = useState("");
-    let error = false;
+    const [error, setErrorToggle ] = useState(false);
     
 
     async function submit(){
-        error = false;
-
         const userData = await register();
         console.log(userData);
 
@@ -55,7 +53,7 @@ const RegisterForm = ()=> {
     }
     function allert(err){
         setError(err);
-        error = true;
+        setErrorToggle(true);
     }
 
     
@@ -70,7 +68,7 @@ const RegisterForm = ()=> {
             Password <input type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}/><br/>
             {
                 error &&
-                <p>{errorMsg}</p>
+                <p className="error">{errorMsg}</p>
             }
             <button>Register</button>
         </form>
