@@ -1,12 +1,15 @@
-import Arrow from '../public/down-arrow.svg';
+import { useState } from 'react';
 
 const FilePicker = (props)=> {
+  const [fileName, setFilename] = useState("");
     let files;
 
     function onFileChange(newFiles){
         console.log("file changed");
         files = newFiles;
         props.onSelect(files);
+        if(files[0])
+          setFilename(files[0].name);
     }
   return (
     <div className="filePicker">
@@ -16,7 +19,11 @@ const FilePicker = (props)=> {
         <span className="innerText right">file</span>
       </div>
         <input id="file-input" type="file" onChange={(e)=>{onFileChange(e.target.files)}} />
+        <div className="name">{fileName}</div>
         <style jsx>{`
+          .name{
+            max-width: 250px;
+          }
           #arrow{
             width: 60px;
             position: relative;
@@ -61,7 +68,7 @@ const FilePicker = (props)=> {
             margin-top: 60px;
             border-radius: 10px;
             border: 1px black dashed;
-            height: 70px;
+            min-height: 70px;
             display: flex;
             flex-flow: column;
             justify-content: center;
