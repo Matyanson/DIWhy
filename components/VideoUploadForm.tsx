@@ -24,7 +24,7 @@ const Uploader = ()=> {
         console.log(tools);
         console.log(material);
         let videoTitle = title;
-        if(!files || files.length == 0)
+        if(true ||!files || files.length == 0)
             return;
         const file = files[0];
         let videoRef = storageRef.child(`/uploadedVideos/${file.name}`);

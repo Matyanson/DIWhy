@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTheme } from './ThemeProvider';
 
 const TagSelect = ({items, onChange})=> {
@@ -16,13 +16,13 @@ const TagSelect = ({items, onChange})=> {
 
     function addItem(newIndex){
         setSelected([...selected, newIndex]);
-        updateItems();
+        //updateItems();
     }
 
     function deleteItem(index){
         setSelected([...selected.slice(0,index),
             ...selected.slice(index+1)]);
-        updateItems();
+        //updateItems();
     }
 
     function updateItems(){
@@ -32,18 +32,22 @@ const TagSelect = ({items, onChange})=> {
         onChange(selItems);
     }
 
+    useEffect(()=>{
+        updateItems();
+    },[selected])
+
   return (
     <div className="selectContainer">
         <div onFocus={()=>focus()} onBlur={()=>unfocus()} tabIndex={0}>
             <div className="selectHead">
-                <input type="text" /><div className="more_btn">ˇ</div>
+                <input type="text" onFocus={()=>focus()} /><div className="more_btn">ˇ</div>
             </div>
             <div className="items">
                 {
                     items && focused &&
                     items.map((x, index)=>{
                         if(!selected.includes(index))
-                            return <div key={index} onClick={()=>{addItem(index), console.log("click")}} >{x}</div>
+                            return <div key={index} onMouseDown={()=>{addItem(index), console.log("click")}} >{x}</div>
                     })
                 }
             </div>
