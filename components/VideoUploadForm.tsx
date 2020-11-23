@@ -3,10 +3,9 @@ import { useAuth } from './UserProvider';
 import * as firebase from 'firebase/app';
 import { db, storage } from '../firebase';
 import FilePicker from './FilePicker';
-import TagSelect from './TagSelect';
-import DBSelect from './DbTagSelect';
+import DBSelect from './DBTagSelect';
 import Progressbar from './Progressbar';
-import CreateTool from './CreateTool';
+import DBAdd from './DBAdd';
 
 const Uploader = ()=> {
     const [progress, setProgress] = useState(0);
@@ -82,17 +81,14 @@ const Uploader = ()=> {
             <div className="selects">
                 <div>
                     <h4>Tools</h4>
-                    <TagSelect items={allTools} onSelect={(data)=>{setTools(data)}} />
+                    <DBSelect displayTextKey={"name"} collectionPath={"tools"}/>
+                    <DBAdd collectionPath="tools"/>
                 </div>
                 <div>
                     <h4>Material</h4>
-                    <TagSelect items={allMaterial} onSelect={(data)=>{setMaterial(data)}} />
+                    <DBSelect displayTextKey={"name"} collectionPath={"material"}/>
+                    <DBAdd collectionPath="material" />
                 </div>
-                <div>
-                    <h4>DBSelect</h4>
-                    <DBSelect displayTextKey={"name"} collectionPath={"tools"}/>
-                </div>
-                <CreateTool />
             </div>
             <button onClick={()=>submit()}>Send</button>
             <Progressbar value={progress} />
