@@ -1,10 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTheme } from './ThemeProvider';
 
-const TagSelect = ({items, onChange})=> {
-    const [{primary, background}] = useTheme();
+interface Props {
+    items: string[],
+    select?: number[],
+    onSelect?: (select: number[]) => void,
+    onSearch?: (keyword: string) => void
+}
+
+const TagSelect = ({
+        items,
+        select = [],
+        onSelect,
+        onSearch = ()=> {}
+    }: Props)=> {
+
+    const [{ primary, background }] = useTheme();
     const [focused, setFocus] = useState(false);
-    const [selected, setSelected] = useState([]);
+    const [selected, setSelected] = useState(select);
 
     function focus(){
         setFocus(true);
@@ -16,20 +29,15 @@ const TagSelect = ({items, onChange})=> {
 
     function addItem(newIndex){
         setSelected([...selected, newIndex]);
-        //updateItems();
     }
 
     function deleteItem(index){
         setSelected([...selected.slice(0,index),
             ...selected.slice(index+1)]);
-        //updateItems();
     }
 
     function updateItems(){
-        const selItems = selected.map(x=>{
-            return items[x];
-        })
-        onChange(selItems);
+        onSelect(selected);
     }
 
     useEffect(()=>{
@@ -40,14 +48,14 @@ const TagSelect = ({items, onChange})=> {
     <div className="selectContainer">
         <div onFocus={()=>focus()} onBlur={()=>unfocus()} tabIndex={0}>
             <div className="selectHead">
-                <input type="text" onFocus={()=>focus()} /><div className="more_btn">ˇ</div>
+                <input type="text" onFocus={()=>focus()} onChange={(e)=>{onSearch(e.target.value)}} /><div className="more_btn">ˇ</div>
             </div>
             <div className="items">
                 {
                     items && focused &&
                     items.map((x, index)=>{
                         if(!selected.includes(index))
-                            return <div key={index} onMouseDown={()=>{addItem(index), console.log("click")}} >{x}</div>
+                            return <div key={index} onMouseDown={()=>{addItem(index)}} >{x}</div>
                     })
                 }
             </div>

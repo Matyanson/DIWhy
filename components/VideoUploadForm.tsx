@@ -4,7 +4,9 @@ import * as firebase from 'firebase/app';
 import { db, storage } from '../firebase';
 import FilePicker from './FilePicker';
 import TagSelect from './TagSelect';
+import DBSelect from './DbTagSelect';
 import Progressbar from './Progressbar';
+import CreateTool from './CreateTool';
 
 const Uploader = ()=> {
     const [progress, setProgress] = useState(0);
@@ -24,7 +26,7 @@ const Uploader = ()=> {
         console.log(tools);
         console.log(material);
         let videoTitle = title;
-        if(true ||!files || files.length == 0)
+        if(!files || files.length == 0)
             return;
         const file = files[0];
         let videoRef = storageRef.child(`/uploadedVideos/${file.name}`);
@@ -75,25 +77,25 @@ const Uploader = ()=> {
     }
   return (
     <div className="Test">
-        <form onSubmit={ e => {
-          e.preventDefault();
-          submit();
-        }} >
             Title <input type="text" value={title} onChange={(e)=>{setTitle(e.target.value)}}/>
             <FilePicker onSelect={(data)=>{setFiles(data)}} />
             <div className="selects">
                 <div>
                     <h4>Tools</h4>
-                    <TagSelect items={allTools} onChange={(data)=>{setTools(data)}} />
+                    <TagSelect items={allTools} onSelect={(data)=>{setTools(data)}} />
                 </div>
                 <div>
                     <h4>Material</h4>
-                    <TagSelect items={allMaterial} onChange={(data)=>{setMaterial(data)}} />
+                    <TagSelect items={allMaterial} onSelect={(data)=>{setMaterial(data)}} />
                 </div>
+                <div>
+                    <h4>DBSelect</h4>
+                    <DBSelect displayTextKey={"name"} collectionPath={"tools"}/>
+                </div>
+                <CreateTool />
             </div>
-            <button>Send</button>
+            <button onClick={()=>submit()}>Send</button>
             <Progressbar value={progress} />
-        </form>
         <style jsx>{`
             .selects{
                 display: flex;
