@@ -4,16 +4,22 @@ import Video from '../models/Video';
 interface Props{
     title: string,
     img?: string,
-    uid: string
+    uid: string,
+    authorName: string,
+    material?: string[],
+    tools?: string[]
 }
 
-const VideoList = ({ title, img = undefined, uid }: Props)=> {
+const VideoList = ({ title, uid, authorName, material = [], tools = [], img = undefined }: Props)=> {
 const [{ heading }] = useTheme();
     return (
         <div className="video">
             <a href={`/watch?v=${uid}`}>
                 <img src={'/video-thumbnail-default.png'} height="165" />
-                <h3>{title}</h3>
+                <div>
+                    <h3>{title}</h3>
+                    <p>{authorName}</p>
+                </div>                
             </a>
             <style jsx>{`
                 .video{
