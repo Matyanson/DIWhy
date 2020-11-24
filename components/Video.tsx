@@ -26,7 +26,7 @@ const [{ heading }] = useTheme();
                 <img src={'/video-thumbnail-default.png'} height="165" />
                 <div>
                     <h3>{title}</h3>
-                    <div className="row">{img && <><ProfilePic src={img} size={30}/>authorName</>}</div>
+                    <div className="row">{img && <><ProfilePic src={img} size={30}/>{authorName}</>}</div>
                 </div>                
             </a>
             <style jsx>{`
