@@ -4,6 +4,7 @@ import { db, auth, storage } from '../firebase';
 import { useRouter } from 'next/router';
 import FilePicker from './FilePicker';
 import ProgressBar from './Progressbar';
+import ProfilePic from './ProfilePicture';
 
 const RegisterForm = ()=> {
     const router = useRouter();
@@ -61,7 +62,7 @@ const RegisterForm = ()=> {
             saveUserFirestore(userData, url);
 
             await login();
-            
+
             router.push('/');
         }
     }
@@ -111,7 +112,7 @@ const RegisterForm = ()=> {
             Email <input type="email" value={email} onChange={(e)=>{setEmail(e.target.value)}}/><br/>
             Password <input type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}/><br/>
             Profile pic <FilePicker accept="image/*" onSelect={(d)=>onFileChange(d)} />
-            { imgSrc && <img src={imgSrc} height="100" /> }<br/>
+            { imgSrc && <ProfilePic src={imgSrc} size={150} /> }<br/>
             {
                 error &&
                 <p className="error">{errorMsg}</p>
