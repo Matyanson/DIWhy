@@ -8,7 +8,7 @@ const validate = async (token) => {
   const user = await firebaseAdmin.auth().getUser(decodedToken.uid);
   
   const userData = await getUserData(user);
-  const defaultImg = "gs://diwhy-39b77.appspot.com/default/profile.jpg";
+  const defaultImg = "https://firebasestorage.googleapis.com/v0/b/diwhy-39b77.appspot.com/o/default%2Fprofile.jpg?alt=media&token=9868229e-d8dd-48d7-9947-b08aa19d5043";
 
   const result = {
     uid: user.uid,

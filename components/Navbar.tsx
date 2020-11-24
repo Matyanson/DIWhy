@@ -3,13 +3,13 @@ import { useTheme } from './ThemeProvider';
 import { useAuth } from './UserProvider';
 import SchemeSwitch from './SchemeSwitch';
 import { Router, useRouter } from 'next/router';
+import ProfilePic from './ProfilePicture';
 
 const Navbar = ()=>{
     const user = useAuth();
     const router = useRouter();
     const [ { background, dark, text, primary} ] = useTheme();
     console.log(user);
-    let email = user? user.email : "not signed in";
     return (
         <div>
             <ul className="nav">
@@ -28,12 +28,18 @@ const Navbar = ()=>{
                 <li className={ router.pathname == "/login" ? "active" : ""}>
                     <Link href="/login"><a>Login</a></Link>
                 </li>
-                <li className={ router.pathname == "/logout" ? "active" : ""}>
-                    <Link href="/logout"><a>Logout</a></Link>
-                </li>
-                <li>
-                    {email}
-                </li>
+                {
+                user &&
+                <>
+                    <li className={ router.pathname == "/logout" ? "active" : ""}>
+                        <Link href="/logout"><a>Logout</a></Link>
+                    </li>
+                    <li className="row">
+                        <ProfilePic src={user.img} size={25} />
+                        <div>{user.username}</div>
+                    </li>
+                </>
+                }
                 <li>
                     <SchemeSwitch />
                 </li>
@@ -73,6 +79,10 @@ const Navbar = ()=>{
                     border-radius: 10px;
                     text-align: center;
                     vertical-align: center;
+                }
+                .nav li.row{
+                    display: flex;
+                    flex-flow: row;
                 }
                 .nav a{
                     color: ${background};

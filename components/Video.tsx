@@ -1,5 +1,6 @@
 import { useTheme } from './ThemeProvider';
 import Video from '../models/Video';
+import ProfilePic from './ProfilePicture';
 
 interface Props{
     title: string,
@@ -10,7 +11,14 @@ interface Props{
     tools?: string[]
 }
 
-const VideoList = ({ title, uid, authorName, material = [], tools = [], img = undefined }: Props)=> {
+const VideoList = ({ 
+    title,
+    uid,
+    authorName,
+    material = [],
+    tools = [],
+    img = "https://firebasestorage.googleapis.com/v0/b/diwhy-39b77.appspot.com/o/default%2Fprofile.jpg?alt=media&token=9868229e-d8dd-48d7-9947-b08aa19d5043"
+}: Props)=> {
 const [{ heading }] = useTheme();
     return (
         <div className="video">
@@ -18,7 +26,7 @@ const [{ heading }] = useTheme();
                 <img src={'/video-thumbnail-default.png'} height="165" />
                 <div>
                     <h3>{title}</h3>
-                    <p>{authorName}</p>
+                    <div className="row">{img && <><ProfilePic src={img} size={30}/>authorName</>}</div>
                 </div>                
             </a>
             <style jsx>{`
@@ -31,6 +39,10 @@ const [{ heading }] = useTheme();
                 }
                 .video h3 a{
                     color: ${heading};
+                }
+                .row{
+                    display: flex;
+                    flex-flow: row;
                 }
             `}</style>
         </div>
