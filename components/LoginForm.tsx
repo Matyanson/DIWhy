@@ -41,8 +41,8 @@ const LoginForm = ()=> {
             Email <input type="email" value={email} onChange={(e)=>{setEmail(e.target.value)}}/><br/>
             Password <input type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}/><br/>
             {
-                error &&
-                <p>{errorMsg}</p>
+              error &&
+              <p>{errorMsg}</p>
             }
             <button>Sign In</button>
         </form>

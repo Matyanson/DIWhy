@@ -8,7 +8,6 @@ const VideoList = ()=> {
     const videosRef = db.collection('videos');
     const query = videosRef.limit(25);
     const [videos] = useCollectionData(query, { idField: 'id' });
-    console.log(videos);
     return (
         <div className="videoList">
                 {videos &&
