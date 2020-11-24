@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import Video from '../models/Video';
 import { useAuth } from './UserProvider';
 import * as firebase from 'firebase/app';
 import { db, storage } from '../firebase';
@@ -8,25 +9,29 @@ import Progressbar from './Progressbar';
 import DBAdd from './DBAdd';
 
 const Uploader = ()=> {
+    const [form, setForm] = useState({
+        title: "",
+        public: false,
+        tools: [],
+        material: []
+    });
     const [progress, setProgress] = useState(0);
     const [files, setFiles] = useState(null);
-    const [title, setTitle] = useState("");
-    const [tools, setTools] = useState([]);
-    const [material, setMaterial] = useState([]);
+    const [errorMsg, setErrorMsg] = useState(null);
     const user = useAuth();
     let storageRef = storage.ref();
-    const allTools = ["hammer", "ruller", "meter", "gluegun"];
-    const allMaterial = ["paper", "acrilic plast", "pet bottle"];
     
 
     function submit(){
+        console.log(user);
+        console.log(form);
+        setErrorMsg(null);
         console.log("submiting");
         console.log(files);
-        console.log(tools);
-        console.log(material);
-        let videoTitle = title;
-        if(!files || files.length == 0)
+        let videoTitle = form.title;
+        if(!validate())
             return;
+
         const file = files[0];
         let videoRef = storageRef.child(`/uploadedVideos/${file.name}`);
         let uploadTask = videoRef.put(file);
@@ -38,60 +43,64 @@ const Uploader = ()=> {
         }
 
         function onError(error){
-            console.log(error);
+            setErrorMsg(error);
         }
 
         async function onComplete(){
             let url = await uploadTask.snapshot.ref.getDownloadURL();
-            console.log(`File available at ${url}`);
             setProgress(0);
-            let userData = await getUserData();
-            if(userData){
-                const { username } = userData;
-                saveVideoToDatabase(url, videoTitle, username, user.uid);
+            if(user){
+                const { username, uid } = user;
+                saveVideoToDatabase(url, videoTitle, username, uid);
             }
         }
     }
-
-    function saveVideoToDatabase(url: string, title: string, username: string, userId: string){
-        db.collection("videos").add({
-            title,
-            author: { username, userId },
-            url,
-            tools: tools,
-            material: material
-        })
+    function validate(){
+        let result = true;
+        if(!files || files.length == 0){
+            setErrorMsg("select your file");
+            result = false;
+        }
+        if(!user){
+            setErrorMsg("Please log in!")
+        }
+        return result;
     }
 
-    async function getUserData(){
-        if(!user)
-            return null;
-        const userId = user.uid;
-        const userRef = await db.collection('users').doc(userId);
-        const userSnapshot = await userRef.get();
-        const userData = await userSnapshot.data();
-        if(userData.email !== user.email)
-            return null;
-        return userData;
+    function saveVideoToDatabase(url: string, title: string, username: string, userId: string){
+        const video: Video = {
+            title,
+            public: false,
+            author: { username, userId },
+            url,
+            tools: form.tools,
+            material: form.material
+        }
+        db.collection("videos").add(video);
     }
   return (
     <div className="Test">
-            Title <input type="text" value={title} onChange={(e)=>{setTitle(e.target.value)}}/>
-            <FilePicker onSelect={(data)=>{setFiles(data)}} />
+            Title <input type="text" value={form.title} onChange={(e)=>{setForm({...form, title: e.target.value})}}/>
+            Public <input type="checkbox" checked={form.public} onChange={()=>setForm({...form, public: !form.public})} />
+            <FilePicker accept="video/*" onSelect={(data)=>{setFiles(data)}} />
             <div className="selects">
                 <div>
                     <h4>Tools</h4>
-                    <DBSelect displayTextKey={"name"} collectionPath={"tools"}/>
+                    <DBSelect onChange={(d)=>setForm({...form, tools: d})} displayTextKey={"name"} collectionPath={"tools"}/>
                     <DBAdd collectionPath="tools"/>
                 </div>
                 <div>
                     <h4>Material</h4>
-                    <DBSelect displayTextKey={"name"} collectionPath={"material"}/>
+                    <DBSelect onChange={(d)=>setForm({...form, material: d})} displayTextKey={"name"} collectionPath={"material"}/>
                     <DBAdd collectionPath="material" />
                 </div>
             </div>
             <button onClick={()=>submit()}>Send</button>
             <Progressbar value={progress} />
+            {
+                errorMsg &&
+                <p className="error">{errorMsg}</p>
+            }
         <style jsx>{`
             .selects{
                 display: flex;

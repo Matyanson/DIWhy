@@ -9,12 +9,12 @@ import { useState } from 'react';
 
 
 
-function MyApp({ Component, pageProps, token, user}) {
+function MyApp({ Component, pageProps, user}) {
 
   
   return (
     <ThemeProvider>
-      <AuthProvider token={token}>
+      <AuthProvider initialUser={user}>
         <Layout>
           <Component {...pageProps} />
         </Layout>
@@ -47,13 +47,6 @@ MyApp.getInitialProps = async (appContext) => {
       };
       const result = await fetch(`${server}api/validate`, { headers })
       .then((res) => res.json());
-
-      //JUST IMPORT METHOD:
-      // const validate = require('./api/validate2');
-      // const result = await validate(token);
-      //  console.log("result is:");
-      //  console.log(result);
-      console.log("yes");
 
       //add user data to Redux
         return {...appProps, user: result };

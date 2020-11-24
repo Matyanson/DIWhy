@@ -7,14 +7,16 @@ interface Props {
     collectionPath: string,
     displayTextKey: string,
     idKey?: string,
-    limit?: number
+    limit?: number,
+    onChange: ([])=> void
 }
 
 const DBTagSelect = ({
         collectionPath,
         displayTextKey = "name",
         idKey = "__name__",
-        limit = 7
+        limit = 7,
+        onChange = ()=>{}
     }: Props)=> {
 
     const [items, setItems] = useState([]);
@@ -24,6 +26,10 @@ const DBTagSelect = ({
     useEffect(()=>{
         onSearch("");
     }, [])
+
+    useEffect(()=>{
+        onChange(selectedItems().map(x => x.id));
+    }, [selected])
 
     const itemsDisplay = ()=>{
         return items.map(x=>{

@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { useTheme } from './ThemeProvider';
-import { useContext } from 'react';
 import { useAuth } from './UserProvider';
 import SchemeSwitch from './SchemeSwitch';
 import { Router, useRouter } from 'next/router';
@@ -9,6 +8,7 @@ const Navbar = ()=>{
     const user = useAuth();
     const router = useRouter();
     const [ { background, dark, text, primary} ] = useTheme();
+    console.log(user);
     let email = user? user.email : "not signed in";
     return (
         <div>

@@ -1,13 +1,31 @@
 import firebaseAdmin from '../../firebaseAdmin';
+import { db } from '../../firebase';
 
 const validate = async (token) => {
   // Check that the user has a valid token
   const decodedToken = await firebaseAdmin.auth().verifyIdToken(token, true);
   // Get user Firebase data from token
   const user = await firebaseAdmin.auth().getUser(decodedToken.uid);
-
-   return user;
+  
+  const userData = await getUserData(user);
+  
+  const result = {
+    uid: user.uid,
+    email: user.email,
+    username: userData.username
+  }
+   return result;
 };
+
+const getUserData = async (user)=>{
+  const userUid = user.uid;
+  const userRef = await db.collection('users').doc(userUid);
+  const userSnapshot = await userRef.get();
+  const userData = await userSnapshot.data();
+  if(userData.email !== user.email)
+      return null;
+  return userData;
+}
 
 export default async (req, res) => {
   try {

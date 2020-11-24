@@ -13,7 +13,7 @@ const VideoList = ()=> {
         <div className="videoList">
                 {videos &&
                 videos.map((vid:any,i)=>{
-                    return <Video key={i} title={vid.title} url={vid.url} vid={vid.id} />
+                    return <Video key={i} title={vid.title} img={vid.img} uid={vid.id} />
                 })}
             <style jsx>{`
                 .videoList{

@@ -5,10 +5,10 @@ import '../firebase';
 
 // ...
 
-const AuthContext = React.createContext<firebase.User | null >(null);
+const AuthContext = React.createContext<any | null >(null);
 
-export default function AuthProvider({ children, token }: any) {
-  const [user, setUser] = useState<firebase.User | null>(token);
+export default function AuthProvider({ children, token, initialUser }: any) {
+  const [user, setUser] = useState<any | null>(initialUser);
   useEffect(() => {
     return firebase.auth().onIdTokenChanged(async (user) => {
       if (!user) {
@@ -18,7 +18,7 @@ export default function AuthProvider({ children, token }: any) {
       }
       
       const token = await user.getIdToken();
-      setUser(user);
+      //setUser(user);
       nookies.set(undefined, 'token', token, {});
     });
   }, []);

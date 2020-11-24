@@ -1,6 +1,11 @@
 import { useState } from 'react';
 
-const FilePicker = (props)=> {
+interface Props {
+  accept?: string,
+  onSelect?: (files:any[])=> void
+}
+
+const FilePicker = (props: Props)=> {
   const [fileName, setFilename] = useState("");
     let files;
 
@@ -18,7 +23,7 @@ const FilePicker = (props)=> {
         <div id="arrow" ><img src="down-arrow.svg"/></div>
         <span className="innerText right">file</span>
       </div>
-        <input id="file-input" type="file" onChange={(e)=>{onFileChange(e.target.files)}} />
+        <input id="file-input" type="file" accept={props.accept} onChange={(e)=>{onFileChange(e.target.files)}} />
         <div className="name">{fileName}</div>
         <style jsx>{`
           .name{

@@ -1,11 +1,17 @@
 import { useTheme } from './ThemeProvider';
+import Video from '../models/Video';
 
-const VideoList = (props)=> {
-const { url, title, vid } = props;
+interface Props{
+    title: string,
+    img?: string,
+    uid: string
+}
+
+const VideoList = ({ title, img = undefined, uid }: Props)=> {
 const [{ heading }] = useTheme();
     return (
         <div className="video">
-            <a href={`/watch?v=${vid}`}>
+            <a href={`/watch?v=${uid}`}>
                 <img src={'/video-thumbnail-default.png'} height="165" />
                 <h3>{title}</h3>
             </a>
