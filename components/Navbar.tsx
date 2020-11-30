@@ -25,18 +25,23 @@ const Navbar = ()=>{
                 <li className={ router.pathname == "/register" ? "active" : ""}>
                     <Link href="/register"><a>Register</a></Link>
                 </li>
-                <li className={ router.pathname == "/login" ? "active" : ""}>
-                    <Link href="/login"><a>Login</a></Link>
-                </li>
+                {
+                    !user &&
+                    <li className={ router.pathname == "/login" ? "active" : ""}>
+                        <Link href="/login"><a>Login</a></Link>
+                    </li>
+                }
                 {
                 user &&
                 <>
                     <li className={ router.pathname == "/logout" ? "active" : ""}>
                         <Link href="/logout"><a>Logout</a></Link>
                     </li>
-                    <li className="row">
-                        <ProfilePic src={user.img} size={25} />
-                        <div>{user.username}</div>
+                    <li className={ `${router.pathname == "/profile" ? "active" : ""}`}>
+                        <Link href="/profile"><a className="row">
+                            <ProfilePic src={user.img} size={25} />
+                            <div>{user.username}</div>
+                        </a></Link>
                     </li>
                 </>
                 }
@@ -80,7 +85,7 @@ const Navbar = ()=>{
                     text-align: center;
                     vertical-align: center;
                 }
-                .nav li.row{
+                .nav li .row{
                     display: flex;
                     flex-flow: row;
                 }

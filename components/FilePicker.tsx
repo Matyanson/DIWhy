@@ -1,30 +1,35 @@
 import { useState } from 'react';
+import FilePickerWrapper from './FilePickerWrapper';
 
 interface Props {
   accept?: string,
-  onSelect?: (files:any[])=> void
+  arrowVisible?: boolean,
+  textLeft?: string,
+  textRight?: string,
+  onSelect: (files:any[])=> void
 }
 
-const FilePicker = (props: Props)=> {
-  const [fileName, setFilename] = useState("");
-    let files;
+const FilePickerCopy = ({
+  accept,
+  arrowVisible = true,
+  textLeft = "Upload",
+  textRight = "file",
+  onSelect
+}: Props)=> {
 
     function onFileChange(newFiles){
-        console.log("file changed");
-        files = newFiles;
-        props.onSelect(files);
-        if(files[0])
-          setFilename(files[0].name);
+        const files = newFiles;
+        onSelect(files);
     }
   return (
     <div className="filePicker">
-      <div className="text">
-        <span className="innerText left">Upload</span>
-        <div id="arrow" ><img src="down-arrow.svg"/></div>
-        <span className="innerText right">file</span>
-      </div>
-        <input id="file-input" type="file" accept={props.accept} onChange={(e)=>{onFileChange(e.target.files)}} />
-        <div className="name">{fileName}</div>
+      <FilePickerWrapper fileNameVisible={true} accept={accept} onSelect={ (files)=> onFileChange(files) }>
+        <div className="text">
+          <span className="innerText left">{textLeft}</span>
+          { arrowVisible && <div id="arrow" ><img src="down-arrow.svg"/></div>}
+          <span className="innerText right">{" " + textRight}</span>
+        </div>
+      </FilePickerWrapper>
         <style jsx>{`
           .name{
             max-width: 250px;
@@ -93,4 +98,4 @@ const FilePicker = (props: Props)=> {
   );
 }
 
-export default FilePicker;
+export default FilePickerCopy;

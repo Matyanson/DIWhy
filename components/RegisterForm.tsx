@@ -43,7 +43,7 @@ const RegisterForm = ()=> {
     }
     async function saveUser(userData){
 
-        let videoRef = storageRef.child(`/uploadedVideos/${file.name}`);
+        let videoRef = storageRef.child(`/profilePictures/${file.name}`);
         let uploadTask = videoRef.put(file);
         await uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, onProgress, onError, onComplete);
 

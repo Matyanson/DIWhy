@@ -6,10 +6,10 @@ const ProfilePic = ({src, size = 50})=> {
         <img id="pic" src={src} />
       <style jsx>{`
           #pic{
-          height: ${size}px;
-          width: ${size}px;
-          object-fit: cover;
-          border-radius: 50%;
+            height: ${size}px;
+            width: ${size}px;
+            object-fit: cover;
+            border-radius: 50%;
           }
       `}</style>
     </div>

@@ -1,9 +1,10 @@
 import React, { useContext, useState } from 'react';
 import Video from '../models/Video';
 import { useAuth } from './UserProvider';
+import { useRouter } from 'next/router';
 import * as firebase from 'firebase/app';
 import { db, storage } from '../firebase';
-import FilePicker from './FilePicker';
+import FilePicker from './FilePickerWrapper';
 import DBSelect from './DBTagSelect';
 import Progressbar from './Progressbar';
 import DBAdd from './DBAdd';
@@ -19,6 +20,7 @@ const Uploader = ()=> {
     const [files, setFiles] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
     const user = useAuth();
+    const router = useRouter();
     let storageRef = storage.ref();
     
 
@@ -52,13 +54,14 @@ const Uploader = ()=> {
             if(user){
                 const { username, uid } = user;
                 saveVideoToDatabase(url, videoTitle, username, uid);
+                router.push('/');
             }
         }
     }
     function validate(){
         let result = true;
         if(!files || files.length == 0){
-            setErrorMsg("select your file");
+            setErrorMsg("select your profile pic");
             result = false;
         }
         if(!user){
