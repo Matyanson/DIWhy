@@ -1,13 +1,12 @@
 import Container from '../components/Container';
 import Head from 'next/head';
-import ProfilePic from '../components/ProfilePicture';
+import ProfilePicChanger from '../components/ProfilePictureChanger';
 import { useAuth } from '../components/UserProvider';
 import VideoListProfile from '../components/VideoListProfile';
-import FilePickerWrapper from '../components/FilePickerWrapper';
 import * as firebase from 'firebase/app';
-import { db, auth, storage } from '../firebase';
+import { db, storage } from '../firebase';
 
-export default function About(props) {
+export default function Profile(props) {
   const user = useAuth();
   const storageRef = storage.ref();
 
@@ -52,9 +51,7 @@ export default function About(props) {
           </Head>
           <Container>
             <h2>{user.username}</h2><br/>
-            <FilePickerWrapper onSelect={(data)=>newImage(data)}>
-              <ProfilePic src={user.img} size={150} />
-            </FilePickerWrapper>
+            <ProfilePicChanger size={150} onChange={(files)=>newImage(files)} />
             <br/>
             <VideoListProfile />
           </Container>

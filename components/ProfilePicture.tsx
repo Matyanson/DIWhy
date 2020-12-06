@@ -2,7 +2,7 @@ import Container from './Container';
 
 const ProfilePic = ({src, size = 50})=> {
   return (
-    <div>
+    <div className="lol">
         <img id="pic" src={src} />
       <style jsx>{`
           #pic{
