@@ -7,7 +7,7 @@ interface Props {
   children: any
 }
 
-const FilePicker = ({
+const FilePickerWrapper = ({
   accept,
   fileNameVisible = false,
   onSelect,
@@ -48,4 +48,4 @@ const FilePicker = ({
   );
 }
 
-export default FilePicker;
+export default FilePickerWrapper;

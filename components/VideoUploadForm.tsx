@@ -4,7 +4,7 @@ import { useAuth } from './UserProvider';
 import { useRouter } from 'next/router';
 import * as firebase from 'firebase/app';
 import { db, storage } from '../firebase';
-import FilePicker from './FilePickerWrapper';
+import FilePicker from './FilePicker';
 import DBSelect from './DBTagSelect';
 import Progressbar from './Progressbar';
 import DBAdd from './DBAdd';

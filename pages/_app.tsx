@@ -9,12 +9,12 @@ import { useState } from 'react';
 
 
 
-function MyApp({ Component, pageProps, user}) {
+function MyApp({ Component, pageProps, user, userData}) {
 
   
   return (
     <ThemeProvider>
-      <AuthProvider initialUser={user}>
+      <AuthProvider initialUser={user} initialUserData={userData}>
         <Layout>
           <Component {...pageProps} />
         </Layout>
@@ -49,7 +49,7 @@ MyApp.getInitialProps = async (appContext) => {
       .then((res) => res.json());
 
       //add user data to Redux
-        return {...appProps, user: result };
+        return {...appProps, ...result };
     } catch (e) {
       console.log("error1:");
       console.log(e);

@@ -11,10 +11,11 @@ const validate = async (token) => {
   const defaultImg = "https://firebasestorage.googleapis.com/v0/b/diwhy-39b77.appspot.com/o/default%2Fprofile.jpg?alt=media&token=9868229e-d8dd-48d7-9947-b08aa19d5043";
 
   const result = {
-    uid: user.uid,
-    email: user.email,
-    username: userData.username,
-    img: userData.img? userData.img : defaultImg
+    user: user,
+    userData: {
+      username: userData.username,
+      img: userData.img?? defaultImg
+    }
   }
    return result;
 };

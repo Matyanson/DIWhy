@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useMemo } from 'react';
 import nookies from 'nookies'
 import firebase from 'firebase/app';
 import '../firebase';
@@ -7,21 +7,40 @@ import '../firebase';
 
 const AuthContext = React.createContext<any | null >(null);
 
-export default function AuthProvider({ children, token, initialUser }: any) {
-  const [user, setUser] = useState<any | null>(initialUser);
+export default function AuthProvider({ children, token, initialUser, initialUserData }: any) {
+  const [firebaseUser, setfirebaseUser] = useState<any | null>(initialUser);
+  const [userData, setUserData] = useState<any | null>(initialUserData);
+  const user = useMemo(() => { return {...firebaseUser, ...userData} }, [firebaseUser, userData])
+
   useEffect(() => {
     return firebase.auth().onIdTokenChanged(async (user) => {
       if (!user) {
-        setUser(null);
+        setfirebaseUser(null);
         nookies.set(undefined, 'token', '', {});
         return;
       }
       
       const token = await user.getIdToken();
-      //setUser(user);
+      setfirebaseUser(user);
       nookies.set(undefined, 'token', token, {});
     });
   }, []);
+
+  useEffect(() => {
+    if (firebaseUser) {
+      return firebase.firestore().collection('users').doc(firebaseUser.uid).onSnapshot((snapshot)=>{
+        const data = snapshot.data();
+        const defaultImg = "https://firebasestorage.googleapis.com/v0/b/diwhy-39b77.appspot.com/o/default%2Fprofile.jpg?alt=media&token=9868229e-d8dd-48d7-9947-b08aa19d5043";
+        setUserData({
+          username: data.username,
+          img: data.img ?? defaultImg
+        });
+      });
+    }else{
+      setUserData(null);
+    }
+  }, [firebaseUser])
+
   return (
     <AuthContext.Provider value={user}>{
       children

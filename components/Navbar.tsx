@@ -59,7 +59,7 @@ const Navbar = ()=>{
                     border-top-right-radius: 0px;
                     border-bottom-left-radius: 15px;
                     border-bottom-right-radius: 15px;
-                    position: absolute;
+                    position: fixed;
                     overflow: hidden;
                     margin: 0;
                     top:0;
