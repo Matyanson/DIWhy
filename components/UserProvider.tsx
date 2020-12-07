@@ -10,7 +10,7 @@ const AuthContext = React.createContext<any | null >(null);
 export default function AuthProvider({ children, token, initialUser, initialUserData }: any) {
   const [firebaseUser, setfirebaseUser] = useState<any | null>(initialUser);
   const [userData, setUserData] = useState<any | null>(initialUserData);
-  const user = useMemo(() => { return {...firebaseUser, ...userData} }, [firebaseUser, userData])
+  const user = useMemo(() => { return firebaseUser ? {...firebaseUser, ...userData} : null }, [firebaseUser, userData])
 
   useEffect(() => {
     return firebase.auth().onIdTokenChanged(async (user) => {
