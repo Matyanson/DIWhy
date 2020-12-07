@@ -31,14 +31,20 @@ const [author] = useDocumentData<any>(authorRef);
         <div className="video">
             <a href={`/watch?v=${id}`}>
                 <img src={'/video-thumbnail-default.png'} height="165" />
-                <div>
-                    <h3>{title}</h3>
-                    <div className="row">
-                        {author && <><ProfilePic src={author.img} size={30}/>{authorName}</>}
-                        {!author && <><ProfilePic src={profilePic} size={30}/>{authorName}</>}
-                    </div>
-                </div>                
+                <h3>{title}</h3>
             </a>
+            <div>
+                {author &&
+                <a className="row" href={`/chanel?id=${authorId}`}>
+                    <><ProfilePic src={author.img} size={30}/>{authorName}</>
+                </a>
+                }
+                {!author &&
+                <div className="row" >
+                    <><ProfilePic src={profilePic} size={30}/>{authorName}</>
+                </div>
+                }
+            </div>
             <style jsx>{`
                 .video{
                     display: flex;
