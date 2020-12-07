@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTheme } from './ThemeProvider';
+import Tag from './Tag';
 
 interface Props {
     items: string[],
@@ -64,7 +65,7 @@ const TagSelect = ({
             {
                 selected &&
                 selected.map((x,i)=>{
-                return <div className="tag" key={i} onClick={()=>deleteItem(i)}>{items[x]}</div>
+                return <div className="tagWrap" onClick={()=>deleteItem(i)}><Tag key={i} title={items[x]} /></div>
                 })
             }
         </div>
@@ -95,17 +96,13 @@ const TagSelect = ({
           .items div:hover{
               background: #eee;
           }
-          .tagContainer{
-
+          .tagsContainer{
+            display: flex;
+            flex-flow: row wrap;
+            width: 100%;
           }
-          .tag{
-            background: #65cc5c;
-            color: white;
-            border-radius: 10px;
-            padding: 4px;
-            margin: 2px;
-            width: fit-content;
-            height: fit-content;
+          .tagWrap{
+              cursor: pointer;
           }
       `}</style>
     </div>

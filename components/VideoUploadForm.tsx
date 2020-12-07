@@ -61,7 +61,7 @@ const Uploader = ()=> {
     function validate(){
         let result = true;
         if(!files || files.length == 0){
-            setErrorMsg("select your profile pic");
+            setErrorMsg("select video file");
             result = false;
         }
         if(!user){

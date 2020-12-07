@@ -8,13 +8,17 @@ const VideoList = ()=> {
     const videosRef = db.collection('videos');
     const query = videosRef.limit(25);
     const [videos] = useCollectionData(query, { idField: 'id' });
+    if(videos)
+    console.log(videos.map((vid:any)=>{
+        return vid.tools;
+    }))
     return (
         <div className="videoList">
                 {videos &&
                 videos.map((vid:any,i)=>{
                     const authorName = vid.author ? vid.author.username : "Anonymous";
                     const authorId = vid.author ? vid.author.userId : "1";
-                        return <Video key={i} authorName={authorName} title={vid.title} authorId={authorId} thumbnail={vid.img} id={vid.id} />
+                        return <Video key={i} authorName={authorName} title={vid.title} authorId={authorId} tools={vid.tools} material={vid.material} thumbnail={vid.img} id={vid.id} />
                 })}
             <style jsx>{`
                 .videoList{

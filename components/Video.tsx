@@ -1,5 +1,5 @@
 import { useTheme } from './ThemeProvider';
-import Video from '../models/Video';
+import Tag from './Tag';
 import ProfilePic from './ProfilePicture';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { db } from '../firebase';
@@ -27,6 +27,8 @@ const VideoList = ({
 const [{ heading }] = useTheme();
 const authorRef = db.collection('users').doc(authorId);
 const [author] = useDocumentData<any>(authorRef);
+if(id == "RJodjqgmbRkSGADzHAzw")
+    console.log(tools);
     return (
         <div className="video">
             <a href={`/watch?v=${id}`}>
@@ -34,6 +36,10 @@ const [author] = useDocumentData<any>(authorRef);
                 <h3>{title}</h3>
             </a>
             <div>
+                <div className="row">
+                    { tools.map((x, key) => <Tag key={key} title={x} background="#2a64bd" />) }
+                    { material.map((x, key) => <Tag key={-key} title={x} background="#c44d12" />) }
+                </div>
                 {author &&
                 <a className="row" href={`/chanel?id=${authorId}`}>
                     <><ProfilePic src={author.img} size={30}/>{authorName}</>
