@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { db } from '../firebase';
-import { useAuth } from './UserProvider';
 import Video from './Video';
 
 
-const VideoList = ()=> {
-    const user = useAuth();
+const VideoList = ({chanelId})=> {
     const videosRef = db.collection('videos');
     const query = videosRef
-    .where('author.userId', '==', user.uid)
+    .where('author.userId', '==', chanelId)
     .limit(25);
     const [videos] = useCollectionData(query, { idField: 'id' });
     return (

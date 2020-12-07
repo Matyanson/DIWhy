@@ -3,6 +3,7 @@ import Container from '../components/Container';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import ProfilePicture from '../components/ProfilePicture';
+import VideoListChanel from '../components/VideoListChanel';
 import { db } from '../firebase';
 import { useDocumentDataOnce } from 'react-firebase-hooks/firestore';
 
@@ -29,6 +30,7 @@ const Watch = ()=> {
               <h2>{userData.username}</h2><br/>
               <ProfilePicture src={userData.img} size={150} />
               <br/>
+              <VideoListChanel chanelId={uid} />
             </Container>
             </>
             :

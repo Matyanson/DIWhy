@@ -2,7 +2,7 @@ import Container from '../components/Container';
 import Head from 'next/head';
 import ProfilePicChanger from '../components/ProfilePictureChanger';
 import { useAuth } from '../components/UserProvider';
-import VideoListProfile from '../components/VideoListProfile';
+import VideoListChanel from '../components/VideoListChanel';
 import * as firebase from 'firebase/app';
 import { db, storage } from '../firebase';
 
@@ -54,7 +54,7 @@ export default function Profile(props) {
             <ProfilePicChanger size={150} onChange={(files)=>newImage(files)} />
             <br/>
             <h3>Your videos</h3>
-            <VideoListProfile />
+            <VideoListChanel chanelId={user.uid} />
           </Container>
       </div>
     )
