@@ -8,6 +8,7 @@ const VideoList = ({chanelId})=> {
     const videosRef = db.collection('videos');
     const query = videosRef
     .where('author.userId', '==', chanelId)
+    .orderBy('title')
     .limit(25);
     const [videos] = useCollectionData(query, { idField: 'id' });
     return (
