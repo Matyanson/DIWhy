@@ -8,6 +8,8 @@ import FilePicker from './FilePicker';
 import DBSelect from './DBTagSelect';
 import Progressbar from './Progressbar';
 import DBAdd from './DBAdd';
+import { useTheme } from './ThemeProvider';
+
 
 const Uploader = ()=> {
     const [form, setForm] = useState({
@@ -25,11 +27,6 @@ const Uploader = ()=> {
     
 
     function submit(){
-        console.log(user);
-        console.log(form);
-        setErrorMsg(null);
-        console.log("submiting");
-        console.log(files);
         let videoTitle = form.title;
         if(!validate())
             return;
@@ -65,7 +62,7 @@ const Uploader = ()=> {
             result = false;
         }
         if(!user){
-            setErrorMsg("Please log in!")
+            setErrorMsg("Please log in!");
         }
         return result;
     }
