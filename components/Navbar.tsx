@@ -9,7 +9,6 @@ const Navbar = ()=>{
     const user = useAuth();
     const router = useRouter();
     const [ { background, dark, text, primary} ] = useTheme();
-    console.log(user);
     return (
         <div>
             <ul className="nav">

@@ -6,8 +6,9 @@ import Video from './Video';
 
 const VideoList = ()=> {
     const videosRef = db.collection('videos');
-    const query = videosRef.orderBy('author.userId').orderBy('title').limit(25);
+    const query = videosRef.orderBy('title').limit(25);
     const [videos] = useCollectionData(query, { idField: 'id' });
+    console.log(videos);
     if(videos)
     console.log(videos.map((vid:any)=>{
         return vid.tools;
