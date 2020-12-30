@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "watch-icons": "onchange 'public/icons/*.svg' -- npx @svgr/cli public/icons --out-dir components/icons --icon --typescript --replace-attr-values '#000=currentColor'",
+    "build-icons": "npx @svgr/cli public/icons --out-dir components/icons --icon --typescript --replace-attr-values '#000=currentColor'"
   },
   "dependencies": {
     "firebase": "^7.21.1",
@@ -21,6 +23,7 @@
     "react-redux": "^7.2.2"
   },
   "devDependencies": {
+    "@svgr/cli": "^5.5.0",
     "@types/node": "^14.11.2",
     "@types/react": "^16.9.49",
     "typescript": "^4.0.3"
