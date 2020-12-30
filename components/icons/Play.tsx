@@ -12,7 +12,7 @@ function SvgPlay(props: React.SVGProps<SVGSVGElement>) {
       strokeWidth={2}
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="play_svg__feather play_svg__feather-play"
+      className="icon"
       {...props}
     >
       <path d="M5 3l14 9-14 9V3z" />

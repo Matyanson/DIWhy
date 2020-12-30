@@ -12,7 +12,7 @@ function SvgPause(props: React.SVGProps<SVGSVGElement>) {
       strokeWidth={2}
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="pause_svg__feather pause_svg__feather-pause"
+      className="icon"
       {...props}
     >
       <path d="M6 4h4v16H6zM14 4h4v16h-4z" />
