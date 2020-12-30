@@ -1,5 +1,5 @@
-import { createRef, useRef } from "react";
 import { useVideoContext } from "./VideoContextProvider";
+import { Play, Pause, Minimize, Maximize } from './icons';
 
 interface Props{
     children: any
@@ -21,16 +21,24 @@ function playPause(){
                 <div className="top"></div>
                 <div className="middle" onClick={()=>playPause()} ></div>
                 <div className="bottom">
-                    <input type="range" ></input>
+                    <input type="range" min={0} max={1000} value={videoData.currentMS} onChange={(e)=>{setVideoData({...videoData, currentMS: e.target.value})}} ></input>
                     <div className="row-buttons">
-                        <button onClick={()=>playPause()} >{videoData.paused ? 'play' : 'pause'}</button>
-                        <button>jen test</button>
+                        <div className="playPause" onClick={()=>playPause()} >
+                            {videoData.paused ? <Play /> : <Pause />}
+                        </div>
+                        <div className="fullscreen"><Maximize/></div>
                     </div>
                 </div>
             </div>
             <style jsx>{`
                 .videoControls{
                     position: relative;
+                    color: white;
+                }
+                .videoControls svg{
+                    stroke: #fff;
+                    fill: white,
+
                 }
                 .controls{
                     position: absolute;
@@ -39,7 +47,7 @@ function playPause(){
                     height: 100%;
                     top:0;
                     left:0;
-                    
+                    padding: 5px;
                     display: flex;
                     flex-flow: column nowrap;
                     justify-content: space-between;
