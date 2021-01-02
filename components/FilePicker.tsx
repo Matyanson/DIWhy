@@ -3,6 +3,7 @@ import FilePickerWrapper from './FilePickerWrapper';
 
 interface Props {
   accept?: string,
+  multiple?: boolean,
   arrowVisible?: boolean,
   textLeft?: string,
   textRight?: string,
@@ -10,7 +11,8 @@ interface Props {
 }
 
 const FilePickerCopy = ({
-  accept,
+  accept = "",
+  multiple = false,
   arrowVisible = true,
   textLeft = "Upload",
   textRight = "file",
@@ -18,8 +20,7 @@ const FilePickerCopy = ({
 }: Props)=> {
 
     function onFileChange(newFiles){
-        const files = newFiles;
-        onSelect(files);
+        onSelect(newFiles);
     }
   return (
     <div className="filePicker">

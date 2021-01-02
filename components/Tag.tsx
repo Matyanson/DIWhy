@@ -6,7 +6,7 @@ interface Props{
     color?: string
 }
 
-const VideoList = ({ 
+const Tag = ({ 
     title,
     background = "#65cc5c",
     color = "white"
@@ -30,4 +30,4 @@ const VideoList = ({
     );
 }
 
-export default VideoList;
+export default Tag;

@@ -1,28 +1,24 @@
+import HtmlVideoPlayer from "./HtmlVideoPlayer";
+import Controls from './VideoControls'; 
+import VideoContextProvider from './VideoContextProvider';
+
 interface Props{
-    title: string,
-    url: string,
-    width?: number
+    url: string
 }
 
-const VideoPlayer = (props)=> {
-const { title, url, width = 650}: Props = props;
+const VideoPlayer = ({url}:Props)=> {
 
     return (
-        <div className="video">
-            <div>
-                <video width={width} controls>
-                <source src={url} type="video/mp4"/>
-                Your browser does not support the video tag.
-                </video>
-                <h3>{title}</h3>
-            </div>
+        <div>
+            <VideoContextProvider >
+                <Controls>
+                    <HtmlVideoPlayer url={url} />
+                </Controls>
+            </VideoContextProvider>
             <style jsx>{`
-                .video{
-                    display: flex;
-                    flex-flow: column;
-                    align-items: left;
-                    width: fit-content;
-                    margin: 10px;
+                .videoControls{
+                    width: 100%;
+                    height: 100%;
                 }
             `}</style>
         </div>

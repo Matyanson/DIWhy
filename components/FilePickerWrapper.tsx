@@ -2,13 +2,15 @@ import { useState } from 'react';
 
 interface Props {
   accept?: string,
+  multiple?: boolean,
   fileNameVisible?: boolean,
   onSelect: (files:any[])=> void,
   children: any
 }
 
 const FilePickerWrapper = ({
-  accept,
+  accept = "",
+  multiple = false,
   fileNameVisible = false,
   onSelect,
   children
@@ -16,16 +18,18 @@ const FilePickerWrapper = ({
   const [fileName, setFilename] = useState("");
 
     function onFileChange(newFiles){
-        const files = newFiles;
-        onSelect(files);
-        if(files[0])
+        if(newFiles && newFiles[0]){
+          const files = [...newFiles];
+          onSelect(files);
           setFilename(files[0].name);
+        }
+        
     }
 
   return (
     <div className="filePicker">
         {children}
-        <input id="file-input" type="file" accept={accept} onChange={(e)=>{onFileChange(e.target.files)}} />
+        <input id="file-input" type="file" accept={accept} multiple={true} onChange={(e)=>{onFileChange(e.target.files)}} />
         { fileNameVisible &&  <div className="name">{fileName}</div>}
         <style jsx>{`
         #file-input{

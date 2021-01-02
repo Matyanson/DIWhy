@@ -6,8 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "watch-icons": "onchange 'public/icons/*.svg' -- npx @svgr/cli public/icons --out-dir components/icons --icon --typescript --replace-attr-values '#000=currentColor'",
-    "build-icons": "npx @svgr/cli public/icons --out-dir components/icons --icon --typescript --replace-attr-values '#000=currentColor'"
+    "watch-icons": "onchange 'public/icons/*.svg' -- npm run build-icons",
+    "build-icons": "npx @svgr/cli public/icons --out-dir components/icons --icon --typescript  --svg-props className=icon --replace-attr-values '#000=currentColor'"
   },
   "dependencies": {
     "firebase": "^7.21.1",

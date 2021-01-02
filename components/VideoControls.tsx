@@ -45,7 +45,7 @@ function setMouseMovement(e){
                                 {videoData.paused ? <Play/> : <Pause/>}
                             </div>
                             <div className="time">
-                                {MStoTime(videoData.currentMS)}/{MStoTime(videoData.durationMS)}
+                                {MStoTime(videoData.currentMS, 1)}/{MStoTime(videoData.durationMS, 1)}
                             </div>
                         </div>
                         <div className="right row">
@@ -101,11 +101,11 @@ function setMouseMovement(e){
                     display: flex;
                     flex-flow: column;
                     padding: 5px;
-                    background-image: linear-gradient(#00000000, #00000070)
+                    background-image: linear-gradient(#00000000, #000000B0)
                 }
                 .row-buttons{
                     display: flex;
-                    flex-flow: row;
+                    flex-flow: row
                     align-items: center;
                     justify-content: space-between;
                 }

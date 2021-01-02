@@ -1,7 +1,6 @@
 import templates from '../assets/templates.json';
 import SchemeButton from './SchemeButton';
 import { useTheme } from './ThemeProvider';
-import { useContext } from 'react';
 
 const SchemeSwitch = ()=>{
     const [theme, setTheme] = useTheme();

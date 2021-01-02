@@ -8,7 +8,11 @@ import FilePicker from './FilePicker';
 import DBSelect from './DBTagSelect';
 import Progressbar from './Progressbar';
 import DBAdd from './DBAdd';
+import TimelineSetup from './TimelineEdit';
 import { useTheme } from './ThemeProvider';
+import VideoPlayer from './HtmlVideoPlayer';
+import VideoControls from './VideoControls';
+import VideoContextProvider from './VideoContextProvider';
 
 
 const Uploader = ()=> {
@@ -24,7 +28,16 @@ const Uploader = ()=> {
     const user = useAuth();
     const router = useRouter();
     let storageRef = storage.ref();
-    
+
+
+    function onFileChange(files){
+        const newFiles = files.map(f=>{
+            f.url = URL.createObjectURL(f);
+            return f;
+        })
+        console.log(newFiles);
+        setFiles(newFiles);
+    }
 
     function submit(){
         let videoTitle = form.title;
@@ -80,27 +93,40 @@ const Uploader = ()=> {
     }
   return (
     <div className="Test">
-            Title <input type="text" value={form.title} onChange={(e)=>{setForm({...form, title: e.target.value})}}/>
-            Public <input type="checkbox" checked={form.public} onChange={()=>setForm({...form, public: !form.public})} />
-            <FilePicker accept="video/*" onSelect={(data)=>{setFiles(data)}} />
-            <div className="selects">
-                <div>
-                    <h4>Tools</h4>
-                    <DBSelect onChange={(d)=>setForm({...form, tools: d})} displayTextKey={"name"} collectionPath={"tools"}/>
-                    <DBAdd collectionPath="tools"/>
+        {
+            !files &&
+            <FilePicker accept="video/*" multiple={true} onSelect={(data)=>{onFileChange(data)}} />
+        }
+        {
+            files && files[0] &&
+            <VideoContextProvider>
+                <VideoControls>
+                    <VideoPlayer url={files[0].url} />
+                </VideoControls>
+                
+                Title <input type="text" value={form.title} onChange={(e)=>{setForm({...form, title: e.target.value})}}/>
+                Public <input type="checkbox" checked={form.public} onChange={()=>setForm({...form, public: !form.public})} />
+                <div className="selects">
+                    <div>
+                        <h4>Tools</h4>
+                        <DBSelect onChange={(d)=>setForm({...form, tools: d})} displayTextKey={"name"} collectionPath={"tools"}/>
+                        <DBAdd collectionPath="tools"/>
+                    </div>
+                    <div>
+                        <h4>Material</h4>
+                        <DBSelect onChange={(d)=>setForm({...form, material: d})} displayTextKey={"name"} collectionPath={"material"}/>
+                        <DBAdd collectionPath="material" />
+                    </div>
                 </div>
-                <div>
-                    <h4>Material</h4>
-                    <DBSelect onChange={(d)=>setForm({...form, material: d})} displayTextKey={"name"} collectionPath={"material"}/>
-                    <DBAdd collectionPath="material" />
-                </div>
-            </div>
-            <button onClick={()=>submit()}>Send</button>
-            <Progressbar value={progress} />
-            {
-                errorMsg &&
-                <p className="error">{errorMsg}</p>
-            }
+                <TimelineSetup />
+                <button onClick={()=>submit()}>Send</button>
+                <Progressbar value={progress} />
+            </VideoContextProvider>
+        }
+        {
+            errorMsg &&
+            <p className="error">{errorMsg}</p>
+        }
         <style jsx>{`
             .selects{
                 display: flex;

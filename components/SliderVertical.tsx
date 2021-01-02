@@ -57,7 +57,7 @@ const SliderVertical = ({
                     -webkit-appearance: slider-vertical;
                     height: 100%;
                     width: 100%;
-                    opacity: 0.3;
+                    opacity: 0;
                 }
                 .slider{
                     z-index: 1;

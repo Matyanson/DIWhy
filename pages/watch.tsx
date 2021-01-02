@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import VideoPlayer from '../components/VideoPlayer';
+import VideoPlayer from '../components/HtmlVideoPlayer';
 import { db } from '../firebase';
 import { useDocumentDataOnce } from 'react-firebase-hooks/firestore';
 

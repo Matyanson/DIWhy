@@ -10,6 +10,13 @@ export default function About(props) {
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <Test />
+          <img className="icon" src="down-arrow.svg"/>
+          <style jsx>{`
+                .icon{
+                  fill: red;
+                }
+                }
+            `}</style>
       </div>
     )
   }
