@@ -18,27 +18,31 @@ const SliderVertical = ({
 }: Props)=> {
     const [theme] = useTheme();
     const [innerValue, setValue] = useState(value);
+    const inveredValue = useMemo(()=>calculateInversion(innerValue), [innerValue]) ;
     const percentage = useMemo(() => { return innerValue / (max / 100) }, [innerValue]);
+
+    function calculateInversion(v){
+        return inverted ? max - v : v;
+    }
 
     useEffect(()=>{
         setValue(value);
     }, [value])
 
     function updateValue(newValue){
-        const res = inverted ?
-        max - newValue :
-        newValue;
-        setValue(res);
-        onChange(res);
+        const inverted = calculateInversion(newValue);
+        setValue(inverted);
+        onChange(inverted);
     }
     return (
         <div className="wrap">
-            <input type="range" min={min} max={max} value={value} onChange={(e)=>updateValue(e.target.value)}></input>
+            <input type="range" min={min} max={max} value={inveredValue} onChange={(e)=>updateValue(e.target.value)}></input>
             <div className={`slider ${inverted?'inverted': ''}`}>
                 <div className="track"></div>
                 <div className="range" style={{height: `${percentage}%`}} ></div>
                 <div className="thumb" style={inverted ? {top: `${percentage}%`, transform: `translateY(-50%)`} : {bottom: `${percentage}%`}} ></div>
             </div>
+            {innerValue}
             <style jsx>{`
                 .wrap{
                     position: relative;
@@ -53,7 +57,7 @@ const SliderVertical = ({
                     -webkit-appearance: slider-vertical;
                     height: 100%;
                     width: 100%;
-                    opacity: 0;
+                    opacity: 0.3;
                 }
                 .slider{
                     z-index: 1;
