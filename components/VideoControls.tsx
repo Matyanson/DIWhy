@@ -35,7 +35,13 @@ function setMouseMovement(e){
         <div ref={controlsRef} className={`videoControls`}>
             {children}
             <div className={`controls ${mouseMoving ? '' : 'hidden'}`} onMouseMove={(e)=>setMouseMovement(e)} onMouseLeave={()=>setMouseMoving(false)} >
-                <div className="top"></div>
+                <div className="top">
+                    {isFullscreen &&
+                        <div className="title">
+                            Some Video Title
+                        </div>
+                    }
+                </div>
                 <div className="middle" onClick={()=>playPause()} ></div>
                 <div className="bottom">
                     <input type="range" min={0} max={videoData.durationMS ?? 10000} value={videoData.currentMS} onChange={(e)=>{setTime(e.target.value)}} ></input>
@@ -45,7 +51,7 @@ function setMouseMovement(e){
                                 {videoData.paused ? <Play/> : <Pause/>}
                             </div>
                             <div className="time">
-                                {MStoTime(videoData.currentMS, 1)}/{MStoTime(videoData.durationMS, 1)}
+                                {MStoTime(videoData.currentMS, 1)} / {MStoTime(videoData.durationMS, 1)}
                             </div>
                         </div>
                         <div className="right row">
@@ -69,6 +75,9 @@ function setMouseMovement(e){
                     flex-flow: row;
                     justify-content: center;
                     align-items: center;
+                }
+                .row > *{
+                    margin: 0 5px;
                 }
                 .videoControls{
                     position: relative;
@@ -94,6 +103,10 @@ function setMouseMovement(e){
                     align-items: stretch;
                     transition: all 0.2s;
                 }
+                .controls > .top{
+                    padding: 5px;
+                    background-image: linear-gradient(#000000B0, #00000000);
+                }
                 .controls > .middle{
                     flex:1;
                 }
@@ -105,12 +118,19 @@ function setMouseMovement(e){
                 }
                 .row-buttons{
                     display: flex;
-                    flex-flow: row
+                    flex-flow: row;
                     align-items: center;
                     justify-content: space-between;
                 }
+                .top .title{
+                    font-size: 1.5rem;
+                    margin: 5px;
+                }
                 .bottom .maximize{
                     align-self: flex-end;
+                }
+                .bottom .time{
+                    font-size: 0.7rem;
                 }
             `}</style>
         </div>
