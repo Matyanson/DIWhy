@@ -18,7 +18,8 @@ const [ videoData, setVideoData ] = useVideoContext();
 const media = useRef(null);
 
 useEffect(()=>{
-    setVideoData({...videoData, durationMS: media.current.duration * 1000})
+    if(media.current.duration)
+        setVideoData({...videoData, durationMS: media.current.duration * 1000})
 }, [media.current? media.current.duration : null])
 
 useEffect(()=>{
@@ -31,7 +32,6 @@ useEffect(()=>{
 useEffect(()=>{
     (async()=>{
         media.current.currentTime = videoData.setMS/1000;
-        console.log(`HTMLPlayer: ${videoData.setMS/1000}`)
     })();
 }, [videoData.setMS])
 
@@ -44,17 +44,15 @@ function onTimeUpdate(seconds: number){
 }
     return (
         <div className="video">
-            <div>
-                <video ref={media}
-                onPause={()=>onPause(media.current.paused)}
-                onTimeUpdate={()=>onTimeUpdate(media.current.currentTime)}
-                controls={controls}
-                id='videoPlayer'
-                >
-                <source src={url} type="video/mp4"/>
-                Your browser does not support the video tag.
-                </video>
-            </div>
+            <video ref={media}
+            onPause={()=>onPause(media.current.paused)}
+            onTimeUpdate={()=>onTimeUpdate(media.current.currentTime)}
+            controls={controls}
+            id='videoPlayer'
+            >
+            <source src={url} type="video/mp4"/>
+            Your browser does not support the video tag.
+            </video>
             <style jsx>{`
                 #videoPlayer{
                     width: 100%;

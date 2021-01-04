@@ -5,11 +5,13 @@ import useFullscreenStatus from "./UseFullscreenStatus";
 import {MStoTime} from '../helpers/functions';
 
 interface Props{
-    children: any
+    children: any,
+    title?: string
 }
 
 const VideoControls = ({
-    children
+    children,
+    title = 'Some Video Title'
 }:Props)=> {
     
 const [videoData, setVideoData] = useVideoContext();
@@ -22,9 +24,9 @@ function playPause(){
     setVideoData({ ...videoData, paused: !videoData.paused })
 }
 function setTime(ms){
-    setVideoData({...videoData, setMS: ms});
+    setVideoData({...videoData, setMS: Number(ms)});
 }
-function setMouseMovement(e){
+function setMouseMovement(){
     setMouseMoving(true);
     if(mouseTimer && mouseTimer.current)
         clearTimeout(mouseTimer.current);
@@ -34,17 +36,17 @@ function setMouseMovement(e){
     return (
         <div ref={controlsRef} className={`videoControls`}>
             {children}
-            <div className={`controls ${mouseMoving ? '' : 'hidden'}`} onMouseMove={(e)=>setMouseMovement(e)} onMouseLeave={()=>setMouseMoving(false)} >
+            <div className={`controls ${mouseMoving ? '' : 'hidden'}`} onMouseMove={()=>setMouseMovement()} onMouseLeave={()=>setMouseMoving(false)} >
                 <div className="top">
                     {isFullscreen &&
                         <div className="title">
-                            Some Video Title
+                            {title}
                         </div>
                     }
                 </div>
                 <div className="middle" onClick={()=>playPause()} ></div>
                 <div className="bottom">
-                    <input type="range" min={0} max={videoData.durationMS ?? 10000} value={videoData.currentMS} onChange={(e)=>{setTime(e.target.value)}} ></input>
+                    <input type="range" min={0} max={videoData.durationMS} value={videoData.currentMS} onChange={(e)=>{setTime(e.target.value)}} ></input>
                     <div className="row-buttons">
                         <div className="left row">
                             <div className="playPause click" onClick={()=>playPause()} >

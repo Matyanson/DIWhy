@@ -1,9 +1,7 @@
 import React from "react";
 
 export default function useFullscreenStatus(elRef): [boolean, ()=>void] {
-  const [isFullscreen, setIsFullscreen] = React.useState(
-    document[getBrowserFullscreenElementProp()] != null
-  );
+  const [isFullscreen, setIsFullscreen] = React.useState(false);
 
   const switchFullscreen = () => {
     if (elRef.current == null) return;

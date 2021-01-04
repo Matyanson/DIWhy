@@ -10,7 +10,7 @@ const defaultValues = {
     trimEnd: null
 }
 
-const VideoContext = createContext<any | null >(null);
+export const VideoContext = createContext<any | null >(null);
 
 export default function VideoContextProvider({ children, startingValues = {} }: any) {
   const [videoData, setVideoData] = useState(Object.assign(defaultValues, startingValues));

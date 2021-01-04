@@ -1,21 +1,28 @@
 import Head from 'next/head';
+import MultiVideoPlayer from '../components/MultiVieoPlayer';
 import Test from '../components/Test';
+import VideoContextProvider from '../components/VideoContextProvider';
 
 export default function About(props) {
   let value = "hello";
     return (
-      <div>
+      <div className="aboutPage">
           <Head>
             <title>About Page</title>
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <Test />
+          <VideoContextProvider>
+            <MultiVideoPlayer />
+          </VideoContextProvider>
           <img className="icon" src="down-arrow.svg"/>
           <style jsx>{`
-                .icon{
-                  fill: red;
-                }
-                }
+            .aboutPage{
+              width: 70vh;
+            }
+            .icon{
+              fill: red;
+            }
             `}</style>
       </div>
     )

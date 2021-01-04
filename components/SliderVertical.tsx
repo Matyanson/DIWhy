@@ -86,8 +86,8 @@ const SliderVertical = ({
                 .slider > .thumb{
                     position: absolute;
                     transform: translateY(50%);
-                    width: 10px;
-                    height: 10px;
+                    width: 0px;
+                    height: 0px;
                     left: 0;
                     right: 0;
                     margin: 0 auto;
@@ -96,8 +96,10 @@ const SliderVertical = ({
                     opacity: 1;
                     transition: all 0.1s;
                 }
-                .thumb:hover{
+                .wrap:hover .thumb{
                     opacity: 1;
+                    width: 10px;
+                    height: 10px;
                 }
                 .slider.inverted > .range{
                     top: 0;
