@@ -10,7 +10,6 @@ export function MStoTime(ms: number, startFrom: number = 0){
     }));
     for(let i = startFrom; i < scales.length; i++){
       const currScale = currVal % scales[i];
-      console.log(currVal, currScale);
       currVal = (currVal - currScale) / scales[i];
       result.unshift(currScale);
       if(currVal <= 0) break;
