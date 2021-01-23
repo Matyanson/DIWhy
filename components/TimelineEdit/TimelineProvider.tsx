@@ -23,11 +23,10 @@ export default function TimelineProvider({ children, initialSteps = [], onChange
 
     function setStepByIndex(index, newData){
         if(steps[index]){
-            console.log(`changing: ${index}`);
             setSteps([
-                ...steps.slice(0, index),
+                ...stepsSorted.slice(0, index),
                 newData,
-                ...steps.slice(index + 1)
+                ...stepsSorted.slice(index + 1)
             ])
         }
     }

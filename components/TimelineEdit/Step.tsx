@@ -43,7 +43,6 @@ const Step = ({
             <div className={`step ${active ? 'active' : ''}`}>
                 <div className="head">
                     <div className="number" onClick={()=>onClick()} >{number}</div>
-                    <button onClick={()=>console.log(data)}></button>
                     <div className="title">
                         { editable ? <input type="text" value={step.title} onChange={(e)=>changeValue({...step, title: e.target.value})} /> :
                         step.title }
