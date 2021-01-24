@@ -12,13 +12,17 @@ interface Props {
 const TagSelect = ({
         items,
         select = [],
-        onSelect,
+        onSelect = ()=> {},
         onSearch = ()=> {}
     }: Props)=> {
 
     const [{ primary, background }] = useTheme();
     const [focused, setFocus] = useState(false);
     const [selected, setSelected] = useState(select);
+
+    useEffect(()=>{
+        setSelected(select);
+    }, [select])
 
     function focus(){
         setFocus(true);
@@ -73,15 +77,23 @@ const TagSelect = ({
           .selectContainer{
               position: relative;
               width: fit-content;
+              margin: 5px 0;
           }
           .selectHead{
               display: flex;
               flex-flow: row;
+              margin: 5px 0;
+          }
+          .selectHead input{
+            margin: 0; 
+            padding: 5px;
+            font-size: 1.2rem;
+            border-radius: 0;
           }
           .more_btn{
             background: ${primary};
             color: ${background};
-            width: 10px;
+            padding: 2px;
             cursor: pointer;
             text-align: center;
           }

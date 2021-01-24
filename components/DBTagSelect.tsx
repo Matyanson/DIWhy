@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import TagSelect from './TagSelect';
 import { db } from '../firebase';
 import { casefold } from '../helpers/functions';
@@ -22,35 +22,29 @@ const DBTagSelect = ({
     const [items, setItems] = useState([]);
     const [selected, setSelected] = useState([]);
     const [select, setSelect] = useState([]);
+    const selectedItems = useMemo(()=>{
+        return selected.map(x=>items[x]);
+    }, [selected])
 
     useEffect(()=>{
         onSearch("");
     }, [])
 
     useEffect(()=>{
-        console.log(selected);
-        console.log(items);
-        onChange(selected.map(x => x.id));
+        onChange(selected.map(x=>items[x]));
     }, [selected])
 
     const itemsDisplay = ()=>{
         return items.map(x=>{
-            if(x.data[displayTextKey])
+            if(x.data && x.data[displayTextKey])
                 return x.data[displayTextKey];
-            return "null";
+            
         })
-    }
-
-    const selectedItems = () =>{
-        return selected.map(i=>{
-            if(items[i])
-            return items[i]
-        });
     }
 
     async function onSearch(keyword){
         const newItems = await getNewItems(keyword);
-        const oldSelectedItems = selected;
+        const oldSelectedItems = selected.map(x=>items[x]);
 
         const selectNew = [];
         for(let i = 0; i < oldSelectedItems.length; i++){
@@ -60,12 +54,13 @@ const DBTagSelect = ({
         const newMergedItems = oldSelectedItems.concat(newItems);
         setItems(newMergedItems);
         setSelect(selectNew);
+        setSelected(selectNew);
     }
 
     async function getNewItems(keyword){
         const newSnapshots = await getDocs(keyword);
 
-        const oldSelectedItems = selected;
+        const oldSelectedItems = selected.map(x=>items[x]);
 
         const newItems = [];
         newSnapshots.forEach((snap)=>{
