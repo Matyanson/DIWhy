@@ -88,8 +88,8 @@ const Uploader = ()=> {
             public: false,
             author: { username, userId },
             url,
-            tools: [],
-            material: [],
+            tools: form.tools,
+            material: form.material,
             steps: form.steps
         }
         console.log(video);
@@ -116,12 +116,12 @@ const Uploader = ()=> {
                 <div className="selects">
                     <div>
                         <h4>Tools</h4>
-                        <DBSelect onChange={(d)=>setForm({...form, tools: d})} displayTextKey={"name"} collectionPath={"tools"}/>
+                        <DBSelect onChange={(d)=>setForm({...form, tools: d.map(x=>x.id)})} displayTextKey={"name"} collectionPath={"tools"}/>
                         <DBAdd collectionPath="tools"/>
                     </div>
                     <div>
                         <h4>Material</h4>
-                        <DBSelect onChange={(d)=>setForm({...form, material: d})} displayTextKey={"name"} collectionPath={"material"}/>
+                        <DBSelect onChange={(d)=>setForm({...form, material: d.map(x=>x.id)})} displayTextKey={"name"} collectionPath={"material"}/>
                         <DBAdd collectionPath="material" />
                     </div>
                 </div>

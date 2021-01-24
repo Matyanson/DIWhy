@@ -11,7 +11,6 @@ const Tag = ({
     background = "#65cc5c",
     color = "white"
 }: Props)=> {
-    console.log(title);
     return (
         <div className="tag">
             {title}
