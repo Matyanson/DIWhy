@@ -1,11 +1,12 @@
 import { useVideoContext } from "./VideoContextProvider";
 import { Play, Pause, Minimize, Maximize } from './icons';
-import { useRef, useState } from "react";
+import { ReactChildren, ReactNode, useRef, useState } from "react";
 import useFullscreenStatus from "./UseFullscreenStatus";
-import {MStoTime} from '../helpers/functions';
+import {msToTimePattern} from '../helpers/functions';
+import Slider from "./Slider";
 
 interface Props{
-    children: any,
+    children: ReactNode,
     title?: string
 }
 
@@ -46,14 +47,14 @@ function setMouseMovement(){
                 </div>
                 <div className="middle" onClick={()=>playPause()} ></div>
                 <div className="bottom">
-                    <input type="range" min={0} max={videoData.durationMS} value={videoData.currentMS} onChange={(e)=>{setTime(e.target.value)}} ></input>
+                    <Slider min={0} max={videoData.durationMS} value={videoData.currentMS} onChange={(n)=>{setTime(n)}}/>
                     <div className="row-buttons">
                         <div className="left row">
                             <div className="playPause click" onClick={()=>playPause()} >
                                 {videoData.paused ? <Play/> : <Pause/>}
                             </div>
                             <div className="time">
-                                {MStoTime(videoData.currentMS, 1)} / {MStoTime(videoData.durationMS, 1)}
+                                {msToTimePattern(videoData.currentMS)} / {msToTimePattern(videoData.durationMS)}
                             </div>
                         </div>
                         <div className="right row">

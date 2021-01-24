@@ -1,7 +1,7 @@
 import { createContext, createRef, useContext, useEffect, useMemo, useRef, useState } from "react";
 import VideoControls from './VideoControls';
 import VideoContextProvider, { useVideoContext, VideoContext } from './VideoContextProvider';
-import HtmlVideoPlayer from './HtmlVideoPlayer';
+import HtmlVideoPlayer from './HtmlVideoDisplay';
 
 interface Video{
     src: string,

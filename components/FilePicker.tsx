@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import FilePickerWrapper from './FilePickerWrapper';
+import {Upload} from './icons'
 
 interface Props {
   accept?: string,
@@ -27,7 +28,7 @@ const FilePickerCopy = ({
       <FilePickerWrapper fileNameVisible={true} accept={accept} onSelect={ (files)=> onFileChange(files) }>
         <div className="text">
           <span className="innerText left">{textLeft}</span>
-          { arrowVisible && <div id="arrow" ><img src="down-arrow.svg"/></div>}
+          { arrowVisible && <div id="arrow" ><Upload /></div>}
           <span className="innerText right">{" " + textRight}</span>
         </div>
       </FilePickerWrapper>
@@ -39,7 +40,7 @@ const FilePickerCopy = ({
             width: 60px;
             position: relative;
           }
-          #arrow img{
+          #arrow .icon{
             position: absolute;
             width: 100px;
             bottom: 0;

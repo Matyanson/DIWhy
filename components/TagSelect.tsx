@@ -65,7 +65,7 @@ const TagSelect = ({
             {
                 selected &&
                 selected.map((x,i)=>{
-                return <div className="tagWrap" onClick={()=>deleteItem(i)}><Tag key={i} title={items[x]} /></div>
+                return <div key={i} className="tagWrap" onClick={()=>deleteItem(i)}><Tag title={items[x]} /></div>
                 })
             }
         </div>

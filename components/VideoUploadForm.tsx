@@ -8,9 +8,9 @@ import FilePicker from './FilePicker';
 import DBSelect from './DBTagSelect';
 import Progressbar from './Progressbar';
 import DBAdd from './DBAdd';
-import TimelineSetup from './TimelineEdit';
+import { TimelineEdit } from './TimelineEdit/index';
 import { useTheme } from './ThemeProvider';
-import VideoPlayer from './HtmlVideoPlayer';
+import VideoPlayer from './HtmlVideoDisplay';
 import VideoControls from './VideoControls';
 import VideoContextProvider from './VideoContextProvider';
 
@@ -20,7 +20,8 @@ const Uploader = ()=> {
         title: "",
         public: false,
         tools: [],
-        material: []
+        material: [],
+        steps: []
     });
     const [progress, setProgress] = useState(0);
     const [files, setFiles] = useState(null);
@@ -63,6 +64,7 @@ const Uploader = ()=> {
             setProgress(0);
             if(user){
                 const { username, uid } = user;
+                console.log(url, videoTitle, username, uid);
                 saveVideoToDatabase(url, videoTitle, username, uid);
                 router.push('/');
             }
@@ -86,10 +88,15 @@ const Uploader = ()=> {
             public: false,
             author: { username, userId },
             url,
-            tools: form.tools,
-            material: form.material
+            tools: [],
+            material: [],
+            steps: form.steps
         }
+        console.log(video);
         db.collection("videos").add(video);
+    }
+    function test(){
+        console.log(form);
     }
   return (
     <div className="Test">
@@ -118,8 +125,9 @@ const Uploader = ()=> {
                         <DBAdd collectionPath="material" />
                     </div>
                 </div>
-                <TimelineSetup />
+                <TimelineEdit editable={true} onChange={(steps)=>{setForm({...form, steps: steps})}} />
                 <button onClick={()=>submit()}>Send</button>
+                <button onClick={()=>test()}>test</button>
                 <Progressbar value={progress} />
             </VideoContextProvider>
         }

@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import HtmlVideoPlayer from "../components/HtmlVideoDisplay";
+import Controls from '../components/VideoControls'; 
+import VideoContextProvider from '../components/VideoContextProvider';
+import { TimelineEdit } from "../components/TimelineEdit";
 import { useRouter } from 'next/router';
-import VideoPlayer from '../components/HtmlVideoPlayer';
 import { db } from '../firebase';
 import { useDocumentDataOnce } from 'react-firebase-hooks/firestore';
+
 
 
 
@@ -18,7 +22,12 @@ const Watch = ()=> {
     <div>
         {
             videoData ?
-            <VideoPlayer title={videoData.title} url={videoData.url} />
+            <VideoContextProvider >
+                <Controls title={videoData.title}>
+                    <HtmlVideoPlayer url={videoData.url} />
+                </Controls>
+                <TimelineEdit editable={false} initialSteps={videoData.steps} />
+            </VideoContextProvider>
             :
             <div className="loadingScreen">
                 <h2>Loading Video</h2>

@@ -28,7 +28,9 @@ const DBTagSelect = ({
     }, [])
 
     useEffect(()=>{
-        onChange(selectedItems().map(x => x.id));
+        console.log(selected);
+        console.log(items);
+        onChange(selected.map(x => x.id));
     }, [selected])
 
     const itemsDisplay = ()=>{
@@ -48,7 +50,7 @@ const DBTagSelect = ({
 
     async function onSearch(keyword){
         const newItems = await getNewItems(keyword);
-        const oldSelectedItems = selectedItems();
+        const oldSelectedItems = selected;
 
         const selectNew = [];
         for(let i = 0; i < oldSelectedItems.length; i++){
@@ -63,7 +65,7 @@ const DBTagSelect = ({
     async function getNewItems(keyword){
         const newSnapshots = await getDocs(keyword);
 
-        const oldSelectedItems = selectedItems();
+        const oldSelectedItems = selected;
 
         const newItems = [];
         newSnapshots.forEach((snap)=>{

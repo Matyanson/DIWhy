@@ -54,10 +54,6 @@ const Navbar = ()=>{
                     /*background: linear-gradient(#557bc3 , #557bc3 60%, #4f70af 60%, #4f70af 86%, #1e4ba0 86%, #1e4ba0 100% );*/
                     background: ${dark};
                     box-shadow: 0px 2px 5px 0px #0000004f;
-                    border-top-left-radius: 0px;
-                    border-top-right-radius: 0px;
-                    border-bottom-left-radius: 15px;
-                    border-bottom-right-radius: 15px;
                     position: fixed;
                     overflow: hidden;
                     margin: 0;

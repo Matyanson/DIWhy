@@ -21,6 +21,10 @@ export default function TimelineProvider({ children, initialSteps = [], onChange
     },[steps]);
     const [videoData, setVideoData] = useVideoContext();
 
+    useEffect(()=>{
+        onChange(stepsSorted);
+    }, [stepsSorted])
+
     function setStepByIndex(index, newData){
         if(steps[index]){
             setSteps([

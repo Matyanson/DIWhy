@@ -23,10 +23,12 @@ const VideoList = ()=> {
                 })}
             <style jsx>{`
                 .videoList{
+                    width: 100%;
                     display: flex;
                     flex-flow: row wrap;
-                    align-items: center;
-                    justify-content: space-around;
+                    align-items: start;
+                    align-content: start;
+                    justify-content: center;
                 }
             `}</style>
         </div>

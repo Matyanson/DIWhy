@@ -58,7 +58,6 @@ const StepsContainer = ({editable = false}: Props) => {
                     <Plus/>
                 </div>
             }
-            <button onClick={()=>test()}>Test</button>
             <style jsx >{`
             .steps{
                 position: relative;

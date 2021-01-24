@@ -36,10 +36,10 @@ if(id == "RJodjqgmbRkSGADzHAzw")
                 <h3>{title}</h3>
             </a>
             <div>
-                <div className="row">
+                {/* <div className="row">
                     { tools.map((x, key) => <Tag key={key} title={x} background="#2a64bd" />) }
                     { material.map((x, key) => <Tag key={-key} title={x} background="#c44d12" />) }
-                </div>
+                </div> */}
                 {author &&
                 <a className="row" href={`/chanel?id=${authorId}`}>
                     <><ProfilePic src={author.img} size={30}/>{authorName}</>

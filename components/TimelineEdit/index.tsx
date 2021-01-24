@@ -9,25 +9,31 @@ import SideMap from './SideMap';
 import TimesContainer from './TimesContainer';
 
 interface Props{
+    initialSteps?: IStep[],
     editable?: boolean,
+    onChange?: (steps:IStep[])=>void
 }
 
-const initialSteps: IStep[] = [{
+const defaultSteps: IStep[] = [{
     start:1000,
     title: "The First step",
-    description: "blůavsdůkmdsk n§sdfkldng§k adsn knd d fs§afds "
-},
-{
-    start:3000,
-    title: "The Second step",
-    description: "lall ala sll ala lsj saklfj kasnl la la ll ala explosion"
+    description: "give more detail into this step"
 }]
 
-const TimelineEdit = ({editable = false} : Props) => {
+const TimelineEdit = ({
+    initialSteps = defaultSteps,
+    editable = false,
+    onChange = ()=>{}
+} : Props) => {
     const [theme] = useTheme();
     const [videoData, setVideoData] = useVideoContext();
     const [sliderValue, setSliderValue] = useState(videoData.currentMS);
-    const [steps, setSteps] = useState<IStep[]>([]);
+    const [steps, setSteps] = useState<IStep[]>(initialSteps);
+
+    useEffect(()=>{
+        console.log("steps changed")
+        onChange(steps);
+    }, [steps])
 
     useEffect(()=>{
         setSliderValue(videoData.currentMS);

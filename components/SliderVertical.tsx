@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTheme } from "./ThemeProvider";
 
 interface Props{
@@ -42,7 +42,6 @@ const SliderVertical = ({
                 <div className="range" style={{height: `${percentage}%`}} ></div>
                 <div className="thumb" style={inverted ? {top: `${percentage}%`, transform: `translateY(-50%)`} : {bottom: `${percentage}%`}} ></div>
             </div>
-            {innerValue}
             <style jsx>{`
                 .wrap{
                     position: relative;
