@@ -99,7 +99,7 @@ const Uploader = ()=> {
         console.log(form);
     }
   return (
-    <div className="Test">
+    <div>
         {
             !files &&
             <FilePicker accept="video/*" multiple={true} onSelect={(data)=>{onFileChange(data)}} />
@@ -107,28 +107,36 @@ const Uploader = ()=> {
         {
             files && files[0] &&
             <VideoContextProvider>
-                <VideoControls>
-                    <VideoPlayer url={files[0].url} />
-                </VideoControls>
-                
-                Title <input type="text" value={form.title} onChange={(e)=>{setForm({...form, title: e.target.value})}}/>
-                Public <input type="checkbox" checked={form.public} onChange={()=>setForm({...form, public: !form.public})} />
-                <div className="selects">
-                    <div>
-                        <h4>Tools</h4>
-                        <DBSelect onChange={(d)=>setForm({...form, tools: d.map(x=>x.id)})} displayTextKey={"name"} collectionPath={"tools"}/>
-                        <DBAdd collectionPath="tools"/>
+            <div className="formWrap">
+                <div className="left">
+                    <div className="vidPlayer">
+                        <VideoControls>
+                            <VideoPlayer url={files[0].url} />
+                        </VideoControls>
                     </div>
-                    <div>
-                        <h4>Material</h4>
-                        <DBSelect onChange={(d)=>setForm({...form, material: d.map(x=>x.id)})} displayTextKey={"name"} collectionPath={"material"}/>
-                        <DBAdd collectionPath="material" />
+                    
+                    <input type="text" placeholder="Title of the video" value={form.title} onChange={(e)=>{setForm({...form, title: e.target.value})}}/>
+                    Public <input type="checkbox"  checked={form.public} onChange={()=>setForm({...form, public: !form.public})} />
+                    <div className="selects">
+                        <div>
+                            <h4>Tools</h4>
+                            <DBSelect onChange={(d)=>setForm({...form, tools: d.map(x=>x.id)})} displayTextKey={"name"} collectionPath={"tools"}/>
+                            <DBAdd collectionPath="tools"/>
+                        </div>
+                        <div>
+                            <h4>Material</h4>
+                            <DBSelect onChange={(d)=>setForm({...form, material: d.map(x=>x.id)})} displayTextKey={"name"} collectionPath={"material"}/>
+                            <DBAdd collectionPath="material" />
+                        </div>
                     </div>
                 </div>
-                <TimelineEdit editable={true} onChange={(steps)=>{setForm({...form, steps: steps})}} />
-                <button onClick={()=>submit()}>Send</button>
-                <button onClick={()=>test()}>test</button>
-                <Progressbar value={progress} />
+                <div className="right">
+                    <TimelineEdit editable={true} onChange={(steps)=>{setForm({...form, steps: steps})}} />
+                </div>
+            </div>
+            <button onClick={()=>submit()}>Send</button>
+            {/* <button onClick={()=>test()}>test</button> */}
+            <Progressbar value={progress} />
             </VideoContextProvider>
         }
         {
@@ -136,9 +144,28 @@ const Uploader = ()=> {
             <p className="error">{errorMsg}</p>
         }
         <style jsx>{`
+            .formWrap{
+                position: relative;
+                display: flex;
+                flex-flow: row wrap;
+                justify-content: center;
+                margin: 5px 0;
+            }
+            .vidPlayer{
+                position: sticky;
+                top: 0;
+                z-index: 10;
+            }
+            .left, .right{
+                margin-bottom: 5px;
+            }
             .selects{
                 display: flex;
                 flex-flow: row;
+            }
+            input[type=text]{
+                padding: 7px;
+                font-size: 1.2rem;
             }
             `}</style>
     </div>
