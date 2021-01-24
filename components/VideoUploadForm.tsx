@@ -154,6 +154,7 @@ const Uploader = ()=> {
             .vidPlayer{
                 position: sticky;
                 top: 0;
+                max-width: 600px;
                 z-index: 10;
             }
             .left, .right{
