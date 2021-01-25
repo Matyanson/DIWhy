@@ -28,7 +28,7 @@ const SideMap = () => {
             .sideMap{
                 position: relative;
                 width: 10px;
-                height: 100%;
+                height: auto;
             }
             `}</style>
         </div>

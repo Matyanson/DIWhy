@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { db } from '../firebase';
 import { casefold } from '../helpers/functions';
+import { Plus } from './icons';
 
 interface Props {
     collectionPath: string,
@@ -43,9 +44,11 @@ const CreateTool = ({
     }
     return (
         <div>
-            <h3>Create some new {collectionPath}</h3>
-            {title}: <input type="text" value={form.name} onChange={(e)=>setName(e.target.value)} />
-            <button onClick={()=>submit()} >Add</button>
+            <h3>Create new {collectionPath}</h3>
+            <div className="box">
+                <input type="text" placeholder={`${title} of the ${collectionPath}`} value={form.name} onChange={(e)=>setName(e.target.value)} />
+                <button onClick={()=>submit()} ><Plus/></button>
+            </div>
             {
                 errorMsg &&
                 <div className="error">
@@ -53,6 +56,18 @@ const CreateTool = ({
                 </div>
             }
         <style jsx>{`
+            input[type=text]{
+                margin:0;
+                border-radius: 0;
+            }
+            button{
+                border-radius: 0;
+            }
+            .box{
+                display: flex;
+                flex-flow: row;
+                margin: 5px 0;
+            }
         `}</style>
         </div>
     );

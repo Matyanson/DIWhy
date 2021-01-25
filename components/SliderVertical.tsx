@@ -45,7 +45,7 @@ const SliderVertical = ({
             <style jsx>{`
                 .wrap{
                     position: relative;
-                    height: 100%;
+                    height: auto;
                     width: 20px;
                 }
                 input[type=range]{

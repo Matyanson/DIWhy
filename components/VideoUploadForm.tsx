@@ -13,12 +13,13 @@ import { useTheme } from './ThemeProvider';
 import VideoPlayer from './HtmlVideoDisplay';
 import VideoControls from './VideoControls';
 import VideoContextProvider from './VideoContextProvider';
+import { DownArrow } from './icons';
 
 
 const Uploader = ()=> {
     const [form, setForm] = useState({
         title: "",
-        public: false,
+        public: true,
         tools: [],
         material: [],
         steps: []
@@ -26,6 +27,8 @@ const Uploader = ()=> {
     const [progress, setProgress] = useState(0);
     const [files, setFiles] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
+    const [hidden, setHidden] = useState(true);
+    const [theme] = useTheme();
     const user = useAuth();
     const router = useRouter();
     let storageRef = storage.ref();
@@ -117,16 +120,30 @@ const Uploader = ()=> {
                     
                     <input type="text" placeholder="Title of the video" value={form.title} onChange={(e)=>{setForm({...form, title: e.target.value})}}/>
                     Public <input type="checkbox"  checked={form.public} onChange={()=>setForm({...form, public: !form.public})} />
-                    <div className="selects">
-                        <div>
-                            <h4>Tools</h4>
-                            <DBSelect onChange={(d)=>setForm({...form, tools: d.map(x=>x.id)})} displayTextKey={"name"} collectionPath={"tools"}/>
-                            <DBAdd collectionPath="tools"/>
+                    <div className="tags">
+                        <div className="select">
+                            <div className="column">
+                                <h4>Tools</h4>
+                                <DBSelect onChange={(d)=>setForm({...form, tools: d.map(x=>x.id)})} displayTextKey={"name"} collectionPath={"tools"}/>
+
+                            </div>
+                            <div className="column">
+                                <h4>Material</h4>
+                                <DBSelect onChange={(d)=>setForm({...form, material: d.map(x=>x.id)})} displayTextKey={"name"} collectionPath={"material"}/>
+                            </div>
                         </div>
-                        <div>
-                            <h4>Material</h4>
-                            <DBSelect onChange={(d)=>setForm({...form, material: d.map(x=>x.id)})} displayTextKey={"name"} collectionPath={"material"}/>
-                            <DBAdd collectionPath="material" />
+                        <div className="addEdge" onClick={()=>{setHidden(!hidden)}}>
+                            <div>can't find your tag? create new!</div>
+                            <div className="line"></div>
+                            <div className="arrow"><DownArrow/></div>
+                        </div>
+                        <div className={`add ${hidden ? "hidden" : ""}`}>
+                            <div className="column">
+                                <DBAdd collectionPath="tools"/>
+                            </div>
+                            <div className="column">
+                                <DBAdd collectionPath="material" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -158,11 +175,48 @@ const Uploader = ()=> {
                 z-index: 10;
             }
             .left, .right{
-                margin-bottom: 5px;
+                margin: 5px;
             }
-            .selects{
+            .tags{
                 display: flex;
-                flex-flow: row;
+                flex-flow: column;
+                justify-content: start;
+            }
+            .tags .select, .tags .add{
+                width: auto;
+                display: flex;
+                flex-flow: row wrap;
+                justify-content: start;
+            }
+            .tags .addEdge{
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: space-between;
+                align-items: center;
+                cursor: pointer;
+            }
+            .tags .addEdge .line{
+                height: 1px;
+                width: auto;
+                flex: 1;
+                margin: auto 5px;
+                background: ${theme.text};
+            }
+            .tags .addEdge .arrow{
+                padding: 2px;
+                fill: ${theme.text};
+            }
+            .tags .hidden{
+                height: 0px;
+                overflow: hidden;
+            }
+            .column{
+                display: flex;
+                flex-flow: column;
+                justify-content: left;
+
+                padding: 5px;
+                max-width: 200px;
             }
             input[type=text]{
                 padding: 7px;

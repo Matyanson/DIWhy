@@ -46,21 +46,16 @@ const TimelineEdit = ({
     return (
         <div className="wrap">
         <TimelineProvider initialSteps={initialSteps} onChange={(steps)=>setSteps(steps)}>
-            <div className="scale"></div>
             <TimesContainer />
             <SliderVertical min={0} max={videoData.durationMS ?? 10000} value={sliderValue} onChange={(v)=>setTime(v)} inverted={true}/>
             <SideMap />
             <StepsContainer editable={editable}/>
         </TimelineProvider> 
             <style jsx>{`
-                .scale{
-                    height:80vh;
-                    width:0px;
-                }
                 .wrap{
                     display: flex;
                     flex-flow: row nowrap;
-                    height: 80vh;
+                    min-height: 80vh;
                 }
             `}</style>
         </div>

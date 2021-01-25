@@ -28,7 +28,7 @@ const TimesContainer = () => {
             }
             .times{
                 position: relative;
-                height: 100%;
+                height: auto;
                 display: flex;
                 flex-flow: column;
                 justify-content: space-between;

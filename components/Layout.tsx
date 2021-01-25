@@ -28,6 +28,7 @@ const Layout = ({children})=>{
                     display: inline-block;
                     font-size: 16px;
                     user-select: none;
+                    cursor: pointer;
                 }
                 a{
                     color: ${primary};
