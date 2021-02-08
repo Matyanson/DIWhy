@@ -11,8 +11,8 @@ import React, { useState } from 'react';
 import DBAdd from '../components/DBAdd';
 import DBSelect from '../components/DBTagSelect';
 import TagSelect from '../components/TagSelect';
+import Button from '../components/styled/Button';
 
-const items = [ "Scissors", "Hammer" ];
 
 export default function About(props) {
   const [form, setForm] = useState({});
@@ -23,6 +23,7 @@ export default function About(props) {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Test />
+        <Button>Styled Component Button!</Button>
         <h4>Material</h4>
         <DBSelect displayTextKey={"name"} collectionPath={"material"} onChange={(selected)=>{setForm({...form, tools: selected.map(x=>x.id)})}} />
         <button onClick={()=>{console.log(form)}} >test</button>
