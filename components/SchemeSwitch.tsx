@@ -1,4 +1,4 @@
-import templates from '../assets/templates.json';
+import templates from '../assets/templates';
 import SchemeButton from './SchemeButton';
 import { useTheme } from './ThemeProvider';
 
@@ -6,14 +6,10 @@ const SchemeSwitch = ()=>{
     const [theme, setTheme] = useTheme();
     let templateList = Object.entries(templates);
 
-    function changeTheme(key){
-        if(templates[key])
-            setTheme(templates[key]);
-    }
     return (
         <div className="container">
             {templateList.map((x, index)=>{
-                return <div key={index} onClick={()=>changeTheme(x[0])}><SchemeButton colors={x[1]} /></div>
+                return <div key={index} onClick={()=>setTheme(x[0])}><SchemeButton colors={x[1]} /></div>
             })}
             <style jsx >{`
                 .container{

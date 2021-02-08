@@ -1,6 +1,5 @@
 import AuthProvider from '../components/UserProvider';
 import ThemeProvider from '../components/ThemeProvider';
-import templates from '../assets/templates.json';
 import App from 'next/app';
 import nookies from 'nookies';
 import Layout from '../components/Layout';
