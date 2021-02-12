@@ -12,7 +12,7 @@ const SchemeSwitch = ()=>{
                 return <div key={index} onClick={()=>setTheme(x[0])}><SchemeButton colors={x[1]} /></div>
             })}
             <style jsx >{`
-                .container{
+                .container {
                     display: flex;
                     flex-flow: row;
                 }

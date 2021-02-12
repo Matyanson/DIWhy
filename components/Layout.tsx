@@ -33,7 +33,7 @@ const Layout = ({children})=>{
                 a{
                     color: ${primary};
                 }
-                input[type=text] {
+                input {
                     width: 100%;
                     padding: 12px 20px;
                     margin: 8px 0;
