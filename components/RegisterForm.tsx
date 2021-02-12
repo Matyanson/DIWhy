@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import FilePicker from './FilePicker';
 import ProgressBar from './Progressbar';
 import ProfilePic from './ProfilePicture';
+import Button from './styled/Button';
 
 const RegisterForm = ()=> {
     const router = useRouter();
@@ -117,7 +118,7 @@ const RegisterForm = ()=> {
                 error &&
                 <p className="error">{errorMsg}</p>
             }
-            <button>Register</button>
+            <Button>Register</Button>
             <ProgressBar value={progress} />
         </form>
     </div>

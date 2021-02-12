@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import * as firebase from 'firebase/app';
 import { db, auth } from '../firebase';
 import { useRouter } from 'next/router';
+import Button from './styled/Button';
 
 const LoginForm = ()=> {
     const router = useRouter();
@@ -44,7 +45,7 @@ const LoginForm = ()=> {
               error &&
               <p>{errorMsg}</p>
             }
-            <button>Sign In</button>
+            <Button>Sign In</Button>
         </form>
     </div>
   );
