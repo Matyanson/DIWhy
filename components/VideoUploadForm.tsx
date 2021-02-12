@@ -14,6 +14,8 @@ import VideoPlayer from './HtmlVideoDisplay';
 import VideoControls from './VideoControls';
 import VideoContextProvider from './VideoContextProvider';
 import { DownArrow } from './icons';
+import Input from './styled/Input';
+import Button from './styled/Button';
 
 
 const Uploader = ()=> {
@@ -118,7 +120,7 @@ const Uploader = ()=> {
                         </VideoControls>
                     </div>
                     
-                    <input type="text" placeholder="Title of the video" value={form.title} onChange={(e)=>{setForm({...form, title: e.target.value})}}/>
+                    <Input type="text" label="Title of the video" value={form.title} onChange={(e)=>{setForm({...form, title: e.target.value})}} />
                     Public <input type="checkbox"  checked={form.public} onChange={()=>setForm({...form, public: !form.public})} />
                     <div className="tags">
                         <div className="select">
@@ -151,7 +153,7 @@ const Uploader = ()=> {
                     <TimelineEdit editable={true} onChange={(steps)=>{setForm({...form, steps: steps})}} />
                 </div>
             </div>
-            <button onClick={()=>submit()}>Send</button>
+            <Button onClick={()=>submit()}>Send</Button>
             {/* <button onClick={()=>test()}>test</button> */}
             <Progressbar value={progress} />
             </VideoContextProvider>

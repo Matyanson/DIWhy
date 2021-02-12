@@ -33,10 +33,13 @@ const Slider = ( {min=0, max=100, value=0, onChange=()=>{}}: Props)=>{
                 height: 15px;
                 width: 100%;
                 position: relative;
+                overflow: hidden;
             }
             input[type=range]{
                 z-index: 2;
                 position: absolute;
+                margin: 0;
+                padding: 0;
                 top:0;
                 left:0;
                 height: 100%;
@@ -48,6 +51,7 @@ const Slider = ( {min=0, max=100, value=0, onChange=()=>{}}: Props)=>{
                 position: relative;
                 height: 100%;
                 width: 100%;
+                pointer-events: none;
             }
             .slider > .track{
                 position: absolute;

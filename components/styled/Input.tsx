@@ -24,9 +24,9 @@ const InputComp = ({label = "" , ...rest}: Props & React.InputHTMLAttributes<HTM
         }
         input 				{
             font-size:18px;
-            padding:10px 10px 10px 5px;
+            padding:15px 10px 10px 5px;
             display:block;
-            width:auto;
+            width:100%;
             background: none;
             outline:none;
             border:none;
@@ -47,7 +47,7 @@ const InputComp = ({label = "" , ...rest}: Props & React.InputHTMLAttributes<HTM
             width: 100%;
         }
         input:focus ~ label, input:valid ~ label {
-            top: -20px;
+            top: -7px;
             font-size:14px;
             color:${colors.primary};
         }
