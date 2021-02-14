@@ -13,13 +13,13 @@ function MyApp({ Component, pageProps, user, userData}) {
   
   return (
     
-    <ThemeProvider>
-      <AuthProvider initialUser={user} initialUserData={userData}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </AuthProvider>
-    </ThemeProvider>
+    <AuthProvider initialUser={user} initialUserData={userData}>
+      <ThemeProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+      </ThemeProvider>
+    </AuthProvider>
   )
   
 }
