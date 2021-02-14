@@ -17,7 +17,8 @@ import Input from '../components/styled/Input';
 
 export default function About(props) {
   const [form, setForm] = useState({
-    input: ""
+    input: "",
+    tools: []
   });
   return (
     <div className="aboutPage">
