@@ -9,11 +9,11 @@ import { useState } from 'react';
 
 
 function MyApp({ Component, pageProps, user, userData}) {
-  
+  const initTheme = userData?.currTheme ?? null;
   return (
     
     <AuthProvider initialUser={user}>
-      <ThemeProvider initialTheme={userData ?? null}>
+      <ThemeProvider initialTheme={ initTheme }>
           <Layout>
             <Component {...pageProps} />
           </Layout>
