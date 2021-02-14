@@ -9,16 +9,17 @@ import { useState } from 'react';
 
 
 function MyApp({ Component, pageProps, user, userData}) {
-
+  
   
   return (
-    <ThemeProvider>
-        <AuthProvider initialUser={user} initialUserData={userData}>
+    
+      <AuthProvider initialUser={user} initialUserData={userData}>
+        <ThemeProvider initialTheme={userData.currTheme}>
           <Layout>
             <Component {...pageProps} />
           </Layout>
-        </AuthProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </AuthProvider>
   )
   
 }

@@ -12,10 +12,7 @@ const validate = async (token) => {
 
   const result = {
     user: user,
-    userData: {
-      username: userData.username,
-      img: userData.img?? defaultImg
-    }
+    userData: Object.assign({img: defaultImg}, userData)
   }
    return result;
 };

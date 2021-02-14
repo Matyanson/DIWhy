@@ -32,10 +32,7 @@ export default function AuthProvider({ children, token, initialUser, initialUser
         const data = snapshot.data();
         const defaultImg = "https://firebasestorage.googleapis.com/v0/b/diwhy-39b77.appspot.com/o/default%2Fprofile.jpg?alt=media&token=9868229e-d8dd-48d7-9947-b08aa19d5043";
         if(data)
-          setUserData({
-            username: data.username,
-            img: data.img
-          });
+          setUserData(data);
         else
           setUserData({
             username: "",

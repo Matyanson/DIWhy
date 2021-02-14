@@ -42,6 +42,9 @@ const Navbar = ()=>{
                             <div>{user.username}</div>
                         </a></Link>
                     </li>
+                    <li>
+                        {user.currTheme && user.currTheme.primary}
+                    </li>
                 </>
                 }
                 <li>

@@ -46,7 +46,7 @@ const themes: { [key: string]: ColorTemplate } = {
         allert: "#ff3730"
     },
     dark3: {
-        dark: "#363636",
+        dark: "#474747",
         text: "#c6c6c6",
         heading: "#fff",
         primary: "#f90",
