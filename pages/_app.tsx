@@ -13,11 +13,7 @@ function MyApp({ Component, pageProps, user, userData}) {
   return (
     
     <AuthProvider initialUser={user}>
-<<<<<<< HEAD
       <ThemeProvider>
-=======
-      <ThemeProvider initialTheme={userData.currTheme}>
->>>>>>> df169ff7799d37effd13e4b1e1b407b918904977
           <Layout>
             <Component {...pageProps} />
           </Layout>
