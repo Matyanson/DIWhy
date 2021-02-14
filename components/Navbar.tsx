@@ -8,7 +8,7 @@ import ProfilePic from './ProfilePicture';
 const Navbar = ()=>{
     const user = useAuth();
     const router = useRouter();
-    const [ { background, dark, text, primary} ] = useTheme();
+    const [ { background, dark, text, primary, neutral, neutral_dark} ] = useTheme();
     return (
         <div>
             <ul className="nav">
@@ -75,7 +75,7 @@ const Navbar = ()=>{
                     margin: 0 10px;
                     padding: 2px 5px;
                     /*background: #809ad38f;*/
-                    color: ${background};
+                    color: ${neutral};
                     border-radius: 10px;
                     text-align: center;
                     vertical-align: center;
@@ -85,7 +85,7 @@ const Navbar = ()=>{
                     flex-flow: row;
                 }
                 .nav a{
-                    color: ${background};
+                    color: ${neutral_dark};
                 }
                 .active a{
                     color: ${primary}!important;

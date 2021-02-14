@@ -3,7 +3,9 @@ export default interface ColorTemplate {
     text: string,
     heading: string,
     primary: string,
-    container: string,
+    primary_light: string,
+    neutral: string,
+    neutral_dark: string,
     background: string,
     allert: string
 }

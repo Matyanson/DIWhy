@@ -1,14 +1,14 @@
 import { useTheme } from './ThemeProvider';
 import { useContext } from 'react'
 const Container = ({children})=>{
-  const [{ container }] = useTheme();
+  const [{ neutral }] = useTheme();
     return (
         <>
             <div className="container">
                 {children}
                 <style jsx >{`
                 .container{
-                    background: ${container};
+                    background: ${neutral};
                     margin-top: 50px;
                     padding: 20px;
                     border-radius: 20px;

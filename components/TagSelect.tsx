@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTheme } from './ThemeProvider';
 import Tag from './Tag';
+import themes from '../assets/templates';
 
 interface Props {
     items: string[],
@@ -16,7 +17,7 @@ const TagSelect = ({
         onSearch = ()=> {}
     }: Props)=> {
 
-    const [{ primary, background }] = useTheme();
+    const [theme] = useTheme();
     const [focused, setFocus] = useState(false);
     const [selected, setSelected] = useState(select);
 
@@ -91,8 +92,8 @@ const TagSelect = ({
             border-radius: 0;
           }
           .more_btn{
-            background: ${primary};
-            color: ${background};
+            background: ${theme.primary};
+            color: ${theme.background};
             padding: 2px;
             cursor: pointer;
             text-align: center;
@@ -100,13 +101,15 @@ const TagSelect = ({
           .items{
               position: absolute;
               width: 100%;
+              border: solid 1px ${theme.neutral_dark};
           }
           .items div{
               cursor: pointer;
-              background: #ddd;
+              background: ${theme.background};
+              color: ${theme.text}
           }
           .items div:hover{
-              background: #eee;
+              background: ${theme.neutral_dark};
           }
           .tagsContainer{
             display: flex;

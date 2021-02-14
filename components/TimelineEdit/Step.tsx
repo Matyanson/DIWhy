@@ -92,7 +92,7 @@ const Step = ({
                     transition: all 0.2s;
                 }
                 .step.active{
-                    background: #ccccccff;
+                    background: ${theme.neutral_dark};
                 }
                 .step.active .body{
                     padding: 7px;
@@ -111,6 +111,9 @@ const Step = ({
                     max-height:0px;
                     overflow: hidden;
                     transition: all 0.2s;
+                }
+                .description, .description input{
+                    color: ${theme.text};
                 }
                 .title, .title input{
                     font-size: 1.3rem;
