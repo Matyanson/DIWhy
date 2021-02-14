@@ -10,29 +10,29 @@ import { useAuth } from "./UserProvider";
 const ThemeContext = createContext<[ColorTemplate, (key:string)=>void]>(null);
 
 export default function CustomThemeProvider({ children }){
-    //const user = useAuth();
+    const user = useAuth();
     const [ theme, setTheme ] = useState<ColorTemplate>(templates.light);
 
     const setThemeByKey = (key: string) =>{
         if(!templates[key])
-            setTheme(templates["light"]);
+            changeTheme(templates["light"]);
         else
-            setTheme(templates[key]);
+            changeTheme(templates[key]);
     }
 
-    // const changeTheme = (themeData: ColorTemplate) => {
-    //     saveThemeToUser(themeData);
-    //     setTheme(themeData);
-    // }
+    const changeTheme = (themeData: ColorTemplate) => {
+        saveThemeToUser(themeData);
+        setTheme(themeData);
+    }
 
-    // const saveThemeToUser = (themeData: ColorTemplate) => {
-    //     if(user && user.uid){
-    //         const usrRef = db.collection('users').doc(user.uid);
-    //         usrRef.update({
-    //             currTheme: themeData
-    //         })
-    //     }
-    // }
+    const saveThemeToUser = (themeData: ColorTemplate) => {
+        if(user && user.uid){
+            const usrRef = db.collection('users').doc(user.uid);
+            usrRef.update({
+                currTheme: themeData
+            })
+        }
+    }
     return(
         <ThemeContext.Provider value={[theme, setThemeByKey]}>
             <ThemeProvider theme={ theme }>
