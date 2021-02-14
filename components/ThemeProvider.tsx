@@ -11,7 +11,7 @@ const ThemeContext = createContext<[ColorTemplate, (key:string)=>void]>(null);
 
 export default function CustomThemeProvider({ children, initialTheme = null }){
     const user = useAuth();
-    const [ theme, setTheme ] = useState<ColorTemplate>(initialTheme ?? templates.light);
+    const [ theme, setTheme ] = useState<ColorTemplate>(initialTheme ? initialTheme : templates.light);
 
     const setThemeByKey = (key: string) =>{
         if(!templates[key])
