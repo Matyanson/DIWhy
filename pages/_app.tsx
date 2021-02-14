@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps, user, userData}) {
   return (
     
       <AuthProvider initialUser={user} initialUserData={userData}>
-        <ThemeProvider initialTheme={userData.currTheme}>
+        <ThemeProvider>
           <Layout>
             <Component {...pageProps} />
           </Layout>

@@ -9,9 +9,9 @@ type Props = [ColorTemplate, (key:string)=>void, (theme:ColorTemplate)=>void ];
 
 const ThemeContext = createContext<Props>(null);
 
-export default function CustomThemeProvider({ children, initialTheme = null }){
+export default function CustomThemeProvider({ children }){
     const user = useAuth();
-    const [ theme, setTheme ] = useState<ColorTemplate>(initialTheme ?? templates.light);
+    const [ theme, setTheme ] = useState<ColorTemplate>(user.currTheme ?? templates.light);
     console.log(theme);
 
     const setThemeByKey = (key: string) =>{
