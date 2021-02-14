@@ -17,8 +17,7 @@ import Input from '../components/styled/Input';
 
 export default function About(props) {
   const [form, setForm] = useState({
-    input: "",
-    tools:[]
+    input: ""
   });
   return (
     <div className="aboutPage">
@@ -30,7 +29,7 @@ export default function About(props) {
         <Button>Styled Component Button!</Button>
         <Input value={form.input} onChange={(e)=>setForm({...form, input: e.target.value})} label={"nameee??"}/>
         <h4>Material</h4>
-        <DBSelect displayTextKey={"name"} collectionPath={"material"} onChange={(selected)=>setForm({...form, tools: selected})} />
+        <DBSelect displayTextKey={"name"} collectionPath={"material"} onChange={(selected)=>{setForm({...form, tools: selected.map(x=>x.id)})}} />
         <Button onClick={()=>{console.log(form)}} >test</Button>
         <style jsx>{`
           .aboutPage{
