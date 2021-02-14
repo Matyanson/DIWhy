@@ -47,10 +47,13 @@ const SliderVertical = ({
                     position: relative;
                     height: auto;
                     width: 20px;
+                    overflow: hidden;
                 }
                 input[type=range]{
                     z-index: 2;
                     position: absolute;
+                    margin: 0;
+                    padding: 0;
                     top:0;
                     left:0;
                     -webkit-appearance: slider-vertical;

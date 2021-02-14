@@ -75,7 +75,7 @@ const Navbar = ()=>{
                     margin: 0 10px;
                     padding: 2px 5px;
                     /*background: #809ad38f;*/
-                    color: ${neutral};
+                    color: ${background};
                     border-radius: 10px;
                     text-align: center;
                     vertical-align: center;
@@ -85,7 +85,7 @@ const Navbar = ()=>{
                     flex-flow: row;
                 }
                 .nav a{
-                    color: ${neutral_dark};
+                    color: ${background};
                 }
                 .active a{
                     color: ${primary}!important;

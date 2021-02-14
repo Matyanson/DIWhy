@@ -24,18 +24,18 @@ const themes: { [key: string]: ColorTemplate } = {
         allert: "#ff3730"
     },
     dark: {
-        dark: "#23272a",
+        dark: "#99aab5",
         text: "#ffffff",
         heading: "#ffffff",
         primary: "#7289da",
         primary_light: "#36393f",
-        neutral: "#2c2f33",
-        neutral_dark: "#99aab5",
+        neutral: "#23272a",
+        neutral_dark: "#2c2f33",
         background: "#36393f",
         allert: "#ff8936"
     },
     dark2: {
-        dark: "#1f1f1f",
+        dark: "#404040",
         text: "#d9d9d9",
         heading: "#d9d9d9",
         primary: "#ed2553",
@@ -46,7 +46,7 @@ const themes: { [key: string]: ColorTemplate } = {
         allert: "#ff3730"
     },
     dark3: {
-        dark: "#1b1b1b",
+        dark: "#363636",
         text: "#c6c6c6",
         heading: "#fff",
         primary: "#f90",
