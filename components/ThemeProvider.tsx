@@ -9,9 +9,9 @@ import { useAuth } from "./UserProvider";
 
 const ThemeContext = createContext<[ColorTemplate, (key:string)=>void]>(null);
 
-export default function CustomThemeProvider({ children, initialTheme = null }){
+export default function CustomThemeProvider({ children }){
     const user = useAuth();
-    const [ theme, setTheme ] = useState<ColorTemplate>(initialTheme ? initialTheme : templates.light);
+    const [ theme, setTheme ] = useState<ColorTemplate>(user.currTheme ?? templates.light);
 
     const setThemeByKey = (key: string) =>{
         if(!templates[key])

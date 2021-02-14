@@ -10,11 +10,10 @@ import { useState } from 'react';
 
 function MyApp({ Component, pageProps, user, userData}) {
   
-  
   return (
     
-    <AuthProvider initialUser={user} initialUserData={userData}>
-      <ThemeProvider initialTheme={userData.currTheme}>
+    <AuthProvider initialUser={user}>
+      <ThemeProvider>
           <Layout>
             <Component {...pageProps} />
           </Layout>
