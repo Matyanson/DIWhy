@@ -1,9 +1,9 @@
 export default interface ColorTemplate {
-    dark: string,
+    nav_BG: string,
+    nav_FG: string,
     text: string,
-    heading: string,
+    secondary: string,
     primary: string,
-    primary_light: string,
     neutral: string,
     neutral_dark: string,
     background: string,

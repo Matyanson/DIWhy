@@ -24,7 +24,7 @@ const VideoList = ({
     tools = [],
     profilePic = "https://firebasestorage.googleapis.com/v0/b/diwhy-39b77.appspot.com/o/default%2Fprofile.jpg?alt=media&token=9868229e-d8dd-48d7-9947-b08aa19d5043"
 }: Props)=> {
-const [{ heading }] = useTheme();
+const [{ secondary }] = useTheme();
 const authorRef = db.collection('users').doc(authorId);
 const [author] = useDocumentData<any>(authorRef);
 if(id == "RJodjqgmbRkSGADzHAzw")
@@ -60,7 +60,7 @@ if(id == "RJodjqgmbRkSGADzHAzw")
                     margin: 10px;
                 }
                 .video h3 a{
-                    color: ${heading};
+                    color: ${secondary};
                 }
                 .row{
                     display: flex;

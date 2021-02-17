@@ -117,7 +117,7 @@ const Step = ({
                 }
                 .title, .title input{
                     font-size: 1.3rem;
-                    color: ${theme.heading};
+                    color: ${theme.secondary};
                     transition: all 0.2s;
                 }
                 .step.active .number{

@@ -3,7 +3,7 @@ import Navbar from './Navbar';
 import { useTheme } from './ThemeProvider';
 const Layout = ({children})=>{
     const [ theme ] = useTheme();
-    const { dark, primary, background, neutral, text, heading, allert } = theme;
+    const { dark, primary, background, neutral, text, secondary, allert } = theme;
     return (
         <>
             <Navbar />
@@ -15,7 +15,7 @@ const Layout = ({children})=>{
                     color: ${text};
                 }
                 h1, h2, h3{
-                    color: ${heading};
+                    color: ${secondary};
                 }
                 button{
                     background: ${primary};

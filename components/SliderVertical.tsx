@@ -68,7 +68,7 @@ const SliderVertical = ({
                     width: 100%;
                 }
                 .slider > .track{
-                    background: #000;
+                    background: ${theme.neutral_dark};
                     width:2px;
                     height: 100%;
                     margin: 0 auto;
@@ -80,7 +80,7 @@ const SliderVertical = ({
                     left: 0;
                     right: 0;
                     margin: 0 auto;
-                    background: ${theme.dark};
+                    background: ${theme.secondary};
                     width: 5px;
                     border-radius: 5px;
                     transition: all 0.1s;
@@ -94,7 +94,7 @@ const SliderVertical = ({
                     right: 0;
                     margin: 0 auto;
                     border-radius: 50px;
-                    background: ${theme.dark};
+                    background: ${theme.secondary};
                     opacity: 1;
                     transition: all 0.1s;
                 }
