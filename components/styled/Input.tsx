@@ -31,7 +31,9 @@ const InputComp = ({label = "" , ...rest}: Props & React.InputHTMLAttributes<HTM
             outline:none;
             border:none;
             border-radius: 0;
-            border-bottom:1px solid #757575;
+            /*#757575*/
+            border-bottom:1px solid ${colors.text};
+            color: ${colors.text};
         }
         .bar{
             position: absolute;
@@ -56,7 +58,7 @@ const InputComp = ({label = "" , ...rest}: Props & React.InputHTMLAttributes<HTM
             top: 10px;
             left: 5px;
             font-size: 18px;
-            color: #757575;
+            color: ${colors.text};
             font-weight: normal;
             pointer-events: none;
             transition: all .3s;

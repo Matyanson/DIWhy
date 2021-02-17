@@ -76,13 +76,19 @@ const Uploader = ()=> {
         }
     }
     function validate(){
+        const fileSizeLimit = 200 * 1000 * 1000; //200MB
         let result = true;
-        if(!files || files.length == 0){
+        if(!user){
+            setErrorMsg("Please log in!");
+            result = false;
+        }
+        if(!files || files.length < 1){
             setErrorMsg("select video file");
             result = false;
         }
-        if(!user){
-            setErrorMsg("Please log in!");
+        else if(files[0].size > 200 * 1024 * 1024){
+            setErrorMsg(`File needs to be smaller than 200MB, ${Math.floor(files[0].size /1000000)}MB > 200MB`);
+            result = false;
         }
         return result;
     }
@@ -101,7 +107,7 @@ const Uploader = ()=> {
         db.collection("videos").add(video);
     }
     function test(){
-        console.log(form);
+        validate();
     }
   return (
     <div>
@@ -154,7 +160,7 @@ const Uploader = ()=> {
                 </div>
             </div>
             <Button onClick={()=>submit()}>Send</Button>
-            {/* <button onClick={()=>test()}>test</button> */}
+            <Button onClick={()=>test()}>test</Button>
             <Progressbar value={progress} />
             </VideoContextProvider>
         }
