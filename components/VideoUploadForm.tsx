@@ -17,6 +17,7 @@ import { DownArrow } from './icons';
 import Input from './styled/Input';
 import Button from './styled/Button';
 import FloatWrap from './FloatWrap';
+import Checkbox from './styled/Checkbox';
 
 
 const Uploader = ()=> {
@@ -127,7 +128,7 @@ const Uploader = ()=> {
                         </VideoControls>    
                     </div>
                     <Input type="text" label="Title of the video" value={form.title} onChange={(e)=>{setForm({...form, title: e.target.value})}} />
-                    Public <input type="checkbox"  checked={form.public} onChange={()=>setForm({...form, public: !form.public})} />
+                    Public <Checkbox checked={form.public} onChange={()=>{setForm({...form, public: !form.public}); console.log("check")}} />
                     <div className="tags">
                         <div className="select">
                             <div className="column">
@@ -181,6 +182,7 @@ const Uploader = ()=> {
                 z-index: 10;
                 width: 100%;
                 max-width: 600px;
+                height: 50vh;
                 max-height: 50vh;
             }
             .left, .right{

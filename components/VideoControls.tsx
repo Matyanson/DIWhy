@@ -66,6 +66,11 @@ function setMouseMovement(){
                 </div>
             </div>
             <style jsx>{`
+                .sizes{
+                    position: relative;
+                    height: 100%;
+                    width: 100%;
+                }
                 .click{
                     cursor: pointer;
                 }

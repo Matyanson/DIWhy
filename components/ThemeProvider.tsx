@@ -15,7 +15,6 @@ export default function CustomThemeProvider({ children, initialTheme = null }){
     useEffect(()=>{
         if(user && user.currTheme){
             setTheme(user.currTheme);
-            console.log(user.currTheme);
         }
     }, [user?.currTheme ?? null])
 
