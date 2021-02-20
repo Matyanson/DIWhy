@@ -56,8 +56,11 @@ function onTimeUpdate(seconds: number){
             <style jsx>{`
                 #videoPlayer{
                     width: 100%;
+                    height: 100%;
                 }
                 .video{
+                    width: 100%;
+                    height: 100%;
                     display: flex;
                     flex-flow: column;
                     align-items: left;

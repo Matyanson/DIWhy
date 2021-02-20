@@ -20,7 +20,6 @@ const InputComp = ({label = "" , ...rest}: Props & React.InputHTMLAttributes<HTM
         <style jsx>{`
         .group{ 
             position:relative; 
-            margin-bottom:45px; 
         }
         input 				{
             font-size:18px;

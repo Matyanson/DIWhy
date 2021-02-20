@@ -83,6 +83,8 @@ function setMouseMovement(){
                     margin: 0 5px;
                 }
                 .videoControls{
+                    height: 100%;
+                    width: 100%;
                     position: relative;
                     color: white;
                     background: #000;

@@ -4,37 +4,21 @@ import {Upload} from './icons'
 import { useTheme } from './ThemeProvider';
 
 interface Props {
-  accept?: string,
-  multiple?: boolean,
-  Icon?: React.ReactNode
-  onSelect: (files:any[])=> void
+    children: JSX.Element
 }
 
-const FilePickerCopy = ({
-  accept = "",
-  multiple = false,
-  Icon = <Upload/>,
-  onSelect
+const IconWrap = ({
+    children
 }: Props)=> {
 
   const [colors] = useTheme();
-  function onFileChange(newFiles){
-      onSelect(newFiles);
-  }
   return (
-    <div className="filePicker">
-      <FilePickerWrapper fileNameVisible={true} multiple={multiple} accept={accept} onSelect={ (files)=> onFileChange(files) }>
-        <div className="wrap">
+    <div className="iconWrap">
           <div className="icon">
-            {Icon}
-          </div>
+            {children}
         </div>
-      </FilePickerWrapper>
         <style jsx>{`
-          .filePicker{
-            margin: 10px;
-          }
-          .wrap{
+          .iconWrap{
             background: ${colors.neutral_dark};
             height: 120px;
             width: 120px;
@@ -44,7 +28,7 @@ const FilePickerCopy = ({
             justify-content: center;
             transition: all 0.2s;
           }
-          .filePicker:hover .wrap{
+          .iconWrap:hover{
             color: ${colors.primary};
             border-color: ${colors.primary};
             filter: brightness(1.1);
@@ -59,4 +43,4 @@ const FilePickerCopy = ({
   );
 }
 
-export default FilePickerCopy;
+export default IconWrap;

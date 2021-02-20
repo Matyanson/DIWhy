@@ -77,7 +77,6 @@ const Step = ({
                     margin:0;
                     padding: 5px;
                     background: transparent;
-                    width: auto;
                 }
                 .step{
                     display: flex;

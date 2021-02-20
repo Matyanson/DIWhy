@@ -56,15 +56,17 @@ const TagSelect = ({
             <div className="selectHead">
                 <input type="text" onFocus={()=>focus()} onChange={(e)=>{onSearch(e.target.value)}} /><div className="more_btn">ˇ</div>
             </div>
-            <div className="items">
+            {
+                items && focused &&
+                <div className="items">
                 {
-                    items && focused &&
                     items.map((x, index)=>{
                         if(!selected.includes(index))
                             return <div key={index} onMouseDown={()=>{addItem(index)}} >{x}</div>
                     })
                 }
-            </div>
+                </div>
+            }
         </div>
         <div className="tagsContainer">
             {
@@ -83,7 +85,6 @@ const TagSelect = ({
           .selectHead{
               display: flex;
               flex-flow: row;
-              margin: 5px 0;
           }
           .selectHead input{
             margin: 0; 
@@ -102,6 +103,7 @@ const TagSelect = ({
               position: absolute;
               width: 100%;
               border: solid 1px ${theme.neutral_dark};
+              z-index: 10;
           }
           .items div{
               cursor: pointer;

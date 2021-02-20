@@ -16,6 +16,7 @@ import VideoContextProvider from './VideoContextProvider';
 import { DownArrow } from './icons';
 import Input from './styled/Input';
 import Button from './styled/Button';
+import FloatWrap from './FloatWrap';
 
 
 const Uploader = ()=> {
@@ -113,7 +114,7 @@ const Uploader = ()=> {
     <div>
         {
             !files &&
-            <FilePicker accept="video/*" multiple={true} onSelect={(data)=>{onFileChange(data)}} />
+            <FilePicker  accept="video/*" multiple={true} onSelect={(data)=>{onFileChange(data)}} />
         }
         {
             files && files[0] &&
@@ -123,9 +124,8 @@ const Uploader = ()=> {
                     <div className="vidPlayer">
                         <VideoControls>
                             <VideoPlayer url={files[0].url} />
-                        </VideoControls>
+                        </VideoControls>    
                     </div>
-                    
                     <Input type="text" label="Title of the video" value={form.title} onChange={(e)=>{setForm({...form, title: e.target.value})}} />
                     Public <input type="checkbox"  checked={form.public} onChange={()=>setForm({...form, public: !form.public})} />
                     <div className="tags">
@@ -160,7 +160,7 @@ const Uploader = ()=> {
                 </div>
             </div>
             <Button onClick={()=>submit()}>Send</Button>
-            <Button onClick={()=>test()}>test</Button>
+            {/* <Button onClick={()=>test()}>test</Button> */}
             <Progressbar value={progress} />
             </VideoContextProvider>
         }
@@ -170,7 +170,6 @@ const Uploader = ()=> {
         }
         <style jsx>{`
             .formWrap{
-                position: relative;
                 display: flex;
                 flex-flow: row wrap;
                 justify-content: center;
@@ -178,9 +177,11 @@ const Uploader = ()=> {
             }
             .vidPlayer{
                 position: sticky;
-                top: 0;
-                max-width: 600px;
+                top: 40px;
                 z-index: 10;
+                width: 100%;
+                max-width: 600px;
+                max-height: 50vh;
             }
             .left, .right{
                 margin: 5px;
