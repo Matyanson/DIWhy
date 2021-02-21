@@ -51,9 +51,11 @@ const Uploader = ()=> {
         let videoTitle = form.title;
         if(!validate())
             return;
+        if(!user || !user.uid)
+            return;
 
         const file = files[0];
-        let videoRef = storageRef.child(`/uploadedVideos/${file.name}`);
+        let videoRef = storageRef.child(`/uploadedVideos/${user.uid}/${Math.random()}${file.name}`);
         let uploadTask = videoRef.put(file);
         uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, onProgress, onError, onComplete);
 
@@ -78,7 +80,7 @@ const Uploader = ()=> {
         }
     }
     function validate(){
-        const fileSizeLimit = 200 * 1000 * 1000; //200MB
+        const fileSizeLimit = 200 * 1000 * 1000; //200
         let result = true;
         if(!user){
             setErrorMsg("Please log in!");
@@ -88,8 +90,12 @@ const Uploader = ()=> {
             setErrorMsg("select video file");
             result = false;
         }
-        else if(files[0].size > 200 * 1024 * 1024){
+        else if(files[0].size > fileSizeLimit){
             setErrorMsg(`File needs to be smaller than 200MB, ${Math.floor(files[0].size /1000000)}MB > 200MB`);
+            result = false;
+        }
+        else if(files[0].type.match("video.*") == null){
+            setErrorMsg('type of file selected is not a video');
             result = false;
         }
         return result;
@@ -161,7 +167,7 @@ const Uploader = ()=> {
                 </div>
             </div>
             <Button onClick={()=>submit()}>Send</Button>
-            {/* <Button onClick={()=>test()}>test</Button> */}
+            <Button onClick={()=>test()}>test</Button>
             <Progressbar value={progress} />
             </VideoContextProvider>
         }
@@ -182,7 +188,7 @@ const Uploader = ()=> {
                 z-index: 10;
                 width: 100%;
                 max-width: 600px;
-                height: 50vh;
+                height: auto;
                 max-height: 50vh;
             }
             .left, .right{
