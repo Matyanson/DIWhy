@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 const CheckboxContainer = styled.div`
+    position: relative;
   display: inline-block;
   vertical-align: middle;
 `
@@ -10,19 +11,15 @@ const Icon = styled.svg`
   stroke: white;
   stroke-width: 2px;
 `
-// Hide checkbox visually but remain accessible to screen readers.
-// Source: https://polished.js.org/docs/#hidevisually
 const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
   border: 0;
-  clip: rect(0 0 0 0);
-  clippath: inset(50%);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
+  margin:0;
+  opacity: 0;
   position: absolute;
-  white-space: nowrap;
-  width: 1px;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
 `
 
 const StyledCheckbox = styled.div`
