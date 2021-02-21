@@ -18,6 +18,7 @@ import Input from './styled/Input';
 import Button from './styled/Button';
 import FloatWrap from './FloatWrap';
 import Checkbox from './styled/Checkbox';
+import ExpandWrap from './ExpandWrap';
 
 
 const Uploader = ()=> {
@@ -147,19 +148,16 @@ const Uploader = ()=> {
                                 <DBSelect onChange={(d)=>setForm({...form, material: d.map(x=>x.id)})} displayTextKey={"name"} collectionPath={"material"}/>
                             </div>
                         </div>
-                        <div className="addEdge" onClick={()=>{setHidden(!hidden)}}>
-                            <div>can't find your tag? create new!</div>
-                            <div className="line"></div>
-                            <div className="arrow"><DownArrow/></div>
-                        </div>
-                        <div className={`add ${hidden ? "hidden" : ""}`}>
+                        <ExpandWrap label={"can't find your tag? create new!"}>
+                        <div className="add">
                             <div className="column">
                                 <DBAdd collectionPath="tools"/>
                             </div>
                             <div className="column">
                                 <DBAdd collectionPath="material" />
                             </div>
-                        </div>
+                        </div>                          
+                        </ExpandWrap>
                     </div>
                 </div>
                 <div className="right">
