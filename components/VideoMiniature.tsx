@@ -3,37 +3,32 @@ import Tag from './Tag';
 import ProfilePic from './ProfilePicture';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { db } from '../firebase';
+import IVideo from '../models/Video';
+import User from '../models/User';
 
 interface Props{
-    title: string,
-    thumbnail?: string,
-    profilePic?: string,
-    id: string,
-    authorId: string,
-    authorName: string,
-    material?: string[],
-    tools?: string[]
+    width?: string,
+    height?: string,
+    id,
+    videoData: IVideo,
 }
+const defaultProfilePic = "https://firebasestorage.googleapis.com/v0/b/diwhy-39b77.appspot.com/o/default%2Fprofile.jpg?alt=media&token=9868229e-d8dd-48d7-9947-b08aa19d5043"
 
 const VideoList = ({ 
-    title,
+    width = "280px",
+    height = "260px",
     id,
-    authorName = "Anonymous",
-    authorId,
-    material = [],
-    tools = [],
-    profilePic = "https://firebasestorage.googleapis.com/v0/b/diwhy-39b77.appspot.com/o/default%2Fprofile.jpg?alt=media&token=9868229e-d8dd-48d7-9947-b08aa19d5043"
+    videoData
 }: Props)=> {
 const [{ secondary }] = useTheme();
-const authorRef = db.collection('users').doc(authorId);
-const [author] = useDocumentData<any>(authorRef);
-if(id == "RJodjqgmbRkSGADzHAzw")
-    console.log(tools);
+const authorRef = videoData.author ? db.collection('users').doc(videoData.author.userId) : null;
+const [author] = authorRef ? useDocumentData<User>(authorRef) : [null];
+
     return (
         <div className="video">
             <a href={`/watch?v=${id}`}>
                 <img src={'/video-thumbnail-default.png'} height="165" />
-                <h3>{title}</h3>
+                <h3>{videoData.title}</h3>
             </a>
             <div>
                 {/* <div className="row">
@@ -41,13 +36,13 @@ if(id == "RJodjqgmbRkSGADzHAzw")
                     { material.map((x, key) => <Tag key={-key} title={x} background="#c44d12" />) }
                 </div> */}
                 {author &&
-                <a className="row" href={`/chanel?id=${authorId}`}>
-                    <><ProfilePic src={author.img} size={30}/>{authorName}</>
+                <a className="row" href={`/chanel?id=${videoData.author.userId}`}>
+                    <><ProfilePic src={author.img} size={30}/>{videoData.author.username}</>
                 </a>
                 }
                 {!author &&
                 <div className="row" >
-                    <><ProfilePic src={profilePic} size={30}/>{authorName}</>
+                    <><ProfilePic src={defaultProfilePic} size={30}/>{"Annonymous"}</>
                 </div>
                 }
             </div>
@@ -56,15 +51,25 @@ if(id == "RJodjqgmbRkSGADzHAzw")
                     display: flex;
                     flex-flow: column;
                     align-items: left;
-                    width: fit-content;
-                    margin: 10px;
+                    width: ${width};
+                    height: ${height};
+                    margin: 5px 15px;
+                    overflow: hidden;
                 }
                 .video h3 a{
                     color: ${secondary};
                 }
+                a, h1, h2, h3, h4, p{
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                img{
+                    object-fit: cover;
+                }
                 .row{
                     display: flex;
                     flex-flow: row;
+                    align-items: center;
                 }
             `}</style>
         </div>

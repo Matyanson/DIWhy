@@ -2,7 +2,7 @@ import Container from './Container';
 
 const ProfilePic = ({src, size = 50})=> {
   return (
-    <div className="lol">
+    <>
         <img id="pic" src={src} />
       <style jsx>{`
           #pic{
@@ -10,9 +10,10 @@ const ProfilePic = ({src, size = 50})=> {
             width: ${size}px;
             object-fit: cover;
             border-radius: 50%;
+            margin: 5px;
           }
       `}</style>
-    </div>
+    </>
   );
 }
 

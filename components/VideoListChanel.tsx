@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { db } from '../firebase';
-import Video from './Video';
+import Video from './VideoMiniature';
 
 
 const VideoList = ({chanelId})=> {

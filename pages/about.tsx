@@ -20,6 +20,9 @@ export default function About(props) {
     input: "",
     tools: []
   });
+  const test = ()=>{
+    
+  }
   return (
     <div className="aboutPage">
         <Head>
@@ -27,11 +30,7 @@ export default function About(props) {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Test />
-        <Button>Styled Component Button!</Button>
-        <Input value={form.input} onChange={(e)=>setForm({...form, input: e.target.value})} label={"nameee??"}/>
-        <h4>Material</h4>
-        <DBSelect displayTextKey={"name"} collectionPath={"material"} onChange={(selected)=>{setForm({...form, tools: selected.map(x=>x.id)})}} />
-        <Button onClick={()=>{console.log(form)}} >test</Button>
+        <Button onClick={()=>{test()}} >test</Button>
         <style jsx>{`
           .aboutPage{
             width: 70vh;

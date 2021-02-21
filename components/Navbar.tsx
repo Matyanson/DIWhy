@@ -82,9 +82,14 @@ const Navbar = ()=>{
                 .nav li .row{
                     display: flex;
                     flex-flow: row;
+                    align-items: center;
                 }
                 .nav a{
                     color: ${nav_FG};
+                    transition: all 0.2s;
+                }
+                .nav a:hover{
+                    color: ${primary};
                 }
                 .active a{
                     color: ${primary}!important;

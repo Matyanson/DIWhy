@@ -1,25 +1,21 @@
 import React, { useState } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { db } from '../firebase';
-import Video from './Video';
+import Video from './VideoMiniature';
+import IVideo from '../models/Video';
 
+type IVideoID = IVideo&{id:string}
 
 const VideoList = ()=> {
     const videosRef = db.collection('videos');
-    const query = videosRef.orderBy('title').limit(25);
-    const [videos] = useCollectionData(query, { idField: 'id' });
-    console.log(videos);
-    if(videos)
-    console.log(videos.map((vid:any)=>{
-        return vid.tools;
-    }))
+    const query = videosRef.orderBy('title').limit(15);
+    const [videos] = useCollectionData<IVideoID>(query, { idField: 'id' });
+    
     return (
         <div className="videoList">
                 {videos &&
-                videos.map((vid:any,i)=>{
-                    const authorName = vid.author ? vid.author.username : "Anonymous";
-                    const authorId = vid.author ? vid.author.userId : "1";
-                        return <Video key={i} authorName={authorName} title={vid.title} authorId={authorId} tools={vid.tools} material={vid.material} thumbnail={vid.img} id={vid.id} />
+                videos.map((vid:IVideoID,i)=>{
+                    return <Video id={vid.id} videoData={vid} width={"280px"} height={"260px"} key={i} />
                 })}
             <style jsx>{`
                 .videoList{
