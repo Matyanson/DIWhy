@@ -5,10 +5,21 @@ import Video from './VideoMiniature';
 import IVideo from '../models/Video';
 
 type IVideoID = IVideo&{id:string}
+interface Props {
+    queryStr?: string,
+    limit?: number,
+}
 
-const VideoList = ()=> {
+const VideoList = ({
+    queryStr = "",
+    limit = 15
+}: Props)=> {
     const videosRef = db.collection('videos');
-    const query = videosRef.orderBy('title').limit(15);
+    const query = videosRef
+    .where('title', '>=', queryStr)
+    .where('title', '<', queryStr+'z')
+    .orderBy('title')
+    .limit(limit);
     const [videos] = useCollectionData<IVideoID>(query, { idField: 'id' });
     
     return (

@@ -187,7 +187,7 @@ const Uploader = ()=> {
                 width: 100%;
                 max-width: 600px;
                 height: auto;
-                max-height: 50vh;
+                /*max-height: 50vh;*/
             }
             .left, .right{
                 margin: 5px;

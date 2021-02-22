@@ -1,6 +1,7 @@
-import Head from 'next/head'
+import Head from 'next/head';
 import VideoList from '../components/VideoList';
 import Container from '../components/Container';
+import SearchBar from '../components/SearchBar';
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <SearchBar/>
       <Container>
         <h2>Current videos</h2>
         <VideoList/>

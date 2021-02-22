@@ -55,7 +55,6 @@ const Navbar = ()=>{
                     background: ${nav_BG};
                     box-shadow: 0px 2px 5px 0px #0000004f;
                     position: fixed;
-                    overflow: hidden;
                     margin: 0;
                     top:0;
                     left:0;

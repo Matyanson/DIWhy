@@ -14,7 +14,7 @@ interface Props{
 }
 const defaultProfilePic = "https://firebasestorage.googleapis.com/v0/b/diwhy-39b77.appspot.com/o/default%2Fprofile.jpg?alt=media&token=9868229e-d8dd-48d7-9947-b08aa19d5043"
 
-const VideoList = ({ 
+const VideoMiniature = ({ 
     width = "280px",
     height = "260px",
     id,
@@ -76,4 +76,4 @@ const [author] = authorRef ? useDocumentData<User>(authorRef) : [null];
     );
 }
 
-export default VideoList;
+export default VideoMiniature;

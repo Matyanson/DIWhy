@@ -3,7 +3,7 @@ import Navbar from './Navbar';
 import { useTheme } from './ThemeProvider';
 const Layout = ({children})=>{
     const [ theme ] = useTheme();
-    const { primary, background, neutral, text, secondary, allert } = theme;
+    const { primary, background, neutral, neutral_dark, text, secondary, allert } = theme;
     return (
         <>
             <Navbar />
@@ -38,6 +38,8 @@ const Layout = ({children})=>{
                     padding: 12px 20px;
                     margin: 8px 0;
                     display: inline-block;
+                    background: ${neutral_dark};
+                    color: ${text};
                     border: 1px solid #ccc;
                     border-radius: 4px;
                     box-sizing: border-box;

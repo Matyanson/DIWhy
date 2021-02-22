@@ -39,7 +39,6 @@ const ExpandWrap = ({label, children}: Props)=>{
                     transform: rotate(180deg);
                 }
                 .content{
-                    overflow: hidden;
                     height: 0;
                     filter: opacity(0);
                     transform: scaleY(0);
