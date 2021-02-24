@@ -31,7 +31,7 @@ const Uploader = ()=> {
     });
     const [progress, setProgress] = useState(0);
     const [files, setFiles] = useState(null);
-    const [errorMsg, setErrorMsg] = useState(null);
+    const [errorMsg, setErrorMsg] = useState<string>(null);
     const [hidden, setHidden] = useState(true);
     const [theme] = useTheme();
     const user = useAuth();
@@ -66,7 +66,7 @@ const Uploader = ()=> {
         }
 
         function onError(error){
-            setErrorMsg(error);
+            setErrorMsg(error.message);
         }
 
         async function onComplete(){

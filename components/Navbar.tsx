@@ -59,10 +59,10 @@ const Navbar = ()=>{
                     top:0;
                     left:0;
                     width: 100%;
-                    height: 40px;
+                    height: 60px;
                     display: flex;
                     flex-flow: row;
-                    align-items: center;
+                    align-items: stretch;
                     justify-content: left;
                     z-index:100;
                 }
@@ -76,7 +76,8 @@ const Navbar = ()=>{
                     color: ${nav_FG};
                     border-radius: 10px;
                     text-align: center;
-                    vertical-align: center;
+                    display: flex;
+                    align-items: center;
                 }
                 .nav li .row{
                     display: flex;
@@ -86,6 +87,9 @@ const Navbar = ()=>{
                 .nav a{
                     color: ${nav_FG};
                     transition: all 0.2s;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
                 }
                 .nav a:hover{
                     color: ${primary};
