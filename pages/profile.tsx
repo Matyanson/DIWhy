@@ -19,7 +19,7 @@ export default function Profile(props) {
   }
 
   async function uploadProfilePic(imgFile) {
-    let imgRef = storageRef.child(`/profilePictures/${imgFile.name}`);
+    let imgRef = storageRef.child(`/profilePictures/${user.uid}/${Math.random()}${imgFile.name}`);
     let uploadTask = imgRef.put(imgFile);
     await uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, onProgress, onError, onComplete);
 
@@ -29,6 +29,7 @@ export default function Profile(props) {
     }
 
     function onError(error){
+      console.log(error.message);
     }
 
     async function onComplete(){
