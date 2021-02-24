@@ -2,6 +2,7 @@ import IStep from './Step';
 
 export default interface Video {
     title: string,
+    casefold?: string,
     public: boolean,
     author?: { username: string, userId: string },
     url: string,

@@ -19,6 +19,7 @@ import Button from './styled/Button';
 import FloatWrap from './FloatWrap';
 import Checkbox from './styled/Checkbox';
 import ExpandWrap from './ExpandWrap';
+import { casefold } from '../helpers/functions';
 
 
 const Uploader = ()=> {
@@ -105,6 +106,7 @@ const Uploader = ()=> {
     function saveVideoToDatabase(url: string, title: string, username: string, userId: string){
         const video: Video = {
             title,
+            casefold: casefold(title),
             public: false,
             author: { username, userId },
             url,

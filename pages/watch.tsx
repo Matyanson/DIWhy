@@ -42,6 +42,7 @@ const Watch = ()=> {
             .vid{
                 max-width: 650px;
                 height: auto;
+                margin-bottom: 10px;
             }
         `}</style>
     </div>
