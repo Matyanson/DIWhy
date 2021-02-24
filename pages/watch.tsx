@@ -24,9 +24,11 @@ const Watch = ()=> {
             videoData ?
             <>
             <VideoContextProvider >
-                <Controls title={videoData.title}>
-                    <HtmlVideoPlayer url={videoData.url} />
-                </Controls>
+                <div className="vid"> 
+                    <Controls title={videoData.title}>
+                        <HtmlVideoPlayer url={videoData.url} />
+                    </Controls>
+                </div>
                 <h2>{videoData.title}</h2>
                 <TimelineEdit editable={false} initialSteps={videoData.steps} />
             </VideoContextProvider>
@@ -36,6 +38,12 @@ const Watch = ()=> {
                 <h2>Loading Video</h2>
             </div>
         }
+        <style jsx>{`
+            .vid{
+                max-width: 650px;
+                height: auto;
+            }
+        `}</style>
     </div>
   );
 }
