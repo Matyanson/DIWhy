@@ -15,9 +15,7 @@ const VideoList = ({chanelId})=> {
         <div className="videoList">
                 {videos &&
                 videos.map((vid:any,i)=>{
-                    const authorName = vid.author ? vid.author.username : "Anonymous";
-                    const authorId = vid.author ? vid.author.userId : "1";
-                        return <Video key={i} authorName={authorName} title={vid.title} authorId={authorId} thumbnail={vid.img} id={vid.id} />
+                    return <Video id={vid.id} videoData={vid} width={"280px"} height={"260px"} key={i} />
                 })}
             <style jsx>{`
                 .videoList{

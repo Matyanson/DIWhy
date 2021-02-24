@@ -15,7 +15,7 @@ import { isString } from 'util';
 
 const Search = ()=> {
     const router = useRouter();
-    const query: string = router.query.q?.toString() ?? "";
+    const query: string = Array.isArray(router.query.q) ? router.query.q[0] : (router.query.q ?? '');
     console.log(query);
     
         
