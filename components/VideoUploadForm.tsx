@@ -51,10 +51,13 @@ const Uploader = ()=> {
 
     function submit(){
         let videoTitle = form.title;
-        if(!validate())
+        const errors = validate();
+        if(errors.length > 0)
             return;
         if(!user || !user.uid)
             return;
+
+        setErrorMsg(errors);
 
         const file = files[0];
         let videoRef = storageRef.child(`/uploadedVideos/${user.uid}/${Math.random()}${file.name}`);
@@ -81,32 +84,28 @@ const Uploader = ()=> {
             }
         }
     }
-    const addError = (err: string) =>{
-        setErrorMsg([...errorMsg, err]);
-    }
-    function validate(){
+    function validate(): string[]{
         const fileSizeLimit = 200 * 1000 * 1000; //200
         let result = true;
-        console.log("deleting");
-        setErrorMsg([]);
+        const errors = [];
         
         if(!user){
-            addError("Please log in!");
+            errors.push("Please log in!");
             result = false;
         }
         if(!files || files.length < 1){
-            addError("select video file");
+            errors.push("select video file");
             result = false;
         }
         else if(files[0].size > fileSizeLimit){
-            addError(`File needs to be smaller than 200MB, ${Math.floor(files[0].size /1000000)}MB > 200MB`);
+            errors.push(`File needs to be smaller than 200MB, ${Math.floor(files[0].size /1000000)}MB > 200MB`);
             result = false;
         }
         else if(files[0].type?.match("video.*") == null){
-            addError('type of file selected is not a video');
+            errors.push('type of file selected is not a video');
             result = false;
         }
-        return result;
+        return errors;
     }
 
     function saveVideoToDatabase(url: string, title: string, username: string, userId: string){
@@ -123,12 +122,14 @@ const Uploader = ()=> {
         console.log(video);
         db.collection("videos").add(video);
     }
-    function test(){
+
+    const test = ()=>{
+        const errors = validate();
+        setErrorMsg(errors);
+        console.log(errorMsg);
+    }
+    const test2 = ()=>{
         setErrorMsg([]);
-        addError("test1");
-        addError("test2");
-        addError("test3");
-        //validate();
     }
   return (
     <div>
@@ -177,7 +178,8 @@ const Uploader = ()=> {
                 </div>
             </div>
             <Button onClick={()=>submit()}>Upload</Button>
-            {/* <Button onClick={()=>test()}>test</Button> */}
+            <Button onClick={()=>test()}>test</Button>
+            <Button onClick={()=>test2()}>delete</Button>
             <Progressbar value={progress} />
             </VideoContextProvider>
         }

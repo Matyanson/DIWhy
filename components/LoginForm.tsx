@@ -28,17 +28,9 @@ const LoginForm = ()=> {
       })
       .catch(function(error) {
         // Handle Errors here.
-        var errorCode = error.code;
         var errorMessage = error.message;
-        console.log(errorCode);
-        console.log(errorMessage);
-        console.log(errorMsg);
-        addError(errorMessage);
+        setError([errorMessage]);
       });
-    }
-
-    const addError = (err: string)=>{
-      setError([...errorMsg, err]);
     }
 
     const test = ()=>{
