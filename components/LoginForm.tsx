@@ -19,14 +19,14 @@ const LoginForm = ()=> {
       console.log(errorMsg);
         
         await login();
-
-        //redirect
-        if(!errorMsg || errorMsg.length < 0)
-          router.push('/');
     }
 
     async function login(){
-      await auth.signInWithEmailAndPassword(email, password).catch(function(error) {
+      await auth.signInWithEmailAndPassword(email, password)
+      .then(()=>{
+        router.push('/');
+      })
+      .catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
