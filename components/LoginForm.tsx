@@ -9,7 +9,7 @@ const LoginForm = ()=> {
     const [title, setTitle] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [ errorMsg, setError] = useState("");
+    const [ errorMsg, setError] = useState<string[]>([]);
     let error = false;
     
 
@@ -19,17 +19,23 @@ const LoginForm = ()=> {
         await login();
 
         //redirect
-        router.push('/');
+        if(!errorMsg || errorMsg.length < 0)
+          router.push('/');
     }
 
     async function login(){
+      setError([]);
       await auth.signInWithEmailAndPassword(email, password).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
-        setError(errorMessage+" code: "+errorCode);
+        addError(errorMessage+" code: "+errorCode);
         error = true;
       });
+    }
+
+    const addError = (err: string)=>{
+      setError([...errorMsg, err]);
     }
 
     

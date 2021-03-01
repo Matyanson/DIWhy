@@ -31,8 +31,8 @@ const Uploader = ()=> {
         steps: []
     });
     const [progress, setProgress] = useState(0);
-    const [files, setFiles] = useState(null);
-    const [errorMsg, setErrorMsg] = useState<string>(null);
+    const [files, setFiles] = useState<(File&{url:string})[]>(null);
+    const [errorMsg, setErrorMsg] = useState<string[]>([]);
     const [hidden, setHidden] = useState(true);
     const [theme] = useTheme();
     const user = useAuth();
@@ -40,10 +40,10 @@ const Uploader = ()=> {
     let storageRef = storage.ref();
 
 
-    function onFileChange(files){
-        const newFiles = files.map(f=>{
-            f.url = URL.createObjectURL(f);
-            return f;
+    function onFileChange(files: File[]){
+        const newFiles = files.map((f)=>{
+            const url = URL.createObjectURL(f);
+            return {...f, url};
         })
         console.log(newFiles);
         setFiles(newFiles);
@@ -67,7 +67,7 @@ const Uploader = ()=> {
         }
 
         function onError(error){
-            setErrorMsg(error.message);
+            setErrorMsg([...errorMsg, error.message]);
         }
 
         async function onComplete(){
@@ -81,23 +81,28 @@ const Uploader = ()=> {
             }
         }
     }
+    const addError = (err: string) =>{
+        setErrorMsg([...errorMsg, err]);
+    }
     function validate(){
         const fileSizeLimit = 200 * 1000 * 1000; //200
         let result = true;
+        setErrorMsg([]);
+        
         if(!user){
-            setErrorMsg("Please log in!");
+            addError("Please log in!");
             result = false;
         }
         if(!files || files.length < 1){
-            setErrorMsg("select video file");
+            addError("select video file");
             result = false;
         }
         else if(files[0].size > fileSizeLimit){
-            setErrorMsg(`File needs to be smaller than 200MB, ${Math.floor(files[0].size /1000000)}MB > 200MB`);
+            addError(`File needs to be smaller than 200MB, ${Math.floor(files[0].size /1000000)}MB > 200MB`);
             result = false;
         }
         else if(files[0].type.match("video.*") == null){
-            setErrorMsg('type of file selected is not a video');
+            addError('type of file selected is not a video');
             result = false;
         }
         return result;
@@ -172,8 +177,10 @@ const Uploader = ()=> {
             </VideoContextProvider>
         }
         {
-            errorMsg &&
-            <p className="error">{errorMsg}</p>
+            errorMsg && errorMsg.length > 0 &&
+            errorMsg.map((e)=>
+                <p className="error">{e}</p>
+            )
         }
         <style jsx>{`
             .formWrap{
