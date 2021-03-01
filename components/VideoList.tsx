@@ -18,6 +18,7 @@ const VideoList = ({
     const query = videosRef
     .where('title', '>=', queryStr)
     .where('title', '<', queryStr+'z')
+    .orderBy('title')
     .limit(limit);
     const [videos] = useCollectionData<IVideoID>(query, { idField: 'id' });
     

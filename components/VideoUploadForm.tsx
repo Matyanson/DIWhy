@@ -43,7 +43,7 @@ const Uploader = ()=> {
     function onFileChange(files: File[]){
         const newFiles = files.map((f)=>{
             const url = URL.createObjectURL(f);
-            return {...f, url};
+            return Object.assign(f, {url});
         })
         console.log(newFiles);
         setFiles(newFiles);
@@ -87,6 +87,7 @@ const Uploader = ()=> {
     function validate(){
         const fileSizeLimit = 200 * 1000 * 1000; //200
         let result = true;
+        console.log("deleting");
         setErrorMsg([]);
         
         if(!user){
@@ -101,7 +102,7 @@ const Uploader = ()=> {
             addError(`File needs to be smaller than 200MB, ${Math.floor(files[0].size /1000000)}MB > 200MB`);
             result = false;
         }
-        else if(files[0].type.match("video.*") == null){
+        else if(files[0].type?.match("video.*") == null){
             addError('type of file selected is not a video');
             result = false;
         }
@@ -123,7 +124,11 @@ const Uploader = ()=> {
         db.collection("videos").add(video);
     }
     function test(){
-        validate();
+        setErrorMsg([]);
+        addError("test1");
+        addError("test2");
+        addError("test3");
+        //validate();
     }
   return (
     <div>
@@ -171,15 +176,15 @@ const Uploader = ()=> {
                     <TimelineEdit editable={true} onChange={(steps)=>{setForm({...form, steps: steps})}} />
                 </div>
             </div>
-            <Button onClick={()=>submit()}>Send</Button>
-            <Button onClick={()=>test()}>test</Button>
+            <Button onClick={()=>submit()}>Upload</Button>
+            {/* <Button onClick={()=>test()}>test</Button> */}
             <Progressbar value={progress} />
             </VideoContextProvider>
         }
         {
             errorMsg && errorMsg.length > 0 &&
-            errorMsg.map((e)=>
-                <p className="error">{e}</p>
+            errorMsg.map((e, id)=>
+                <p key={id} className="error">{e}</p>
             )
         }
         <style jsx>{`
