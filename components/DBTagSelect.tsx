@@ -1,17 +1,20 @@
 import { useEffect, useMemo, useState } from 'react';
 import TagSelect from './TagSelect';
 import { db } from '../firebase';
-import { casefold } from '../helpers/functions';
+import { casefold, toArrOfNum, toChunkOf } from '../helpers/functions';
+import Doc from '../models/Doc';
 
 interface Props {
     collectionPath: string,
     displayTextKey: string,
+    initialIds?: string[],
     idKey?: string,
     limit?: number,
     onChange: ([])=> void
 }
 
 const DBTagSelect = ({
+        initialIds = [],
         collectionPath,
         displayTextKey = "name",
         idKey = "__name__",
@@ -19,20 +22,31 @@ const DBTagSelect = ({
         onChange = ()=>{}
     }: Props)=> {
 
-    const [items, setItems] = useState([]);
-    const [selected, setSelected] = useState([]);
+    const [items, setItems] = useState<Doc[]>([]);
+    const [selected, setSelected] = useState<number[]>([]);
     const [select, setSelect] = useState([]);
     const selectedItems = useMemo(()=>{
         return selected.map(x=>items[x]);
     }, [selected])
 
     useEffect(()=>{
+        if(initialIds && initialIds[0])
+            setNewItemsById(initialIds)
         onSearch("");
-    }, [])
+    }, [initialIds])
 
-    useEffect(()=>{
-        onChange(selected.map(x=>items[x]));
-    }, [selected])
+
+    const updateSelectedValue = (data: number[]) =>{
+        setSelected(data);
+        const out = selected.map(x=>{
+            if(items[x])
+                return items[x];
+        });
+        console.log(items);
+        console.log(selected);
+        console.log(out);
+        onChange(out)
+    }
 
     const itemsDisplay = ()=>{
         return items.map(x=>{
@@ -42,14 +56,41 @@ const DBTagSelect = ({
         })
     }
 
+    const getDocsByIds = async (ids:string[]): Promise<Doc[]> =>{
+        let res = [];
+        try{
+            const idsList = toChunkOf(ids, 10);
+            const collectionRef = db.collection(collectionPath);
+            const reqList = idsList.map(ids=>{
+            return collectionRef.where('__name__', 'in', ids).get();
+            });
+            const snapshotsList = await Promise.all(reqList);
+            snapshotsList.forEach(snap=>{
+                res = res.concat(snap.docs.map(doc=>{
+                    return {id: doc.id, data: doc.data()};
+                }))
+            })
+        } catch(err){
+            console.log(err);
+        }
+        return res;
+    }
+
+    const setNewItemsById = async (ids: string[]) => {
+        const newItems = await getDocsByIds(ids);
+        setItems(newItems);
+
+        const selectNew = toArrOfNum(newItems);
+
+        setSelected(selectNew);
+        setSelect(selectNew);
+    }
+
     async function onSearch(keyword){
         const newItems = await getNewItems(keyword);
         const oldSelectedItems = selected.map(x=>items[x]);
 
-        const selectNew = [];
-        for(let i = 0; i < oldSelectedItems.length; i++){
-            selectNew.push(i);
-        }
+        const selectNew = toArrOfNum(oldSelectedItems);
 
         const newMergedItems = oldSelectedItems.concat(newItems);
         setItems(newMergedItems);
@@ -92,7 +133,8 @@ const DBTagSelect = ({
     }
     return (
         <div>
-            <TagSelect items={itemsDisplay()} onSelect={(data)=>setSelected(data)} onSearch={(x)=>onSearch(x)} select={select} />
+            {/* <button onClick={()=>setNewItemsById(initialIds)}></button> */}
+            <TagSelect items={itemsDisplay()} onSelect={(data)=>updateSelectedValue(data)} onSearch={(x)=>onSearch(x)} select={select} />
         <style jsx>{`
         `}</style>
         </div>

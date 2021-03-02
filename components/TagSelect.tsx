@@ -20,6 +20,7 @@ const TagSelect = ({
     const [theme] = useTheme();
     const [focused, setFocus] = useState(false);
     const [selected, setSelected] = useState(select);
+    const [query, setQuery] = useState("");
 
     useEffect(()=>{
         setSelected(select);
@@ -34,27 +35,29 @@ const TagSelect = ({
     }
 
     function addItem(newIndex){
-        setSelected([...selected, newIndex]);
+        updateSelected([...selected, newIndex]);
     }
 
     function deleteItem(index){
-        setSelected([...selected.slice(0,index),
+        updateSelected([...selected.slice(0,index),
             ...selected.slice(index+1)]);
     }
 
-    function updateItems(){
+    function updateSelected(newSelected){
+        setSelected(newSelected);
         onSelect(selected);
     }
 
-    useEffect(()=>{
-        updateItems();
-    },[selected])
+    const updateSerach = (q: string) =>{
+        onSearch(q);
+        setQuery(q);
+    }
 
   return (
     <div className="selectContainer">
         <div onFocus={()=>focus()} onBlur={()=>unfocus()} tabIndex={0}>
             <div className="selectHead">
-                <input type="text" onFocus={()=>focus()} onChange={(e)=>{onSearch(e.target.value)}} /><div className="more_btn">ˇ</div>
+                <input type="text" onFocus={()=>focus()} value={query} onChange={(e)=>{updateSerach(e.target.value)}} /><div className="more_btn">ˇ</div>
             </div>
             {
                 items && focused &&
