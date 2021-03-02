@@ -130,7 +130,7 @@ const Edit = ()=> {
           <h2>Video Not Found</h2>
         }
         {
-          !video &&
+          !video && vid &&
           <h2>Loading or Permission denied</h2>
         }
         {
@@ -149,11 +149,13 @@ const Edit = ()=> {
               }}/>
             }
             <VideoEditForm url={video.url} initialForm={form} onChange={(data)=>{setForm(data);}}/>
+            <div className="buttons">
+              {/* <Button onClick={()=>test()}>Test</Button>&nbsp;&nbsp;&nbsp;&nbsp; */}
+              <Button onClick={()=>submit()}>Submit</Button>&nbsp;&nbsp;&nbsp;&nbsp;
+              <Button onClick={()=>setModalBox(true)}><Trash/></Button>
+            </div>
           </div>
         }
-        <Button onClick={()=>test()}>Test</Button>&nbsp;&nbsp;&nbsp;&nbsp;
-        <Button onClick={()=>submit()}>Submit</Button>&nbsp;&nbsp;&nbsp;&nbsp;
-        <Button onClick={()=>setModalBox(true)}><Trash/></Button>
     </div>
   );
 }
