@@ -5,6 +5,8 @@ import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { db } from '../firebase';
 import IVideo from '../models/Video';
 import User from '../models/User';
+import { Edit } from './icons/index';
+import { useAuth } from './UserProvider';
 
 interface Props{
     width?: string,
@@ -21,6 +23,7 @@ const VideoMiniature = ({
     videoData
 }: Props)=> {
 const [{ secondary }] = useTheme();
+const user = useAuth();
 const authorRef = videoData.author ? db.collection('users').doc(videoData.author.userId) : null;
 const [author] = authorRef ? useDocumentData<User>(authorRef) : [null];
 
@@ -30,21 +33,38 @@ const [author] = authorRef ? useDocumentData<User>(authorRef) : [null];
                 <img src={'/video-thumbnail-default.png'} height="165" />
                 <h3>{videoData.title}</h3>
             </a>
-            <div>
+            <div className="footer">
                 {/* <div className="row">
                     { tools.map((x, key) => <Tag key={key} title={x} background="#2a64bd" />) }
                     { material.map((x, key) => <Tag key={-key} title={x} background="#c44d12" />) }
                 </div> */}
-                {author &&
-                <a className="row" href={`/chanel?id=${videoData.author.userId}`}>
-                    <><ProfilePic src={author.img} size={30}/>{videoData.author.username}</>
-                </a>
-                }
-                {!author &&
-                <div className="row" >
-                    <><ProfilePic src={defaultProfilePic} size={30}/>{"Annonymous"}</>
+                <div className="row">
+                    {author && videoData.author &&
+                    <>
+                        <a className="row" href={`/chanel?id=${videoData.author.userId}`}>
+                            <ProfilePic src={author.img} size={30}/>
+                            {videoData.author.username}
+                        </a>
+                        <div className="end">
+                            {user.uid == videoData.author.userId &&
+                                <a href={`/edit?v=${id}`}><Edit/></a>
+                            }
+                        </div>
+                    </>
+                    }
+
+                    {/* No UserData */}
+                    {!author &&
+                    <>
+                        <div className="row">
+                            <ProfilePic src={defaultProfilePic} size={30}/>
+                            <div>{"Annonymous"}</div>
+                        </div>
+                        <div className="end">
+                        </div>
+                    </>
+                    }
                 </div>
-                }
             </div>
             <style jsx>{`
                 .video{
@@ -70,6 +90,11 @@ const [author] = authorRef ? useDocumentData<User>(authorRef) : [null];
                     display: flex;
                     flex-flow: row;
                     align-items: center;
+                }
+                .end{
+                    flex: 1;
+                    display: flex;
+                    justify-content: flex-end;
                 }
             `}</style>
         </div>
