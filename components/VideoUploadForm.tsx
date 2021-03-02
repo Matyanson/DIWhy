@@ -53,12 +53,11 @@ const Uploader = ()=> {
     function submit(){
         let videoTitle = form.title;
         const errors = validate();
+        setErrorMsg(errors);
         if(errors.length > 0)
             return;
         if(!user || !user.uid)
             return;
-
-        setErrorMsg(errors);
 
         const file = files[0];
         let videoRef = storageRef.child(`/uploadedVideos/${user.uid}/${Math.random()}${file.name}`);
@@ -87,24 +86,19 @@ const Uploader = ()=> {
     }
     function validate(): string[]{
         const fileSizeLimit = 200 * 1000 * 1000; //200
-        let result = true;
         const errors = [];
         
         if(!user){
             errors.push("Please log in!");
-            result = false;
         }
         if(!files || files.length < 1){
             errors.push("select video file");
-            result = false;
         }
         else if(files[0].size > fileSizeLimit){
             errors.push(`File needs to be smaller than 200MB, ${Math.floor(files[0].size /1000000)}MB > 200MB`);
-            result = false;
         }
         else if(files[0].type?.match("video.*") == null){
             errors.push('type of file selected is not a video');
-            result = false;
         }
         return errors;
     }
