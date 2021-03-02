@@ -7,7 +7,7 @@ interface Props {
   accept?: string,
   multiple?: boolean,
   Icon?: React.ReactNode
-  onSelect: (files:any[])=> void
+  onSelect: (files:File[])=> void
 }
 
 const FilePickerCopy = ({
@@ -18,7 +18,7 @@ const FilePickerCopy = ({
 }: Props)=> {
 
   const [colors] = useTheme();
-  function onFileChange(newFiles){
+  function onFileChange(newFiles: File[]){
       onSelect(newFiles);
   }
   return (

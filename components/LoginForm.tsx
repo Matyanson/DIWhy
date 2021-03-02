@@ -53,7 +53,6 @@ const LoginForm = ()=> {
             }
             <Button>Sign In</Button>
         </form>
-            <Button onClick={()=>test()} >Test</Button>
     </div>
   );
 }

@@ -1,3 +1,16 @@
+export const toChunkOf = (arr: Array<any>, count: number) =>{
+  count = count > 0 ? count : 1;
+  let res = [];
+  for (let i = 0; i < arr.length; i+= count) {
+    res.push(arr.slice(i, i+count));
+  }
+  return res;
+}
+
+export const toArrOfNum = (arr: any[]): number[] =>{
+  return arr.map((x,index)=>index);
+}
+
 export function casefold(s: string){
     return s.normalize('NFKC').toLowerCase();
 }

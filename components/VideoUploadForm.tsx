@@ -20,6 +20,7 @@ import FloatWrap from './FloatWrap';
 import Checkbox from './styled/Checkbox';
 import ExpandWrap from './ExpandWrap';
 import { casefold } from '../helpers/functions';
+import VideoEditForm from './VideoEditForm';
 
 
 const Uploader = ()=> {
@@ -112,7 +113,7 @@ const Uploader = ()=> {
         const video: Video = {
             title,
             casefold: casefold(title),
-            public: false,
+            public: form.public,
             author: { username, userId },
             url,
             tools: form.tools,
@@ -124,12 +125,7 @@ const Uploader = ()=> {
     }
 
     const test = ()=>{
-        const errors = validate();
-        setErrorMsg(errors);
-        console.log(errorMsg);
-    }
-    const test2 = ()=>{
-        setErrorMsg([]);
+        console.log(form);
     }
   return (
     <div>
@@ -139,49 +135,12 @@ const Uploader = ()=> {
         }
         {
             files && files[0] &&
-            <VideoContextProvider>
-            <div className="formWrap">
-                <div className="left">
-                    <div className="vidPlayer">
-                        <VideoControls>
-                            <VideoPlayer url={files[0].url} />
-                        </VideoControls>    
-                    </div>
-                    <Input type="text" label="Title of the video" value={form.title} onChange={(e)=>{setForm({...form, title: e.target.value})}} />
-                    Public <Checkbox checked={form.public} onChange={()=>{setForm({...form, public: !form.public}); console.log("check")}} />
-                    <div className="tags">
-                        <div className="select">
-                            <div className="column">
-                                <h4>Tools</h4>
-                                <DBSelect onChange={(d)=>setForm({...form, tools: d.map(x=>x.id)})} displayTextKey={"name"} collectionPath={"tools"}/>
-
-                            </div>
-                            <div className="column">
-                                <h4>Material</h4>
-                                <DBSelect onChange={(d)=>setForm({...form, material: d.map(x=>x.id)})} displayTextKey={"name"} collectionPath={"material"}/>
-                            </div>
-                        </div>
-                        <ExpandWrap label={"can't find your tag? create new!"}>
-                        <div className="add">
-                            <div className="column">
-                                <DBAdd collectionPath="tools"/>
-                            </div>
-                            <div className="column">
-                                <DBAdd collectionPath="material" />
-                            </div>
-                        </div>                          
-                        </ExpandWrap>
-                    </div>
-                </div>
-                <div className="right">
-                    <TimelineEdit editable={true} onChange={(steps)=>{setForm({...form, steps: steps})}} />
-                </div>
+            <div>
+                <VideoEditForm url={files[0].url} onChange={(formData)=>{setForm(formData)}} />
+                <Button onClick={()=>submit()}>Upload</Button>
+                <Button onClick={()=>test()}>Test</Button>
+                <Progressbar value={progress} />
             </div>
-            <Button onClick={()=>submit()}>Upload</Button>
-            <Button onClick={()=>test()}>test</Button>
-            <Button onClick={()=>test2()}>delete</Button>
-            <Progressbar value={progress} />
-            </VideoContextProvider>
         }
         {
             errorMsg && errorMsg.length > 0 &&
@@ -190,70 +149,8 @@ const Uploader = ()=> {
             )
         }
         <style jsx>{`
-            .formWrap{
-                display: flex;
-                flex-flow: row wrap;
-                justify-content: center;
-                margin: 5px 0;
-            }
-            .vidPlayer{
-                position: sticky;
-                top: 40px;
-                z-index: 10;
-                width: 100%;
-                max-width: 600px;
-                height: auto;
-                /*max-height: 50vh;*/
-            }
-            .left, .right{
-                margin: 5px;
-            }
-            .tags{
-                display: flex;
-                flex-flow: column;
-                justify-content: start;
-            }
-            .tags .select, .tags .add{
-                width: auto;
-                display: flex;
-                flex-flow: row wrap;
-                justify-content: start;
-            }
-            .tags .addEdge{
-                display: flex;
-                flex-flow: row nowrap;
-                justify-content: space-between;
-                align-items: center;
-                cursor: pointer;
-            }
-            .tags .addEdge .line{
-                height: 1px;
-                width: auto;
-                flex: 1;
-                margin: auto 5px;
-                background: ${theme.text};
-            }
-            .tags .addEdge .arrow{
-                padding: 2px;
-                fill: ${theme.text};
-            }
-            .tags .hidden{
-                height: 0px;
-                overflow: hidden;
-            }
-            .column{
-                display: flex;
-                flex-flow: column;
-                justify-content: left;
-
-                padding: 5px;
-                max-width: 200px;
-            }
-            input[type=text]{
-                padding: 7px;
-                font-size: 1.2rem;
-            }
-            `}</style>
+            
+        `}</style>
     </div>
   );
 }

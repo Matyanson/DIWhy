@@ -13,7 +13,7 @@ export default function Home() {
       <SearchBar/>
       <Container>
         <h2>Current videos</h2>
-        <VideoList limit={100}/>
+        <VideoList limit={10}/>
       </Container>
     </div>
   )

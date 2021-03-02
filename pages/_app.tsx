@@ -10,7 +10,6 @@ import { useState } from 'react';
 
 function MyApp({ Component, pageProps, user, userData}) {
   const initTheme = userData?.currTheme ?? null;
-  console.log(initTheme);
   return (
     
     <AuthProvider initialUser={user}>
@@ -26,10 +25,7 @@ function MyApp({ Component, pageProps, user, userData}) {
 
 
 MyApp.getInitialProps = async (appContext) => {
-  console.log("starting initial props");
   
-
-
   const ctx = appContext.ctx;
   const appProps = await App.getInitialProps(appContext);
   

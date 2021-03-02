@@ -17,7 +17,7 @@ const FilePickerWrapper = ({
 }: Props)=> {
   const [fileName, setFilename] = useState("");
 
-    function onFileChange(newFiles){
+    function onFileChange(newFiles: FileList){
         if(newFiles && newFiles[0]){
           const files = [...newFiles];
           onSelect(files);
