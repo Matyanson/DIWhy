@@ -10,7 +10,7 @@ export default function Home() {
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* <SearchBar/> */}
+      <SearchBar/>
       <Container>
         <h2>Current videos</h2>
         <VideoList limit={10}/>

@@ -4,6 +4,7 @@ import { Search } from "./icons";
 import DBSelect from "./TagSelect/DBTagSelect";
 import { useState } from "react";
 import { useRouter } from 'next/router';
+import ListItem from "../models/ListItem";
 
 
 interface Props{
@@ -12,21 +13,19 @@ interface Props{
 const SearchBar = (
 props: Props)=> {
     const router = useRouter();
-    const [form, setForm] = useState({
-        query: "",
-        tools: [],
-        material: []
-    });
+    const [query, setQuery] = useState("");
+    const [tools, setTools] = useState<ListItem[]>([]);
+    const [material, setMaterial] = useState<ListItem[]>([]);
     const search = () =>{
-        router.push(`/search?q=${form.query}`);
+        router.push(`/search?q=${query}`);
     }
     return (
         <Container>
             <div className="searchBar">
                 <div className="input">
                     <input type="text" placeholder="Search whatever you need!"
-                    value={form.query}
-                    onChange={(e)=>setForm({...form, query: e.target.value})}
+                    value={query}
+                    onChange={(e)=>setQuery(e.target.value)}
                     onKeyDown={(e)=>{
                         if(e.key === "Enter")
                         search();
@@ -35,26 +34,27 @@ props: Props)=> {
                     <button onClick={()=>search()}><Search/></button>
                 </div>
                 <ExpandWrap label={"more filters"}> 
-                    <div className="select">
-                        <div className="column">
-                            <h4>Tools</h4>
-                            <DBSelect
-                            onChange={(d)=>setForm({...form, tools: d.filter(
-                                    x => x.selected
-                                ).map(x=>x.id)})}
+                <div className="select">
+                    <div className="column">
+                        <h4>Tools</h4>
+                        <DBSelect
+                            collectionPath={"tools"}
                             displayTextKey={"name"}
-                            collectionPath={"tools"}/>
-                        </div>
-                        <div className="column">
-                            <h4>Material</h4>
-                            <DBSelect
-                            onChange={(d)=>setForm({...form, material: d.filter(
-                                    x => x.selected
-                                ).map(x=>x.id)})}
+                            initItems={tools}
+                            onChange={(d)=>{setTools(d)}}
+                        />
+
+                    </div>
+                    <div className="column">
+                        <h4>Material</h4>
+                        <DBSelect
+                            collectionPath={"material"}
                             displayTextKey={"name"}
-                            collectionPath={"material"}/>
-                        </div>
-                    </div> 
+                            initItems={material}
+                            onChange={(d)=>{setMaterial(d)}}
+                        />
+                    </div>
+                </div>
                 </ExpandWrap>
                 <style jsx>{`
                     .searchBar{
