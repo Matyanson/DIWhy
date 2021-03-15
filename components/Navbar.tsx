@@ -74,6 +74,7 @@ const Navbar = ()=>{
                     margin: 0 10px;
                     padding: 2px 5px;
                     color: ${nav_FG};
+                    font-size: 1.1rem;
                     border-radius: 10px;
                     text-align: center;
                     display: flex;

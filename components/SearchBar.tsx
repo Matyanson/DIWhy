@@ -1,7 +1,7 @@
 import Container from "./Container";
 import ExpandWrap from "./ExpandWrap";
 import { Search } from "./icons";
-import DBSelect from "./DBTagSelect";
+import DBSelect from "./TagSelect/DBTagSelect";
 import { useState } from "react";
 import { useRouter } from 'next/router';
 
@@ -38,11 +38,21 @@ props: Props)=> {
                     <div className="select">
                         <div className="column">
                             <h4>Tools</h4>
-                            <DBSelect onChange={(d)=>setForm({...form, tools: d.map(x=>x.id)})} displayTextKey={"name"} collectionPath={"tools"}/>
+                            <DBSelect
+                            onChange={(d)=>setForm({...form, tools: d.filter(
+                                    x => x.selected
+                                ).map(x=>x.id)})}
+                            displayTextKey={"name"}
+                            collectionPath={"tools"}/>
                         </div>
                         <div className="column">
                             <h4>Material</h4>
-                            <DBSelect onChange={(d)=>setForm({...form, material: d.map(x=>x.id)})} displayTextKey={"name"} collectionPath={"material"}/>
+                            <DBSelect
+                            onChange={(d)=>setForm({...form, material: d.filter(
+                                    x => x.selected
+                                ).map(x=>x.id)})}
+                            displayTextKey={"name"}
+                            collectionPath={"material"}/>
                         </div>
                     </div> 
                 </ExpandWrap>

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import DBAdd from './DBAdd';
-import DBSelect from './DBTagSelect';
+import DBSelect from './TagSelect/DBTagSelect';
 import { TimelineEdit } from './TimelineEdit/index';
 import { useTheme } from './ThemeProvider';
 import VideoPlayer from './HtmlVideoDisplay';
@@ -10,6 +10,9 @@ import Input from './styled/Input';
 import Checkbox from './styled/Checkbox';
 import ExpandWrap from './ExpandWrap';
 import Step from '../models/Step';
+import ListItem from '../models/ListItem';
+import { getDocsByIds } from './TagSelect/useDBSearch';
+import Doc from '../models/Doc';
 
 interface VideoForm {
     title: string,
@@ -36,6 +39,8 @@ const defaultForm: VideoForm = {
 const VideoEditForm = ({url, initialForm = defaultForm, onChange}: Props)=> {
     const [theme] = useTheme();
     const [form, setForm] = useState<VideoForm>(initialForm);
+    const [tools, setTools] = useState<ListItem[]>([]);
+    const [material, setMaterial] = useState<ListItem[]>([]);
     
     useEffect(()=>{
         onChange(form);
@@ -43,7 +48,34 @@ const VideoEditForm = ({url, initialForm = defaultForm, onChange}: Props)=> {
     
     useEffect(()=>{
         setForm(initialForm);
+        setTags(initialForm);
     }, [initialForm])
+
+    const setTags = async (formData: VideoForm) => {
+        //tools
+        const initTools = await getTagItems(formData.tools, "tools", "name");
+        setTools(initTools);
+
+        //material
+        const initMat = await getTagItems(formData.tools, "material", "name");
+        setMaterial(initMat);
+    }
+
+    const getTagItems = async (ids, collectionPath, displayTextKey): Promise<ListItem[]> => {
+        const docs = await getDocsByIds(ids, collectionPath);
+        const items = await docsToItems(docs, displayTextKey, true);
+        return items;
+    }
+
+    const docsToItems = async(docs: Doc[], displayTextKey: string, select: boolean = false): Promise<ListItem[]> => {
+        const newDocs = await docs;
+        if(newDocs){
+            return newDocs.map(d => {
+                return {id: d.id, label: d.data[displayTextKey], selected: select}
+            })
+        }
+        return [];
+    }
 
     function test(){
     }
@@ -63,12 +95,22 @@ const VideoEditForm = ({url, initialForm = defaultForm, onChange}: Props)=> {
                     <div className="select">
                         <div className="column">
                             <h4>Tools</h4>
-                            <DBSelect initialIds={form.tools} onChange={(d)=>setForm({...form, tools: d.map(x=>x.id)})} displayTextKey={"name"} collectionPath={"tools"}/>
+                            <DBSelect
+                                collectionPath={"tools"}
+                                displayTextKey={"name"}
+                                initItems={tools}
+                                onChange={(d)=>{setTools(d)}}
+                            />
 
                         </div>
                         <div className="column">
                             <h4>Material</h4>
-                            <DBSelect initialIds={form.material} onChange={(d)=>setForm({...form, material: d.map(x=>x.id)})} displayTextKey={"name"} collectionPath={"material"}/>
+                            <DBSelect
+                                collectionPath={"material"}
+                                displayTextKey={"name"}
+                                initItems={material}
+                                onChange={(d)=>{setMaterial(d)}}
+                            />
                         </div>
                     </div>
                     <ExpandWrap label={"can't find your tag? create new!"}>

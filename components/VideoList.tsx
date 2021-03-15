@@ -3,6 +3,7 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { db } from '../firebase';
 import Video from './VideoMiniature';
 import IVideo from '../models/Video';
+import firebase from 'firebase';
 
 type IVideoID = IVideo&{id:string}
 interface Props {
@@ -14,14 +15,16 @@ const VideoList = ({
     queryStr = "",
     limit = 15
 }: Props)=> {
-    const videosRef = db.collection('videos');
-    const query = videosRef
-    .where('title', '>=', queryStr)
-    .where('title', '<', queryStr+'z')
-    .orderBy('title')
+    let query: firebase.firestore.Query = db.collection('videos');;
+    if(queryStr && queryStr != ""){
+        query = query
+        .where('title', '>=', queryStr)
+        .where('title', '<', queryStr+'z')
+    }
+    query = query
+    .where('public', '==', true)
     .limit(limit);
     const [videos] = useCollectionData<IVideoID>(query, { idField: 'id' });
-    
     return (
         <div className="videoList">
                 {videos &&

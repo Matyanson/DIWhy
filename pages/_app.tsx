@@ -34,7 +34,7 @@ MyApp.getInitialProps = async (appContext) => {
 
   if(token && ctx.req){
     try {
-      // USE NEXT API NORMALY:
+      // USE NEXT API:
       const dev = process.env.NODE_ENV === 'development';
       const server = dev ? 'http://localhost:3000/' : 'https://diwhy.vercel.app/';
       const headers = {

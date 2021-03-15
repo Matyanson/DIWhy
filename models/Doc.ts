@@ -1,4 +1,4 @@
 export default interface Doc {
     id: string,
-    data: {}
+    data: any
 }

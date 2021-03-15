@@ -13,11 +13,11 @@ export default function CustomThemeProvider({ children, initialTheme = null }){
     const user = useAuth();
     const [ theme, setTheme ] = useState<ColorTemplate>(initialTheme ?? templates.light);
     
-    useEffect(()=>{
-        if(user && user.currTheme){
-            setTheme(user.currTheme);
-        }
-    }, [user?.currTheme ?? null])
+    // useEffect(()=>{
+    //     if(user && user.currTheme){
+    //         setTheme(user.currTheme);
+    //     }
+    // }, [user?.currTheme ?? null])
 
     const setThemeByKey = (key: string) =>{
         if(!templates[key])
@@ -33,10 +33,14 @@ export default function CustomThemeProvider({ children, initialTheme = null }){
 
     const saveThemeToUser = (themeData: ColorTemplate) => {
         if(user && user.uid){
-            const usrRef = db.collection('users').doc(user.uid);
-            usrRef.update({
-                currTheme: themeData
-            })
+            try{
+                const usrRef = db.collection('users').doc(user.uid);
+                usrRef.update({
+                    currTheme: themeData
+                });
+            } catch (e){
+                console.log(e);
+            }
         }
     }
     return(

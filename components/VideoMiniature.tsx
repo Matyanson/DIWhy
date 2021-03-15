@@ -1,5 +1,5 @@
 import { useTheme } from './ThemeProvider';
-import Tag from './Tag';
+import Tag from './TagSelect/Tag';
 import ProfilePic from './ProfilePicture';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { db } from '../firebase';

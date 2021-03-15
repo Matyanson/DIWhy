@@ -9,12 +9,14 @@ import VideoContextProvider from '../components/VideoContextProvider';
 import { TimelineEdit } from '../components/TimelineEdit';
 import React, { useState } from 'react';
 import DBAdd from '../components/DBAdd';
-import DBSelect from '../components/DBTagSelect';
-import TagSelect from '../components/TagSelect';
+import TagSelect from '../components/TagSelect/TagSelect';
 import Button from '../components/styled/Button';
 import Input from '../components/styled/Input';
 import { db } from '../firebase';
 import { firestore } from 'firebase-admin';
+import ListItem from '../models/ListItem';
+import DBTagSelect from '../components/TagSelect/DBTagSelect';
+import useItemList from '../components/TagSelect/useItemList';
 
 
 export default function About(props) {
@@ -22,19 +24,17 @@ export default function About(props) {
     input: "",
     tools: []
   });
-  const toItems = (arr: string[]) =>{
-    console.log((arr));
-    if(!arr)
-        return [];
-    return arr.map((val, index)=> {
-        return  {id: index, data: val};
+  const idList = ["cock", "hodně sus", "hammer", "hammer2"];
+  const [items, setItems] = useState<ListItem[]>(
+    idList.map(x=>{
+      return {id: x, label: x, selected: false};
     })
-  }
-  const idList = ["cock", "hodně sus", "hammer", "hammer2", "niggers", "ruller", "scissors", "something new", "niggers", "ruller", "scissors", "something new", "cock", "hodně sus", "hammer",];
+  );
   
-  
+  const [testVal, setTest] = useState(["test"]);
+
   const test = async()=>{
-    
+    console.log(items);
   }
   return (
     <div className="aboutPage">
@@ -42,8 +42,18 @@ export default function About(props) {
           <title>About Page</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <Test />
-        <DBSelect initialIds={idList} onChange={(d)=>setForm({...form, tools: d.map(x=>x.id)})} displayTextKey={"name"} collectionPath={"tools"}/>
+        <br/><br/><br/>
+        <Test initValue={testVal}/>
+        {/* <TagSelect 
+          initItems={items}
+          onChange={(newItems)=>{setItems(newItems)}}
+        /> */}
+        <DBTagSelect
+          collectionPath={"tools"}
+          displayTextKey={"name"}
+          onChange={(d)=>{setItems(d)}}
+          initItems={items}
+        />
         <Button onClick={()=>{test()}} >test</Button>
         <style jsx>{`
           .aboutPage{

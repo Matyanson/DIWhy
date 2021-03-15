@@ -1,51 +1,48 @@
-import { useEffect, useRef, useState } from 'react';
-import { useTheme } from './ThemeProvider';
+import { useDebugValue, useEffect, useMemo, useRef, useState } from 'react';
+import { useTheme } from '../ThemeProvider';
 import Tag from './Tag';
-import themes from '../assets/templates';
+import { ChevronDown } from '../icons';
+import ListItem from '../../models/ListItem';
+import useItemList, { addItem, deleteItem } from './useItemList';
 
 interface Props {
-    items: string[],
-    select?: number[],
-    onSelect?: (select: number[]) => void,
+    initItems: ListItem[],
+    onChange: (newItems: ListItem[]) => void,
     onSearch?: (keyword: string) => void
 }
 
 const TagSelect = ({
-        items,
-        select = [],
-        onSelect = ()=> {},
-        onSearch = ()=> {}
+        initItems = [],
+        onChange = () => {},
+        onSearch = () => {}
     }: Props)=> {
 
     const [theme] = useTheme();
     const [focused, setFocus] = useState(false);
-    const [selected, setSelected] = useState(select);
     const [query, setQuery] = useState("");
 
-    useEffect(()=>{
-        setSelected(select);
-    }, [select])
+    const indexedItems = useMemo(()=>{
+        return initItems.map((x, index)=>{
+            return {...x, index}
+        })
+    }, [initItems])
 
-    function focus(){
+    const focus = () => {
         setFocus(true);
     }
 
-    function unfocus(){
+    const unfocus = () => {
         setFocus(false);
     }
 
-    function addItem(newIndex){
-        updateSelected([...selected, newIndex]);
+    const onSelect = (index) => {
+        const newItems = addItem(index, initItems);
+        onChange(newItems);
     }
 
-    function deleteItem(index){
-        updateSelected([...selected.slice(0,index),
-            ...selected.slice(index+1)]);
-    }
-
-    function updateSelected(newSelected){
-        setSelected(newSelected);
-        onSelect(selected);
+    const onDelete = (index) => {
+        const newItems = deleteItem(index, initItems);
+        onChange(newItems);
     }
 
     const updateSerach = (q: string) =>{
@@ -57,15 +54,14 @@ const TagSelect = ({
     <div className="selectContainer">
         <div onFocus={()=>focus()} onBlur={()=>unfocus()} tabIndex={0}>
             <div className="selectHead">
-                <input type="text" onFocus={()=>focus()} value={query} onChange={(e)=>{updateSerach(e.target.value)}} /><div className="more_btn">ˇ</div>
+                <input type="text" onFocus={()=>focus()} value={query} onChange={(e)=>{updateSerach(e.target.value)}} /><div className="more_btn"><ChevronDown/></div>
             </div>
             {
-                items && focused &&
+                initItems && focused &&
                 <div className="items">
                 {
-                    items.map((x, index)=>{
-                        if(!selected.includes(index))
-                            return <div key={index} onMouseDown={()=>{addItem(index)}} >{x}</div>
+                    indexedItems.filter((x) => !x.selected).map((x)=>{
+                        return <div key={x.index} onMouseDown={()=>{onSelect(x.index)}} >{x.label}</div>
                     })
                 }
                 </div>
@@ -73,9 +69,8 @@ const TagSelect = ({
         </div>
         <div className="tagsContainer">
             {
-                selected &&
-                selected.map((x,i)=>{
-                return <div key={i} className="tagWrap" onClick={()=>deleteItem(i)}><Tag title={items[x]} /></div>
+                indexedItems.filter(x => x.selected).map((x)=>{
+                    return <div key={x.index} className="tagWrap" onClick={()=>onDelete(x.index)}><Tag title={x.label} /></div>
                 })
             }
         </div>
