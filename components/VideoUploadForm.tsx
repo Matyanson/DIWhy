@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 import * as firebase from 'firebase/app';
 import { db, storage } from '../firebase';
 import FilePicker from './FilePicker';
-import DBSelect from './DBTagSelect';
 import Progressbar from './Progressbar';
 import DBAdd from './DBAdd';
 import { TimelineEdit } from './TimelineEdit/index';

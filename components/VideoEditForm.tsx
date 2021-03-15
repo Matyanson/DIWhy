@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import DBAdd from './DBAdd';
 import DBSelect from './TagSelect/DBTagSelect';
 import { TimelineEdit } from './TimelineEdit/index';
@@ -41,10 +41,17 @@ const VideoEditForm = ({url, initialForm = defaultForm, onChange}: Props)=> {
     const [form, setForm] = useState<VideoForm>(initialForm);
     const [tools, setTools] = useState<ListItem[]>([]);
     const [material, setMaterial] = useState<ListItem[]>([]);
+    const finalForm = useMemo(()=>{
+        return {
+            ...form,
+            tools: tools.map(x => x.id),
+            material: material.map(x => x.id)
+        };
+    }, [form])
     
     useEffect(()=>{
-        onChange(form);
-    }, [form])
+        onChange(finalForm);
+    }, [finalForm])
     
     useEffect(()=>{
         setForm(initialForm);
