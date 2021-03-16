@@ -51,10 +51,13 @@ const VideoEditForm = ({url, initialForm = defaultForm, onChange}: Props)=> {
     
     useEffect(()=>{
         onChange(finalForm);
-    }, [finalForm])
+    }, [form])
     
     useEffect(()=>{
-        setForm(initialForm);
+        if(form == defaultForm){
+            console.log(initialForm);
+            setForm(initialForm);
+        }
         setTags(initialForm);
     }, [initialForm])
 

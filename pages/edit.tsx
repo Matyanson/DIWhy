@@ -74,20 +74,7 @@ const Edit = ()=> {
       console.log(e);
     }
   }
-  function getPathStorageFromUrl(url:String){
-
-    const baseUrl = "https://firebasestorage.googleapis.com/v0/b/diwhy-39b77.appspot.com/o/";
-
-    let imagePath:string = url.replace(baseUrl,"");
-
-    const indexOfEndPath = imagePath.indexOf("?");
-
-    imagePath = imagePath.substring(0,indexOfEndPath);
-    
-    imagePath = imagePath.replace("%2F","/");
-
-    return imagePath;
-  }
+  
 
   const deleteStoregeVideo = () =>{
     try{
@@ -100,6 +87,7 @@ const Edit = ()=> {
       console.log(e);
     }
   }
+
   const deleteVideo = () =>{
     console.log("deleting");
     try{
@@ -114,6 +102,7 @@ const Edit = ()=> {
       console.log(e);
     }
   }
+  
   const submit = () =>{
     saveToDB();
   }
@@ -148,7 +137,7 @@ const Edit = ()=> {
                   deleteVideo();
               }}/>
             }
-            <VideoEditForm url={video.url} initialForm={form} onChange={(data)=>{setForm(data);}}/>
+            <VideoEditForm url={video.url} initialForm={form} onChange={(data)=>{setForm(data)}}/>
             <div className="buttons">
               {/* <Button onClick={()=>test()}>Test</Button>&nbsp;&nbsp;&nbsp;&nbsp; */}
               <Button onClick={()=>submit()}>Submit</Button>&nbsp;&nbsp;&nbsp;&nbsp;
