@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { db } from '../firebase';
 import Video from './VideoMiniature';
 
 
 const VideoList = ({chanelId})=> {
-    const videosRef = db.collection('videos');
-    const query = videosRef
+    let query: firebase.firestore.Query = db.collection('videos');
+    query = query
+    .where('public', '==', true)
     .where('author.userId', '==', chanelId)
-    .orderBy('title')
-    .limit(25);
+    .limit(15);
     const [videos] = useCollectionData(query, { idField: 'id' });
+
+    useEffect(()=>{
+        console.log(videos);
+    }, [videos])
+
+    console.log(chanelId);
     return (
         <div className="videoList">
                 {videos &&
