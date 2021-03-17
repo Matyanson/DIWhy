@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Head from 'next/head';
 import HtmlVideoPlayer from "../components/HtmlVideoDisplay";
 import Controls from '../components/VideoControls'; 
@@ -46,16 +46,18 @@ const Edit = ()=> {
   }
   const [form, setForm] = useState(defaultForm);
   const [modalBox, setModalBox] = useState(false);
+  const initForm = useMemo(()=>{
+    if(!video)
+      return defaultForm;
+    return Object.assign(defaultForm, video);
+  }, [video])
 
   //functions
-  const videoDataToForm = ()=>{
+  const videoDataToForm = () => {
     if(!video)
       return defaultForm;
     return Object.assign(defaultForm, video);
   }
-  useEffect(()=>{
-    setForm(videoDataToForm());
-  }, [video])
   const test = () =>{
     console.log(form);
     console.log(video);
@@ -102,7 +104,7 @@ const Edit = ()=> {
       console.log(e);
     }
   }
-  
+
   const submit = () =>{
     saveToDB();
   }
@@ -137,7 +139,7 @@ const Edit = ()=> {
                   deleteVideo();
               }}/>
             }
-            <VideoEditForm url={video.url} initialForm={form} onChange={(data)=>{setForm(data)}}/>
+            <VideoEditForm url={video.url} initialForm={initForm} onChange={(data)=>{setForm(data)}}/>
             <div className="buttons">
               {/* <Button onClick={()=>test()}>Test</Button>&nbsp;&nbsp;&nbsp;&nbsp; */}
               <Button onClick={()=>submit()}>Submit</Button>&nbsp;&nbsp;&nbsp;&nbsp;

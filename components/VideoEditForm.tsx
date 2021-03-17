@@ -54,20 +54,20 @@ const VideoEditForm = ({url, initialForm = defaultForm, onChange}: Props)=> {
     }, [form])
     
     useEffect(()=>{
-        if(form == defaultForm){
-            console.log(initialForm);
-            setForm(initialForm);
-        }
+        console.log(initialForm);
+        setForm(initialForm);
         setTags(initialForm);
     }, [initialForm])
 
     const setTags = async (formData: VideoForm) => {
         //tools
         const initTools = await getTagItems(formData.tools, "tools", "name");
+        console.log("setTools to:", initTools);
         setTools(initTools);
 
         //material
-        const initMat = await getTagItems(formData.tools, "material", "name");
+        const initMat = await getTagItems(formData.material, "material", "name");
+        console.log("setMaterial to:", initMat);
         setMaterial(initMat);
     }
 
