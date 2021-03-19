@@ -7,19 +7,25 @@ import ProgressBar from './Progressbar';
 import ProfilePic from './ProfilePicture';
 import Button from './styled/Button';
 
+const defaultProfilePic = "https://firebasestorage.googleapis.com/v0/b/diwhy-39b77.appspot.com/o/default%2Fprofile.jpg?alt=media&token=9868229e-d8dd-48d7-9947-b08aa19d5043";
+
+const defaultForm = {
+    username: "",
+    email: "",
+    img: defaultProfilePic
+}
+
 const RegisterForm = ()=> {
     const router = useRouter();
-    const [username, setTitle] = useState("");
-    const [email, setEmail] = useState("");
+    const [form, setForm] = useState(defaultForm);
     const [password, setPassword] = useState("");
-    const [ errorMsg, setError] = useState("");
-    const [error, setErrorToggle ] = useState(false);
+    const [errorMsg, setError] = useState<string[]>([]);
     const [progress, setProgress] = useState(0);
-    const [file, setFiles] = useState(null);
-    const [imgSrc, setImgSrc] = useState(null);
+    const [file, setFiles] = useState<File>(null);
+    const [imgSrc, setImgSrc] = useState(defaultProfilePic);
     let storageRef = storage.ref();
 
-    function onFileChange(files){
+    function onFileChange(files: File[]){
       if(!files || files.length < 1)
         return null;
       const newFile = files[0];
@@ -30,22 +36,39 @@ const RegisterForm = ()=> {
     function getImageSrc(file) {
       const reader = new FileReader();
       reader.onload = function(){
-        setImgSrc(reader.result);
+          const url = reader.result;
+        //if( !(url instanceof ArrayBuffer))
+        if(typeof(url) === "string" )
+            setImgSrc(url);
       }
       reader.readAsDataURL(file);
     }
 
     async function submit(){
+        setError([]);
         const userData = await register();
-        console.log(userData);
 
         await saveUser(userData);
 
-    }
-    async function saveUser(userData){
+        if(errorMsg.length < 1)
+            login();
 
-        let videoRef = storageRef.child(`/profilePictures/${file.name}`);
-        let uploadTask = videoRef.put(file);
+    }
+
+    async function saveUser(userData){
+        let imgUrl = defaultProfilePic;
+        if(file){
+            let x = await saveImg(file);
+            if(x)
+                imgUrl = x;
+        }
+        
+        saveUserFirestore(userData, imgUrl);
+    }
+
+    async function saveImg(file: File): Promise<string | void>{
+        const videoRef = storageRef.child(`/profilePictures/${file.name}`);
+        const uploadTask = videoRef.put(file);
         await uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, onProgress, onError, onComplete);
 
         function onProgress(snapshot){
@@ -53,18 +76,16 @@ const RegisterForm = ()=> {
             setProgress(temp);
         }
 
-        function onError(error){
-            allert(error);
+        async function onComplete(){
+            let url: string = await uploadTask.snapshot.ref.getDownloadURL();
+            setProgress(0);
+
+            return url;
         }
 
-        async function onComplete(){
-            let url = await uploadTask.snapshot.ref.getDownloadURL();
-            setProgress(0);
-            saveUserFirestore(userData, url);
-
-            await login();
-
-            router.push('/');
+        function onError(e: Error) {
+            setError([...errorMsg, e.message])
+            return null;
         }
     }
 
@@ -72,34 +93,36 @@ const RegisterForm = ()=> {
         if(userData && userData.user){
             const usr = userData.user;
             db.collection('users').doc(usr.uid).set({
-                username: username,
+                username: form.username,
                 email: usr.email,
                 img
+            })
+            .catch((e: Error)=>{
+                setError([...errorMsg, e.message]);
             })
         }
     }
     async function login(){
-        await auth.signInWithEmailAndPassword(email, password).catch((error) => {
+        await auth.signInWithEmailAndPassword(form.email, password)
+        .then(()=>{
+            router.push('/');
+        })
+        .catch((error) => {
             // Handle Errors here.
-            var errorCode = error.code;
             var errorMessage = error.message;
-            allert(errorMessage+" code: "+errorCode);
+            setError([...errorMsg, errorMessage]);
         });
     }
 
     async function register(){
-        const userData = await auth.createUserWithEmailAndPassword(email, password).catch((error) => {
+        const userData = await auth.createUserWithEmailAndPassword(form.email, password)
+        .catch((error) => {
             // Handle Errors here.
-            var errorCode = error.code;
             var errorMessage = error.message;
-            allert(errorMessage+" code: "+errorCode);
+            setError([...errorMsg, errorMessage]);
         });
         console.log(userData);
         return userData;
-    }
-    function allert(err){
-        setError(err);
-        setErrorToggle(true);
     }
 
     
@@ -109,14 +132,28 @@ const RegisterForm = ()=> {
           e.preventDefault();
           submit();
         }} >
-            Username <input type="text" value={username} onChange={(e)=>{setTitle(e.target.value)}}/><br/>
-            Email <input type="email" value={email} onChange={(e)=>{setEmail(e.target.value)}}/><br/>
+            Username <input 
+                type="text"
+                value={form.username}
+                onChange={(e)=>{
+                    setForm({...form, username: e.target.value})
+                }}
+            /><br/>
+            Email <input 
+                type="email"
+                value={form.email}
+                onChange={(e)=>{
+                    setForm({...form, email: e.target.value})
+                }}
+            /><br/>
             Password <input type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}/><br/>
             Profile pic <FilePicker accept="image/*" onSelect={(d)=>onFileChange(d)} />
             { imgSrc && <ProfilePic src={imgSrc} size={150} /> }<br/>
             {
-                error &&
-                <p className="error">{errorMsg}</p>
+                errorMsg && errorMsg.length > 0 &&
+                errorMsg.map((e: string, id)=>
+                  <p key={id} className="error">{e}</p>
+                )
             }
             <Button>Register</Button>
             <ProgressBar value={progress} />

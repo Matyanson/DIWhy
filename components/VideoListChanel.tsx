@@ -11,12 +11,6 @@ const VideoList = ({chanelId})=> {
     .where('author.userId', '==', chanelId)
     .limit(15);
     const [videos] = useCollectionData(query, { idField: 'id' });
-
-    useEffect(()=>{
-        console.log(videos);
-    }, [videos])
-
-    console.log(chanelId);
     return (
         <div className="videoList">
                 {videos &&

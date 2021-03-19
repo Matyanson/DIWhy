@@ -7,15 +7,13 @@ import Test from './Test';
 
 const LoginForm = ()=> {
     const router = useRouter();
-    const [title, setTitle] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [ errorMsg, setError] = useState<string[]>([]);
+    const [errorMsg, setError] = useState<string[]>([]);
     
 
     async function submit(){
-      console.log("clear the fucking errorMessages!!!!!");
-        setError([""]);
+      setError([""]);
       console.log(errorMsg);
         
         await login();
