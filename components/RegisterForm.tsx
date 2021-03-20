@@ -45,14 +45,34 @@ const RegisterForm = ()=> {
     }
 
     async function submit(){
-        setError([]);
+        const errors = validate();
+        console.log(errors);
+        setError(errors);
+        if(errors.length > 0)
+            return;
+
         const userData = await register();
+        if(!userData)
+            return;
 
         await saveUser(userData);
 
-        if(errorMsg.length < 1)
-            login();
+        login();
 
+    }
+
+    function validate(){
+        const errors: string[] = [];
+        if(!form.username || form.username.length < 2 || form.username.length > 20){
+            errors.push("Username must be between 2 and 20 characters long");
+        }
+        if(!form.email || form.email.length < 1){
+            errors.push("Please fill in email");
+        }
+        if(!password || password.length < 1){
+            errors.push("Please fill in password");
+        }
+        return errors;
     }
 
     async function saveUser(userData){
@@ -116,12 +136,10 @@ const RegisterForm = ()=> {
 
     async function register(){
         const userData = await auth.createUserWithEmailAndPassword(form.email, password)
-        .catch((error) => {
+        .catch((error: Error) => {
             // Handle Errors here.
-            var errorMessage = error.message;
-            setError([...errorMsg, errorMessage]);
+            setError([...errorMsg, error.message]);
         });
-        console.log(userData);
         return userData;
     }
 
