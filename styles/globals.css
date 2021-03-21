@@ -6,7 +6,7 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 #__next{
-  padding-top: 40px;
+  padding-top: 60px;
   height: 100vh;
   display: flex;
   flex-flow: column;
