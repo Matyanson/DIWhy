@@ -4,6 +4,10 @@ import { ReactChildren, ReactNode, useRef, useState } from "react";
 import useFullscreenStatus from "./UseFullscreenStatus";
 import {msToTimePattern} from '../helpers/functions';
 import Slider from "./Slider";
+import SvgVolumeX from "./icons/VolumeX";
+import SvgVolume1 from "./icons/Volume1";
+import SvgVolume2 from "./icons/Volume2";
+import SvgVolume from "./icons/Volume";
 
 interface Props{
     children: ReactNode,
@@ -23,6 +27,12 @@ const mouseTimer = useRef(null);
 
 function playPause(){
     setVideoData({ ...videoData, paused: !videoData.paused })
+}
+function toggleVolume(){
+    const newVolume = videoData.volume > 0.01 ? 0 : 1;
+    console.log(newVolume);
+    console.log("toggle volume from to: ",videoData.volume, newVolume);
+    setVideoData({...videoData, volume: newVolume})
 }
 function setTime(ms){
     setVideoData({...videoData, setMS: Number(ms)});
@@ -53,7 +63,26 @@ function setMouseMovement(){
                             <div className="playPause click" onClick={()=>playPause()} >
                                 {videoData.paused ? <Play/> : <Pause/>}
                             </div>
-                            <div className="time">
+                            <div className="click volume-control row">
+                                <div className="icon" onClick={toggleVolume}>
+                                {
+                                    !videoData.volume || videoData. volume == 0 ?
+                                    <SvgVolumeX/> :
+                                    (
+                                        videoData.volume < 0.5 ?
+                                        <SvgVolume1 /> :
+                                        <SvgVolume2 />
+                                    )
+                                }
+                                </div>
+                                <div className="slider click">
+                                    <Slider min={0} max={100}
+                                        value={videoData.volume * 100}
+                                        onChange={(n)=>setVideoData({...videoData, volume: n/100 })} 
+                                    />
+                                </div>
+                            </div>
+                            <div className="time row">
                                 {msToTimePattern(videoData.currentMS)} / {msToTimePattern(videoData.durationMS)}
                             </div>
                         </div>
@@ -93,6 +122,7 @@ function setMouseMovement(){
                     position: relative;
                     color: white;
                     background: #000;
+                    font-size: 1.2rem;
                     display: flex;
                     justify-content: center;
                     align-items: center;
@@ -123,7 +153,7 @@ function setMouseMovement(){
                 .controls > .bottom{
                     display: flex;
                     flex-flow: column;
-                    padding: 5px;
+                    padding: 0 5px;
                     background-image: linear-gradient(#00000000, #000000B0)
                 }
                 .row-buttons{
@@ -131,6 +161,7 @@ function setMouseMovement(){
                     flex-flow: row;
                     align-items: center;
                     justify-content: space-between;
+                    min-height: 2rem;
                 }
                 .top .title{
                     font-size: 1.5rem;
@@ -141,6 +172,14 @@ function setMouseMovement(){
                 }
                 .bottom .time{
                     font-size: 0.7rem;
+                    white-space: nowrap;
+                }
+                .volume-control .slider{
+                    width: 0px;
+                    transition: all 0.2s;
+                }
+                .volume-control:hover .slider{
+                    width: 120px;
                 }
             `}</style>
         </div>

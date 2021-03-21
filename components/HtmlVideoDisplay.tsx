@@ -15,12 +15,18 @@ const VideoPlayer = ({
 } : Props ) => {
 
 const [ videoData, setVideoData ] = useVideoContext();
-const media = useRef(null);
+const media = useRef<HTMLVideoElement | null>(null);
 
 useEffect(()=>{
     if(media.current.duration)
         setVideoData({...videoData, durationMS: media.current.duration * 1000})
 }, [media.current? media.current.duration : null])
+
+useEffect(()=>{
+        if(videoData.volume || videoData.volume == 0){
+            media.current.volume = videoData.volume;
+        }
+}, [videoData.volume])
 
 useEffect(()=>{
     if(videoData.paused)
@@ -45,10 +51,10 @@ function onTimeUpdate(seconds: number){
     return (
         <div className="video">
             <video ref={media}
-            onPause={()=>onPause(media.current.paused)}
-            onTimeUpdate={()=>onTimeUpdate(media.current.currentTime)}
-            controls={controls}
-            id='videoPlayer'
+                onPause={()=>onPause(media.current.paused)}
+                onTimeUpdate={()=>onTimeUpdate(media.current.currentTime)}
+                controls={controls}
+                id='videoPlayer'
             >
             <source src={url} type="video/mp4"/>
             Your browser does not support the video tag.
