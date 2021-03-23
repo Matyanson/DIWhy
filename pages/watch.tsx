@@ -22,8 +22,8 @@ const Watch = ()=> {
     <div>
         {
             videoData ?
-            <>
             <VideoContextProvider >
+            <>
                 <div className="vid"> 
                     <Controls title={videoData.title}>
                         <HtmlVideoPlayer url={videoData.url} />
@@ -31,8 +31,8 @@ const Watch = ()=> {
                 </div>
                 <h2>{videoData.title}</h2>
                 <TimelineEdit editable={false} initialSteps={videoData.steps} />
-            </VideoContextProvider>
             </>
+            </VideoContextProvider>
             :
             <div className="loadingScreen">
                 <h2>Loading Video</h2>

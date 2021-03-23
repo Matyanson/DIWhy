@@ -13,10 +13,12 @@ const VideoPlayer = ({url, title = null}:Props)=> {
     return (
         <div>
             <VideoContextProvider >
+                <>
                 <Controls title={title}>
                     <HtmlVideoPlayer url={url} />
                 </Controls>
                 <TimelineEdit editable={false} />
+                </>
             </VideoContextProvider>
             <style jsx>{`
                 .videoControls{
