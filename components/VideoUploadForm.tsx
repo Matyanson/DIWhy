@@ -20,6 +20,7 @@ import Checkbox from './styled/Checkbox';
 import ExpandWrap from './ExpandWrap';
 import { casefold } from '../helpers/functions';
 import VideoEditForm from './VideoEditForm';
+import { firestore } from 'firebase-admin';
 
 
 const Uploader = ()=> {
@@ -107,6 +108,7 @@ const Uploader = ()=> {
             title,
             casefold: casefold(title),
             public: form.public,
+            timestamp: Date.now(),
             author: { username, userId },
             url,
             tools: form.tools,

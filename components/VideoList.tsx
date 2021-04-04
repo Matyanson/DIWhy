@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { db } from '../firebase';
 import Video from './VideoMiniature';
@@ -16,15 +16,20 @@ const VideoList = ({
     limit = 15
 }: Props)=> {
     let query: firebase.firestore.Query = db.collection('videos');
+    query = query.where('public', '==', true)
     if(queryStr && queryStr != ""){
         query = query
         .where('title', '>=', queryStr)
         .where('title', '<', queryStr+'z')
     }
     query = query
-    .where('public', '==', true)
+    .orderBy('timestamp')
     .limit(limit);
-    const [videos] = useCollectionData<IVideoID>(query, { idField: 'id' });
+    const [videos, loading, error] = useCollectionData<IVideoID>(query, { idField: 'id' });
+
+    useEffect(()=>{
+        console.log(error);
+    }, [error])
     return (
         <div className="videoList">
                 {videos &&

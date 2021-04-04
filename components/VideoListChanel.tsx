@@ -9,6 +9,7 @@ const VideoList = ({chanelId})=> {
     query = query
     .where('public', '==', true)
     .where('author.userId', '==', chanelId)
+    .orderBy('timestamp')
     .limit(15);
     const [videos] = useCollectionData(query, { idField: 'id' });
     return (

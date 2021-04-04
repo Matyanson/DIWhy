@@ -34,7 +34,15 @@ export default function About(props) {
   const [testVal, setTest] = useState(["test"]);
 
   const test = async()=>{
-    console.log(items);
+    // const query = await db.collection('videos').get();
+    // let batch = db.batch();
+    // query.docs.forEach(snap =>{
+    //   const docRef = snap.ref;
+    //   batch.update(docRef, { timestamp: 1617565460524 });
+    // })
+    // batch.commit().then(()=>{
+    //   console.log("Updated all Docs succesfully! :O");
+    // })
   }
   return (
     <div className="aboutPage">
