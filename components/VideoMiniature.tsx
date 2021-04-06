@@ -39,14 +39,14 @@ const [author] = authorRef ? useDocumentData<User>(authorRef) : [null];
                     { material.map((x, key) => <Tag key={-key} title={x} background="#c44d12" />) }
                 </div> */}
                 <div className="row">
-                    {user && author && videoData.author &&
+                    {author && videoData.author &&
                     <>
                         <a className="row" href={`/chanel?id=${videoData.author.userId}`}>
                             <ProfilePic src={author.img} size={30}/>
                             {videoData.author.username}
                         </a>
                         <div className="end">
-                            {user.uid == videoData.author.userId &&
+                            {user && user.uid == videoData.author.userId &&
                                 <a href={`/edit?v=${id}`}><Edit/></a>
                             }
                         </div>
