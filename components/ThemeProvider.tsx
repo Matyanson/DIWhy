@@ -13,20 +13,28 @@ export default function CustomThemeProvider({ children, initialTheme = null }){
     const user = useAuth();
     const [ theme, setTheme ] = useState<ColorTemplate>(initialTheme ?? templates.light);
     
-    // useEffect(()=>{
-    //     if(user && user.currTheme){
-    //         setTheme(user.currTheme);
-    //     }
-    // }, [user?.currTheme ?? null])
+    useEffect(()=>{
+        const localTheme: ColorTemplate | null = JSON.parse(localStorage.getItem('theme'));
+        if(localTheme)
+            setTheme(localTheme);
+    }, [])
+
+    useEffect(()=>{
+        if(user && user.theme){
+            localStorage.setItem('theme', JSON.stringify(user.theme));
+            setTheme(user.theme);
+        }
+    }, [user?.theme ?? null])
 
     const setThemeByKey = (key: string) =>{
         if(!templates[key])
-            changeTheme(templates["light"]);
+            changeTheme(templates['light']);
         else
             changeTheme(templates[key]);
     }
 
     const changeTheme = (themeData: ColorTemplate) => {
+        localStorage.setItem('theme', JSON.stringify(themeData));
         saveThemeToUser(themeData);
         setTheme(themeData);
     }
