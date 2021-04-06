@@ -11,7 +11,12 @@ const VideoList = ({chanelId})=> {
     .where('author.userId', '==', chanelId)
     .orderBy('timestamp')
     .limit(15);
-    const [videos] = useCollectionData(query, { idField: 'id' });
+    const [videos, loading, error] = useCollectionData(query, { idField: 'id' });
+
+    useEffect(()=>{
+        if(error)
+            console.log(error);
+    }, [error])
     return (
         <div className="videoList">
                 {videos &&

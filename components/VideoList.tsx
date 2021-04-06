@@ -28,7 +28,8 @@ const VideoList = ({
     const [videos, loading, error] = useCollectionData<IVideoID>(query, { idField: 'id' });
 
     useEffect(()=>{
-        console.log(error);
+        if(error)
+            console.log(error);
     }, [error])
     return (
         <div className="videoList">

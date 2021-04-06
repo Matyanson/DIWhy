@@ -46,17 +46,22 @@ export default function Profile(props) {
 
     return (
       <div>
-          <Head>
-            <title>{user?.username || "loading..."}</title>
-            <link rel="icon" href="/favicon.ico" />
-          </Head>
-          <Container>
-            <h2>{user.username}</h2><br/>
-            <ProfilePicChanger size={150} onChange={(files)=>newImage(files)} />
-            <br/>
-            <h3>Your videos</h3>
-            <VideoListChanel chanelId={user.uid} />
-          </Container>
+        { user &&
+        <>
+        <Head>
+          <title>{user?.username || "loading..."}</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Container>
+          <h2>{user.username}</h2><br/>
+          <ProfilePicChanger size={150} onChange={(files)=>newImage(files)} />
+          <br/>
+          <h3>Your videos</h3>
+          <VideoListChanel chanelId={user.uid} />
+        </Container>
+        </>
+        }
+          
       </div>
     )
   }
