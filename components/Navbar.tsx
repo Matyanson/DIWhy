@@ -11,7 +11,7 @@ const Navbar = ()=>{
     const user = useAuth();
     const router = useRouter();
     const [ { background, nav_BG, nav_FG, text, primary, neutral, neutral_dark} ] = useTheme();
-    const [expand, setExpand] = useState(true);
+    const [expand, setExpand] = useState(false);
     return (
         <div>
             <ul className={`nav ${expand ? 'expand' : ''}`}>
