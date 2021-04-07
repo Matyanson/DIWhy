@@ -55,7 +55,7 @@ const DBTagSelect = ({
 
     const search = async(query: string) => {
         console.log('search', query);
-        const newDocs = getDocsByQuery(query, searchKey, collectionPath, limit);
+        const newDocs = getDocsByQuery(query, searchKey, collectionPath, 'used', limit);
         const sItems = await docsToItems(newDocs);
         const newItems = saveNewItems(sItems);
         onChange(newItems);

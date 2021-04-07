@@ -34,11 +34,11 @@ export default function About(props) {
   const [testVal, setTest] = useState(["test"]);
 
   const test = async()=>{
-    // const query = await db.collection('videos').get();
+    // const query = await db.collection('material').get();
     // let batch = db.batch();
     // query.docs.forEach(snap =>{
     //   const docRef = snap.ref;
-    //   batch.update(docRef, { timestamp: 1617565460524 });
+    //   batch.update(docRef, { used: 1 });
     // })
     // batch.commit().then(()=>{
     //   console.log("Updated all Docs succesfully! :O");
