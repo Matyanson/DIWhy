@@ -7,7 +7,6 @@ import Video from './VideoMiniature';
 const VideoList = ({chanelId})=> {
     let query: firebase.firestore.Query = db.collection('videos');
     query = query
-    .where('public', '==', true)
     .where('author.userId', '==', chanelId)
     .orderBy('timestamp')
     .limit(15);
