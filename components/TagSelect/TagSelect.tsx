@@ -106,7 +106,8 @@ const TagSelect = ({
           .items div{
               cursor: pointer;
               background: ${theme.background};
-              color: ${theme.text}
+              color: ${theme.text};
+              padding: 3px 7px;
           }
           .items div:hover{
               background: ${theme.neutral_dark};
