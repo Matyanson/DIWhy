@@ -4,12 +4,17 @@ import App from 'next/app';
 import nookies from 'nookies';
 import Layout from '../components/Layout';
 import '../styles/globals.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import ColorTemplate from '../models/ColorTemplate';
 
 
 
 function MyApp({ Component, pageProps, user, userData}) {
-  const initTheme = userData?.currTheme ?? null;
+  let localTheme: ColorTemplate | null = null;
+  if(typeof window !== 'undefined')
+    localTheme = JSON.parse(localStorage.getItem('theme'));
+  const initTheme: ColorTemplate | null = userData?.currTheme ?? localTheme;
+
   return (
     
     <AuthProvider initialUser={user}>
