@@ -50,7 +50,6 @@ export default function Profile(props) {
         <>
         <Head>
           <title>{user?.username || "loading..."}</title>
-          <link rel="icon" href="/favicon.ico" />
         </Head>
         <Container>
           <div className="header">

@@ -1,4 +1,5 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
+import Head from 'next/head';
 import Navbar from './Navbar';
 import { useTheme } from './ThemeProvider';
 const Layout = ({children})=>{
@@ -6,6 +7,9 @@ const Layout = ({children})=>{
     const { primary, background, neutral, neutral_dark, text, secondary, allert } = theme;
     return (
         <>
+        <Head>
+          <link rel="icon" href="/logo.svg" />
+        </Head>
             <Navbar />
             {children}
             <style>{`

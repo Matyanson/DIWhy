@@ -48,7 +48,6 @@ export default function About(props) {
     <div className="aboutPage">
         <Head>
           <title>About Page</title>
-          <link rel="icon" href="/favicon.ico" />
         </Head>
         <br/><br/><br/>
         <Test initValue={testVal}/>

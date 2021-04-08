@@ -23,7 +23,6 @@ const Search = ()=> {
     <div>
         <Head>
             <title>Search</title>
-            <link rel="icon" href="/favicon.ico" />
         </Head>
         <h1>Search</h1>
         <VideoList queryStr={query}/>

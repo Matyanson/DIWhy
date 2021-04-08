@@ -113,7 +113,6 @@ const Edit = ()=> {
     <div>
         <Head>
             <title>Edit video</title>
-            <link rel="icon" href="/favicon.ico" />
         </Head>
         <h1>Edit Video</h1>
         {

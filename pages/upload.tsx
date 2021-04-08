@@ -7,7 +7,6 @@ export default function Upload() {
       <div>
          <Head>
             <title>Upload Page</title>
-            <link rel="icon" href="/favicon.ico" />
           </Head>
           <Container>
             <h2>Upload your video</h2>

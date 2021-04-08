@@ -7,7 +7,6 @@ return (
     <div>
         <Head>
         <title>Upload Page</title>
-        <link rel="icon" href="/favicon.ico" />
         </Head>
         <Container>
         <h2>Login here</h2>

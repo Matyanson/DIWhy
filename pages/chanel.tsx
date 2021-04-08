@@ -24,7 +24,6 @@ const Watch = ()=> {
             <>
             <Head>
             <title>{userData.username}</title>
-            <link rel="icon" href="/favicon.ico" />
             </Head>
             <Container>
               <h2>{userData.username}</h2><br/>

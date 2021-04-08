@@ -11,7 +11,6 @@ export default function Home() {
     <div>
       <Head>
         <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1>LOGGING OUT</h1>
     </div>
