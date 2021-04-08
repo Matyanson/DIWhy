@@ -53,15 +53,30 @@ export default function Profile(props) {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Container>
-          <h2>{user.username}</h2><br/>
-          <ProfilePicChanger size={150} onChange={(files)=>newImage(files)} />
+          <div className="header">
+            <ProfilePicChanger size={150} onChange={(files)=>newImage(files)} />
+            <div className="info">
+              <h2>{user.username}</h2>
+              <p>{user.email}</p>
+            </div>
+          </div>
           <br/>
           <h3>Your videos</h3>
           <VideoListChanel chanelId={user.uid} />
         </Container>
         </>
         }
-          
+        <style jsx>{`
+        .header{
+          display: flex;
+          flex-flow: row wrap;
+          justify-content: center;
+          align-items: center;
+        }
+        .header .info{
+          margin: 10px;
+        }
+          `}</style>
       </div>
     )
   }

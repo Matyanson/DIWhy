@@ -22,6 +22,7 @@ const ProfilePicChanger = ({onChange, size = 50}: Props)=> {
             border-radius: 50%;
             overflow: hidden;
             height: fit-content;
+            width: fit-content;
         }
         .text{
             width: 100%;
