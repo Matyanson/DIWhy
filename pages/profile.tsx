@@ -5,6 +5,7 @@ import { useAuth } from '../components/UserProvider';
 import VideoListChanel from '../components/VideoListChanel';
 import * as firebase from 'firebase/app';
 import { db, storage } from '../firebase';
+import VideoList from '../components/VideoList';
 
 export default function Profile(props) {
   const user = useAuth();
@@ -61,7 +62,7 @@ export default function Profile(props) {
           </div>
           <br/>
           <h3>Your videos</h3>
-          <VideoListChanel chanelId={user.uid} />
+          <VideoList chanelId={user.uid} publicOnly={false} />
         </Container>
         </>
         }

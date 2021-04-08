@@ -6,12 +6,14 @@ import ProfilePicture from '../components/ProfilePicture';
 import VideoListChanel from '../components/VideoListChanel';
 import { db } from '../firebase';
 import { useDocumentDataOnce } from 'react-firebase-hooks/firestore';
+import VideoList from '../components/VideoList';
 
 
 
 const Watch = ()=> {
     const router = useRouter();
-    const uid = router.query.id;
+    const uid: string = router.query.id instanceof(Array) ?
+    router.query.id[0] : router.query.id;
 
     const userRef = db.doc(`users/${uid}`);
     const [userData, loading, error] =  useDocumentDataOnce<any>(userRef);
@@ -29,7 +31,7 @@ const Watch = ()=> {
               <h2>{userData.username}</h2><br/>
               <ProfilePicture src={userData.img} size={150} />
               <br/>
-              <VideoListChanel chanelId={uid} />
+              <VideoList chanelId={uid} publicOnly={true} />
             </Container>
             </>
             :

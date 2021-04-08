@@ -6,17 +6,28 @@ import IVideo from '../models/Video';
 import firebase from 'firebase';
 
 type IVideoID = IVideo&{id:string}
+
 interface Props {
     queryStr?: string,
+    chanelId?: string,
+    publicOnly?: boolean,
     limit?: number,
 }
 
 const VideoList = ({
     queryStr = "",
+    chanelId = "",
+    publicOnly = true,
     limit = 15
 }: Props)=> {
     let query: firebase.firestore.Query = db.collection('videos');
-    query = query.where('public', '==', true)
+
+    if(publicOnly)
+        query = query.where('public', '==', true)
+
+    if(chanelId && chanelId != "")
+        query = query.where('author.userId', '==', chanelId)
+        
     if(queryStr && queryStr != ""){
         query = query
         .where('title', '>=', queryStr)
