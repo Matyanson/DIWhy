@@ -69,7 +69,7 @@ const Edit = ()=> {
       collectionRef.doc(vid).update(form)
       .then(() => {
           console.log("Document successfully updated!");
-          router.push('/');
+          router.back();
       })
       console.log("submited");
     } catch(e){
@@ -98,7 +98,7 @@ const Edit = ()=> {
       collectionRef.doc(vid).delete()
       .then(() => {
           console.log("Document successfully deleted!");
-          router.push('/');
+          router.back();
       })
     } catch(e){
       console.log(e);

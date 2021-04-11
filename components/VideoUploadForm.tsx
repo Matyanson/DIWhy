@@ -80,7 +80,7 @@ const Uploader = ()=> {
                 const { username, uid } = user;
                 console.log(url, videoTitle, username, uid);
                 saveVideoToDatabase(url, videoTitle, username, uid);
-                router.push('/');
+                router.back();
             }
         }
     }

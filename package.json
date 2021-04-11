@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
     "watch-icons": "onchange 'public/icons/*.svg' -- npm run build-icons",
     "build-icons": "npx @svgr/cli public/icons --out-dir components/icons --icon --typescript  --svg-props className=icon --replace-attr-values '#000=currentColor'"

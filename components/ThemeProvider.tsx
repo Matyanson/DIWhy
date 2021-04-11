@@ -14,15 +14,23 @@ export default function CustomThemeProvider({ children, initialTheme = null }){
     const [ theme, setTheme ] = useState<ColorTemplate>(initialTheme ?? templates.light);
     
     useEffect(()=>{
-        const localTheme: ColorTemplate | null = JSON.parse(localStorage.getItem('theme'));
-        if(localTheme)
-            setTheme(localTheme);
+        try{
+            //console.log("start");
+            const localTheme: ColorTemplate | null = JSON.parse(localStorage.getItem('theme'));
+            if(localTheme && !user?.currTheme){
+                setTheme(localTheme);
+                //console.log("yep")
+            }
+            else
+                localStorage.setItem('theme', JSON.stringify(theme));
+        }catch(e){}
     }, [])
 
     useEffect(()=>{
-        if(user && user.theme){
-            localStorage.setItem('theme', JSON.stringify(user.theme));
-            setTheme(user.theme);
+        //console.log("userChange", user);
+        if(user && user.currTheme){
+            localStorage.setItem('theme', JSON.stringify(user.currTheme));
+            setTheme(user.currTheme);
         }
     }, [user?.theme ?? null])
 

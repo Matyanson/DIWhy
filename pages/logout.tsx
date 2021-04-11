@@ -1,11 +1,14 @@
 import Head from 'next/head'
 import { auth } from '../firebase';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 export default function Home() {
-    const router = useRouter();
+  const router = useRouter();
+  useEffect(()=>{
     auth.signOut();
     router.push('/');
+  }, [])
 
   return (
     <div>
