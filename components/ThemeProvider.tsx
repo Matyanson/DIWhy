@@ -32,7 +32,7 @@ export default function CustomThemeProvider({ children, initialTheme = null }){
             localStorage.setItem('theme', JSON.stringify(user.currTheme));
             setTheme(user.currTheme);
         }
-    }, [user?.theme ?? null])
+    }, [user?.currTheme ?? null])
 
     const setThemeByKey = (key: string) =>{
         if(!templates[key])

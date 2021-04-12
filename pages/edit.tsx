@@ -78,7 +78,7 @@ const Edit = ()=> {
   }
   
 
-  const deleteStoregeVideo = () =>{
+  const deleteStorageVideo = () =>{
     try{
       const videoRef =  storage.refFromURL(video.url);
       videoRef.delete()
@@ -93,7 +93,7 @@ const Edit = ()=> {
   const deleteVideo = () =>{
     console.log("deleting");
     try{
-      deleteStoregeVideo();
+      deleteStorageVideo();
       const collectionRef = db.collection('videos');
       collectionRef.doc(vid).delete()
       .then(() => {
