@@ -21,9 +21,6 @@ function MyApp({ Component, pageProps, user, userData}) {
   }
   
   const initTheme: ColorTemplate | null = userData?.currTheme ?? localTheme;
-  // console.log("initTheme _app", initTheme);
-  // console.log("userData _app", userData);
-  // console.log("user _app", user);
   return (
     
     <AuthProvider initialUser={user} initialUserData={userData}>
