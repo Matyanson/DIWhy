@@ -10,19 +10,9 @@ import ColorTemplate from '../models/ColorTemplate';
 
 
 function MyApp({ Component, pageProps, user, userData}) {
-  
-  let localTheme: ColorTemplate | null = null;
-  if(typeof window !== 'undefined'){
-    try{
-      localTheme = JSON.parse(localStorage.getItem('theme'));
-    }catch (e) {
+  const initTheme: ColorTemplate | null = userData?.currTheme ?? undefined;
 
-    }
-  }
-  
-  const initTheme: ColorTemplate | null = userData?.currTheme ?? localTheme;
   return (
-    
     <AuthProvider initialUser={user} initialUserData={userData}>
       <ThemeProvider initialTheme={ initTheme }>
           <Layout>
@@ -31,7 +21,6 @@ function MyApp({ Component, pageProps, user, userData}) {
       </ThemeProvider>
     </AuthProvider>
   )
-  
 }
 
 
