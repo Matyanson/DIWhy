@@ -16,15 +16,14 @@
     "js-cookie": "^2.2.1",
     "next": "9.5.3",
     "next-cookies": "^2.0.3",
-    "next-pwa": "^3.1.0",
+    "next-pwa": "^3.1.5",
     "nookies": "^2.4.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-firebase-hooks": "^2.2.0",
     "react-redux": "^7.2.2",
     "react-resize-aware": "^3.1.0",
-    "styled-components": "^5.2.1",
-    "webpack": "^5.35.1"
+    "styled-components": "^5.2.1"
   },
   "devDependencies": {
     "@svgr/cli": "^5.5.0",
