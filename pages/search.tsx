@@ -8,7 +8,6 @@ import { useRouter } from 'next/router';
 import { db } from '../firebase';
 import { useDocumentDataOnce } from 'react-firebase-hooks/firestore';
 import VideoList from '../components/VideoList';
-import { isString } from 'util';
 
 
 
@@ -16,7 +15,11 @@ import { isString } from 'util';
 const Search = ()=> {
     const router = useRouter();
     const query: string = Array.isArray(router.query.q) ? router.query.q[0] : (router.query.q ?? '');
+    const tools: string[] = [].concat(router.query.tools ?? []);
+    const material: string[] = [].concat(router.query.material ?? []);
     console.log(query);
+    console.log(tools);
+    console.log(material);
     
         
   return (
@@ -25,7 +28,7 @@ const Search = ()=> {
             <title>Search</title>
         </Head>
         <h1>Search</h1>
-        <VideoList queryStr={query}/>
+        <VideoList queryStr={query} tools={tools} material={material} />
     </div>
   );
 }

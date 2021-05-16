@@ -17,6 +17,7 @@ import { firestore } from 'firebase-admin';
 import ListItem from '../models/ListItem';
 import DBTagSelect from '../components/TagSelect/DBTagSelect';
 import useItemList from '../components/TagSelect/useItemList';
+import { casefold } from '../helpers/functions';
 
 
 export default function About(props) {
@@ -34,11 +35,12 @@ export default function About(props) {
   const [testVal, setTest] = useState(["test"]);
 
   const test = async()=>{
-    // const query = await db.collection('material').get();
+    // const query = await db.collection('videos').get();
     // let batch = db.batch();
     // query.docs.forEach(snap =>{
     //   const docRef = snap.ref;
-    //   batch.update(docRef, { used: 1 });
+    //   const data = snap.data();
+    //   batch.update(docRef, { casefold: casefold(data.title)});
     // })
     // batch.commit().then(()=>{
     //   console.log("Updated all Docs succesfully! :O");

@@ -11,6 +11,8 @@ interface Props {
     queryStr?: string,
     chanelId?: string,
     publicOnly?: boolean,
+    tools?: string[],
+    material?: string[],
     limit?: number,
 }
 
@@ -18,6 +20,8 @@ const VideoList = ({
     queryStr = "",
     chanelId = "",
     publicOnly = true,
+    tools = [],
+    material = [],
     limit = 15
 }: Props)=> {
     let query: firebase.firestore.Query = db.collection('videos');
@@ -30,12 +34,22 @@ const VideoList = ({
         
     if(queryStr && queryStr != ""){
         query = query
-        .where('title', '>=', queryStr)
-        .where('title', '<', queryStr+'z')
+        .where('casefold', '>=', queryStr)
+        .where('casefold', '<', queryStr+'z')
+    } else {
+        query = query
+        .orderBy('timestamp', 'desc')
     }
+
+    if(tools.length > 0)
+        query = query.where('tools', 'array-contains-any', tools.slice(0, 10));
+    else if(material.length > 0)
+        query = query.where('material', 'array-contains-any', material.slice(0, 10));
+
     query = query
-    .orderBy('timestamp')
     .limit(limit);
+    console.log(query);
+
     const [videos, loading, error] = useCollectionData<IVideoID>(query, { idField: 'id' });
 
     useEffect(()=>{

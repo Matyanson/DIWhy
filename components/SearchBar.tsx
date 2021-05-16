@@ -17,7 +17,14 @@ props: Props)=> {
     const [tools, setTools] = useState<ListItem[]>([]);
     const [material, setMaterial] = useState<ListItem[]>([]);
     const search = () =>{
-        router.push(`/search?q=${query}`);
+        router.push({
+            pathname: "/search",
+            query: {
+                q: query,
+                tools: tools.filter(x => x.selected).map(x => x.id),
+                material: material.filter(x => x.selected).map(x => x.id)
+            }
+        })
     }
     return (
         <Container>
