@@ -2,7 +2,6 @@ import Container from '../components/Container';
 import Head from 'next/head';
 import ProfilePicChanger from '../components/ProfilePictureChanger';
 import { useAuth } from '../components/UserProvider';
-import VideoListChanel from '../components/VideoListChanel';
 import * as firebase from 'firebase/app';
 import { db, storage } from '../firebase';
 import VideoList from '../components/VideoList';
