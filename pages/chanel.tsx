@@ -3,7 +3,6 @@ import Container from '../components/Container';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import ProfilePicture from '../components/ProfilePicture';
-import VideoListChanel from '../components/VideoListChanel';
 import { db } from '../firebase';
 import { useDocumentDataOnce } from 'react-firebase-hooks/firestore';
 import VideoList from '../components/VideoList';
